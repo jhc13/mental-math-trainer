@@ -6,7 +6,7 @@ import logo from 'images/logo.svg';
 
 function Layout({ children }) {
   return (
-    <div className='h-screen bg-zinc-800 text-white'>
+    <div className='fixed inset-0 overflow-auto bg-zinc-800 text-white'>
       <header className='relative flex justify-between items-center p-2 bg-gray-800'>
         <button aria-label='Show menu'>
           <MenuIcon className='h-9 w-9 text-gray-300' />

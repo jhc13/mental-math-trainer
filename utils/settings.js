@@ -3,7 +3,6 @@ import { createContext, useEffect, useState } from 'react';
 const LOCAL_STORAGE_KEY = 'settings';
 
 const defaultSettings = {
-  theme: 'dark',
   problemDisplay: 'vertical',
   inputDirection: 'right to left',
   keypadLayout: 'numpad',
@@ -40,9 +39,7 @@ function SettingsProvider({ children }) {
 
   return (
     <SettingsContext.Provider value={{ settings, setSetting }}>
-      <div className={settings.theme === 'dark' ? 'dark' : undefined}>
-        {children}
-      </div>
+      {children}
     </SettingsContext.Provider>
   );
 }

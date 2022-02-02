@@ -20,16 +20,9 @@ function Settings() {
         leaveTo='opacity-0'
       >
         <Popover.Panel className='absolute z-10 right-0 top-full w-full max-w-sm p-2'>
-          <div className='p-4 rounded-lg bg-zinc-900 text-lg'>
+          <div className='mb-24 p-4 rounded-lg bg-zinc-900 text-lg'>
             <div className='flex flex-col gap-4'>
               <div className='text-2xl'>Settings</div>
-              <div className='flex flex-col gap-1'>
-                <div>Theme</div>
-                <SettingListbox
-                  settingKey='theme'
-                  options={['dark', 'light']}
-                />
-              </div>
               <div className='flex flex-col gap-1'>
                 <div>Problem display</div>
                 <SettingListbox
