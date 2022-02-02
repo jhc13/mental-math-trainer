@@ -3,12 +3,13 @@ import { createContext, useEffect, useState } from 'react';
 const LOCAL_STORAGE_KEY = 'settings';
 
 const defaultSettings = {
-  darkMode: true
+  theme: 'dark',
+  alwaysShowKeypad: false
 };
 
 const SettingsContext = createContext({
   settings: defaultSettings,
-  setSettings: (_) => {}
+  setSetting: (_key, _value) => {}
 });
 
 function SettingsProvider({ children }) {
@@ -26,9 +27,15 @@ function SettingsProvider({ children }) {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(settings));
   }, [settings]);
 
+  const setSetting = (key, value) => {
+    setSettings((settings) => ({ ...settings, [key]: value }));
+  };
+
   return (
-    <SettingsContext.Provider value={{ settings, setSettings }}>
-      <div className={settings.darkMode ? 'dark' : undefined}>{children}</div>
+    <SettingsContext.Provider value={{ settings, setSetting }}>
+      <div className={settings.theme === 'dark' ? 'dark' : undefined}>
+        {children}
+      </div>
     </SettingsContext.Provider>
   );
 }

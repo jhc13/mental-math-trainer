@@ -9,15 +9,15 @@ function Layout({ children }) {
     <div className='h-screen bg-zinc-800 text-white'>
       <header className='sticky top-0 left-0 right-0 flex justify-between items-center p-2 bg-gray-800'>
         <button aria-label='Show menu'>
-          <MenuIcon className='h-7 w-7 text-gray-300' />
+          <MenuIcon className='h-9 w-9 text-gray-300' />
         </button>
         <Link href='/' passHref>
-          <a className='flex items-center gap-3'>
+          <a className='flex items-center gap-4'>
             <Image
               src={logo}
               alt='Mental Math Trainer logo'
-              width={32}
-              height={32}
+              width={36}
+              height={36}
             />
             <div className='hidden sm:block text-xl'>Mental Math Trainer</div>
           </a>
