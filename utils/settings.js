@@ -1,21 +1,17 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 const LOCAL_STORAGE_KEY = 'settings';
 
-interface Settings {
-  darkMode: boolean;
-}
-
-const defaultSettings: Settings = {
+const defaultSettings = {
   darkMode: true
 };
 
 const SettingsContext = createContext({
   settings: defaultSettings,
-  setSettings: (_: Settings) => {}
+  setSettings: (_) => {}
 });
 
-function SettingsProvider({ children }: { children: ReactNode }) {
+function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(defaultSettings);
   // Load the settings from local storage.
   useEffect(() => {
