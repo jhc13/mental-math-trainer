@@ -4,6 +4,10 @@ const LOCAL_STORAGE_KEY = 'settings';
 
 const defaultSettings = {
   theme: 'dark',
+  problemDisplay: 'vertical',
+  inputDirection: 'right to left',
+  keypadLayout: 'numpad',
+  zeroPosition: 'zero first',
   alwaysShowKeypad: false
 };
 
@@ -16,11 +20,14 @@ function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(defaultSettings);
   // Load the settings from local storage.
   useEffect(() => {
-    const settings = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (settings === null) {
+    const localStorageSettings = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (localStorageSettings === null) {
       return;
     }
-    setSettings(JSON.parse(settings));
+    setSettings((settings) => ({
+      ...settings,
+      ...JSON.parse(localStorageSettings)
+    }));
   }, []);
   // Update localStorage when the settings change.
   useEffect(() => {

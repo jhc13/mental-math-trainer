@@ -7,7 +7,7 @@ import logo from 'images/logo.svg';
 function Layout({ children }) {
   return (
     <div className='h-screen bg-zinc-800 text-white'>
-      <header className='sticky top-0 left-0 right-0 flex justify-between items-center p-2 bg-gray-800'>
+      <header className='relative flex justify-between items-center p-2 bg-gray-800'>
         <button aria-label='Show menu'>
           <MenuIcon className='h-9 w-9 text-gray-300' />
         </button>
