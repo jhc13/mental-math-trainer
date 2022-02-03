@@ -10,8 +10,8 @@ function Keypad({ pressKey }) {
     keyOrder.push(keyOrder.shift());
   }
   const zeroIndex = keyOrder.indexOf(0);
-  keyOrder.splice(zeroIndex + 1, 0, 'clear');
-  keyOrder.splice(zeroIndex, 0, 'erase');
+  keyOrder.splice(zeroIndex + 1, 0, 'erase');
+  keyOrder.splice(zeroIndex, 0, 'clear');
   if (!reverseKeypad) {
     const reverseKeyOrder = [];
     for (let i = 0; i < 4; i++) {
