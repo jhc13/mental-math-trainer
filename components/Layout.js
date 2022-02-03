@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { MenuIcon } from '@heroicons/react/outline';
+import Menu from 'components/Menu';
 import Settings from 'components/Settings';
 import logo from 'images/logo.svg';
 
@@ -8,9 +8,7 @@ function Layout({ children }) {
   return (
     <div className='fixed inset-0 overflow-auto bg-zinc-800 text-white'>
       <header className='relative flex items-center justify-between bg-gray-800 p-2'>
-        <button aria-label='Show menu'>
-          <MenuIcon className='h-9 w-9 text-gray-300' />
-        </button>
+        <Menu />
         <Link href='/' passHref>
           <a className='flex items-center gap-4'>
             <Image
