@@ -16,10 +16,10 @@ function SettingListbox({ settingKey, options }) {
       as='div'
       className='relative'
     >
-      <Listbox.Button className='relative w-full py-2 pl-3 pr-10 bg-zinc-700 rounded-lg shadow-md text-left sm:text-sm'>
+      <Listbox.Button className='relative w-full rounded-lg bg-zinc-700 py-2 pl-3 pr-10 text-left shadow-md sm:text-sm'>
         <div className='truncate first-letter:uppercase'>{value}</div>
-        <div className='absolute inset-y-0 right-0 flex items-center mr-2 pointer-events-none'>
-          <SelectorIcon className='w-5 h-5 text-gray-300' aria-hidden='true' />
+        <div className='pointer-events-none absolute inset-y-0 right-0 mr-2 flex items-center'>
+          <SelectorIcon className='h-5 w-5 text-gray-300' aria-hidden='true' />
         </div>
       </Listbox.Button>
       <Transition
@@ -28,13 +28,13 @@ function SettingListbox({ settingKey, options }) {
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
-        <Listbox.Options className='absolute z-10 w-full mt-1 py-1 rounded-md bg-zinc-700 shadow-lg focus:outline-none sm:text-sm'>
+        <Listbox.Options className='absolute z-10 mt-1 w-full rounded-md bg-zinc-700 py-1 shadow-lg focus:outline-none sm:text-sm'>
           {options.map((option) => (
             <Listbox.Option
               key={option}
               className={({ active }) =>
                 `${active && 'bg-zinc-600'}
-                          relative py-2 pl-10 pr-4 cursor-pointer select-none`
+                          relative cursor-pointer select-none py-2 pl-10 pr-4`
               }
               value={option}
             >
@@ -44,7 +44,7 @@ function SettingListbox({ settingKey, options }) {
                     <div
                       className={`absolute inset-y-0 left-0 flex items-center pl-3 text-green-500`}
                     >
-                      <CheckIcon className='w-5 h-5' aria-hidden='true' />
+                      <CheckIcon className='h-5 w-5' aria-hidden='true' />
                     </div>
                   )}
                   <div

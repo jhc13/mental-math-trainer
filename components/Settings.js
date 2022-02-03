@@ -19,8 +19,8 @@ function Settings() {
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
-        <Popover.Panel className='absolute z-10 right-0 top-full w-full max-w-sm p-2'>
-          <div className='mb-24 p-4 rounded-lg bg-zinc-900 text-lg'>
+        <Popover.Panel className='absolute right-0 top-full z-10 w-full max-w-sm select-none p-2'>
+          <div className='rounded-lg bg-zinc-900 p-4 text-lg'>
             <div className='flex flex-col gap-4'>
               <div className='text-2xl'>Settings</div>
               <div className='flex flex-col gap-1'>
@@ -38,20 +38,21 @@ function Settings() {
                 />
               </div>
               <div className='flex justify-between'>
+                <div>Show timer while solving</div>
+                <SettingToggle settingKey='showTimerWhileSolving' />
+              </div>
+              <div className='flex justify-between'>
                 <div>Always show keypad</div>
                 <SettingToggle settingKey='alwaysShowKeypad' />
               </div>
-              <div className='flex flex-col gap-1'>
-                <div>Keypad layout</div>
-                <SettingListbox
-                  settingKey='keypadLayout'
-                  options={['numpad', 'flipped numpad', 'one row', 'two rows']}
-                />
+              <div className='flex justify-between'>
+                <div>Reverse keypad</div>
+                <SettingToggle settingKey='reverseKeypad' />
               </div>
               <div className='flex flex-col gap-1'>
-                <div>Zero position</div>
+                <div>Keypad zero position</div>
                 <SettingListbox
-                  settingKey='zeroPosition'
+                  settingKey='keypadZeroPosition'
                   options={['zero first', 'zero last']}
                 />
               </div>

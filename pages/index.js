@@ -1,5 +1,13 @@
+import Keypad from 'components/Keypad';
+
 function Home() {
-  return <div />;
+  return (
+    <Keypad
+      pressKey={(keyText) => {
+        console.log(keyText);
+      }}
+    />
+  );
 }
 
 export default Home;

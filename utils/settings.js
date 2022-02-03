@@ -5,9 +5,10 @@ const LOCAL_STORAGE_KEY = 'settings';
 const defaultSettings = {
   problemDisplay: 'vertical',
   inputDirection: 'right to left',
-  keypadLayout: 'numpad',
-  zeroPosition: 'zero first',
-  alwaysShowKeypad: false
+  showTimerWhileSolving: false,
+  alwaysShowKeypad: false,
+  reverseKeypad: false,
+  keypadZeroPosition: 'zero first'
 };
 
 const SettingsContext = createContext({

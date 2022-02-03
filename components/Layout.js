@@ -7,7 +7,7 @@ import logo from 'images/logo.svg';
 function Layout({ children }) {
   return (
     <div className='fixed inset-0 overflow-auto bg-zinc-800 text-white'>
-      <header className='relative flex justify-between items-center p-2 bg-gray-800'>
+      <header className='relative flex items-center justify-between bg-gray-800 p-2'>
         <button aria-label='Show menu'>
           <MenuIcon className='h-9 w-9 text-gray-300' />
         </button>
@@ -19,12 +19,12 @@ function Layout({ children }) {
               width={36}
               height={36}
             />
-            <div className='hidden sm:block text-xl'>Mental Math Trainer</div>
+            <div className='hidden text-xl sm:block'>Mental Math Trainer</div>
           </a>
         </Link>
         <Settings />
       </header>
-      <div className='max-w-screen-md mx-auto mt-2 p-3'>{children}</div>
+      <div className='mx-auto mt-2 max-w-screen-md p-3'>{children}</div>
     </div>
   );
 }
