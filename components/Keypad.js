@@ -34,7 +34,7 @@ function Keypad({ pressKey }) {
   ));
 
   return (
-    <div className='mx-auto grid max-w-sm grid-cols-3 gap-1.5 text-4xl'>
+    <div className='mx-auto grid w-full max-w-sm grid-cols-3 gap-1.5 text-4xl'>
       {keys}
     </div>
   );

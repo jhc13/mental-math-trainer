@@ -42,8 +42,8 @@ function Settings() {
                 <SettingToggle settingKey='showTimerWhileSolving' />
               </div>
               <div className='flex justify-between'>
-                <div>Always show keypad</div>
-                <SettingToggle settingKey='alwaysShowKeypad' />
+                <div>Show keypad</div>
+                <SettingToggle settingKey='showKeypad' />
               </div>
               <div className='flex justify-between'>
                 <div>Reverse keypad</div>

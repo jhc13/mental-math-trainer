@@ -6,7 +6,7 @@ const defaultSettings = {
   problemDisplay: 'vertical',
   inputDirection: 'right to left',
   showTimerWhileSolving: false,
-  alwaysShowKeypad: false,
+  showKeypad: true,
   reverseKeypad: false,
   keypadZeroPosition: 'zero first'
 };
@@ -20,6 +20,9 @@ function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(defaultSettings);
   // Load the settings from local storage.
   useEffect(() => {
+    const isTouchDevice =
+      'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    setSettings((settings) => ({ ...settings, showKeypad: isTouchDevice }));
     const localStorageSettings = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (localStorageSettings === null) {
       return;

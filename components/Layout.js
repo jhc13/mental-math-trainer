@@ -6,7 +6,7 @@ import logo from 'images/logo.svg';
 
 function Layout({ children }) {
   return (
-    <div className='fixed inset-0 overflow-auto bg-zinc-800 text-white'>
+    <div className='fixed inset-0 flex flex-col overflow-auto bg-zinc-800 text-white'>
       <header className='relative flex items-center justify-between bg-gray-800 p-2'>
         <Menu />
         <Link href='/' passHref>
@@ -22,7 +22,9 @@ function Layout({ children }) {
         </Link>
         <Settings />
       </header>
-      <div className='mx-auto mt-2 max-w-screen-md p-3'>{children}</div>
+      <main className='mx-auto my-3 w-full max-w-screen-md flex-auto px-3'>
+        {children}
+      </main>
     </div>
   );
 }
