@@ -51,7 +51,7 @@ function Problem({ operands, operation, answer }) {
 
   if (problemDisplay === 'vertical') {
     return (
-      <div className='flex flex-col gap-1 self-center text-right text-6xl'>
+      <div className='flex flex-col gap-1 self-center text-right text-6xl tabular-nums'>
         <div className='mx-2 flex flex-col gap-1'>
           <div className='ml-12'>{operands[0]}</div>
           <div className='flex justify-between'>
