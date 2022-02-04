@@ -17,7 +17,7 @@ function Layout({ children }) {
               width={36}
               height={36}
             />
-            <div className='hidden text-xl sm:block'>Mental Math Trainer</div>
+            <div className='hidden text-2xl sm:block'>Mental Math Trainer</div>
           </a>
         </Link>
         <Settings />

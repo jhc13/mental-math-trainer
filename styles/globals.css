@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+  @font-face {
+    font-family: 'Inter var';
+    src: url('/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  }
+
   html {
     -webkit-tap-highlight-color: transparent;
   }
