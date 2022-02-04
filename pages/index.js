@@ -10,7 +10,11 @@ function Home() {
   return (
     <div className='flex h-full flex-col'>
       <div className='flex flex-auto flex-col justify-center'>
-        <Problem operands={[12, 34]} operation='multiplication' answer={5678} />
+        <Problem
+          operands={[12, 34]}
+          operation='multiplication'
+          answer={'408'}
+        />
       </div>
       {showKeypad && (
         <Keypad
