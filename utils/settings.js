@@ -3,7 +3,6 @@ import { createContext, useEffect, useState } from 'react';
 const LOCAL_STORAGE_KEY = 'settings';
 
 const defaultSettings = {
-  problemDisplay: 'vertical',
   inputDirection: 'right to left',
   showTimerWhileSolving: false,
   showKeypad: true,

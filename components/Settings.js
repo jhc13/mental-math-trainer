@@ -24,13 +24,6 @@ function Settings() {
             <div className='flex flex-col gap-4'>
               <div className='text-2xl'>Settings</div>
               <div className='flex flex-col gap-1'>
-                <div>Problem display</div>
-                <SettingListbox
-                  settingKey='problemDisplay'
-                  options={['vertical', 'horizontal']}
-                />
-              </div>
-              <div className='flex flex-col gap-1'>
                 <div>Answer input direction</div>
                 <SettingListbox
                   settingKey='inputDirection'
