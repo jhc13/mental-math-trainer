@@ -33,25 +33,34 @@ function Problem({ operands, operation, answer }) {
   const { problemDisplay } = settings;
 
   const operator = OPERATORS[operation];
-  const operand_lengths = operands.map((operand) => operand.toString().length);
-  let max_answer_length;
+  const operandLengths = operands.map((operand) => operand.toString().length);
+  let maxAnswerLength;
   switch (operation) {
     case 'addition':
-      max_answer_length = Math.max(...operand_lengths) + 1;
+      maxAnswerLength = Math.max(...operandLengths) + 1;
       break;
     case 'subtraction':
     case 'division':
-      max_answer_length = operand_lengths[0];
+      maxAnswerLength = operandLengths[0];
       break;
     case 'multiplication':
-      max_answer_length = operand_lengths[0] + operand_lengths[1];
+      maxAnswerLength = operandLengths[0] + operandLengths[1];
       break;
   }
-  const answer_width = ANSWER_WIDTHS[max_answer_length];
-
+  const answerWidthClass = ANSWER_WIDTHS[maxAnswerLength];
+  let textSizeClass;
+  if (maxAnswerLength <= 8) {
+    textSizeClass = 'text-5xl sm:text-7xl';
+  } else if (maxAnswerLength <= 12) {
+    textSizeClass = 'text-4xl sm:text-6xl md:text-7xl';
+  } else {
+    textSizeClass = 'text-3xl sm:text-5xl md:text-6xl lg:text-7xl';
+  }
   if (problemDisplay === 'vertical') {
     return (
-      <div className='flex flex-col gap-1 self-center text-right text-6xl tabular-nums'>
+      <div
+        className={`flex flex-col gap-1 self-center text-right ${textSizeClass} tabular-nums`}
+      >
         <div className='mx-2 flex flex-col gap-1'>
           <div className='ml-12'>{operands[0]}</div>
           <div className='flex justify-between'>
@@ -63,7 +72,7 @@ function Problem({ operands, operation, answer }) {
         {/* Display a zero width space if the answer is empty to ensure a
             consistent height. */}
         <div
-          className={`mx-2 ${answer_width} self-end empty:after:content-["\\200B"]`}
+          className={`mx-2 ${answerWidthClass} self-end empty:after:content-["\\200B"]`}
         >
           {answer}
         </div>
