@@ -7,7 +7,7 @@ const defaultSettings = {
   showTimerWhileSolving: false,
   showKeypad: true,
   reverseKeypad: false,
-  keypadZeroPosition: 'zero first'
+  keypadZeroPosition: 'zero last'
 };
 
 const SettingsContext = createContext({
