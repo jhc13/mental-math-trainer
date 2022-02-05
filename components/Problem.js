@@ -27,22 +27,8 @@ const ANSWER_WIDTHS = {
   16: 'w-[17ch]'
 };
 
-function Problem({ operands, operation, answer }) {
+function Problem({ operands, operation, maxAnswerLength, answer }) {
   const operator = OPERATORS[operation];
-  const operandLengths = operands.map((operand) => operand.toString().length);
-  let maxAnswerLength;
-  switch (operation) {
-    case 'addition':
-      maxAnswerLength = Math.max(...operandLengths) + 1;
-      break;
-    case 'subtraction':
-    case 'division':
-      maxAnswerLength = operandLengths[0];
-      break;
-    case 'multiplication':
-      maxAnswerLength = operandLengths[0] + operandLengths[1];
-      break;
-  }
   const answerWidthClass = ANSWER_WIDTHS[maxAnswerLength];
   let textSizeClass;
   if (maxAnswerLength <= 8) {
