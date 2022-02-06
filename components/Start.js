@@ -15,14 +15,12 @@ function Start({ onButtonClick }) {
   }, [onButtonClick]);
 
   return (
-    <div className='flex h-full items-center justify-center'>
-      <button
-        onClick={onButtonClick}
-        className='rounded-xl bg-cyan-800 px-7 py-3 text-5xl'
-      >
-        Start
-      </button>
-    </div>
+    <button
+      onClick={onButtonClick}
+      className='mx-auto mt-[30vh] block rounded-xl bg-cyan-800 px-7 py-3 text-5xl'
+    >
+      Start
+    </button>
   );
 }
 

@@ -16,13 +16,10 @@ function getMaxAnswerLength(operands, operation) {
   }
 }
 
-function Solve() {
+function Solve({ operands, operation, onCorrectAnswer }) {
   const [answerString, setAnswerString] = useState('');
   const { settings } = useContext(SettingsContext);
   const { inputDirection, showKeypad } = settings;
-
-  const operands = [123, 456];
-  const operation = 'multiplication';
   const maxAnswerLength = getMaxAnswerLength(operands, operation);
 
   useEffect(() => {
@@ -42,9 +39,9 @@ function Solve() {
         break;
     }
     if (BigInt(answerString) === correctAnswer) {
-      console.log('correct answer');
+      onCorrectAnswer();
     }
-  }, [operands, answerString]);
+  }, [operands, operation, answerString, onCorrectAnswer]);
 
   const clear = () => {
     setAnswerString('');
@@ -102,7 +99,11 @@ function Solve() {
 
   return (
     <div className='flex h-full flex-col'>
-      <div className='flex flex-auto flex-col justify-center'>
+      <div
+        className={`${
+          !showKeypad && 'mb-[30vh]'
+        } flex flex-auto flex-col justify-center`}
+      >
         <Problem
           operands={operands}
           operation={operation}
