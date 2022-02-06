@@ -1,0 +1,57 @@
+import { Fragment } from 'react';
+import { MenuIcon } from '@heroicons/react/outline';
+import { Disclosure, Transition } from '@headlessui/react';
+import SettingListbox from 'components/SettingListbox';
+import SettingToggle from 'components/SettingToggle';
+
+function Sidebar() {
+  return (
+    <Disclosure as='div' className='flex items-center'>
+      <Disclosure.Button aria-label='Show menu'>
+        <MenuIcon className='h-9 w-9 text-gray-300' />
+      </Disclosure.Button>
+      <Transition
+        as={Fragment}
+        enter='transition ease-in-out duration-500'
+        enterFrom='-translate-x-full'
+        enterTo='translate-x-0'
+        leave='transition ease-in-out duration-500'
+        leaveFrom='translate-x-0'
+        leaveTo='-translate-x-full'
+      >
+        <Disclosure.Panel className='absolute top-12 left-0 bottom-0 z-10 w-full select-none overflow-auto bg-[#202022] p-4 text-lg sm:max-w-sm'>
+          <div className='flex flex-col gap-4'>
+            <div className='flex flex-col gap-1'>
+              <div>Answer input direction</div>
+              <SettingListbox
+                settingKey='inputDirection'
+                options={['right to left', 'left to right']}
+              />
+            </div>
+            <div className='flex justify-between'>
+              <div>Show timer while solving</div>
+              <SettingToggle settingKey='showTimerWhileSolving' />
+            </div>
+            <div className='flex justify-between'>
+              <div>Show keypad</div>
+              <SettingToggle settingKey='showKeypad' />
+            </div>
+            <div className='flex justify-between'>
+              <div>Reverse keypad</div>
+              <SettingToggle settingKey='reverseKeypad' />
+            </div>
+            <div className='flex flex-col gap-1'>
+              <div>Keypad zero position</div>
+              <SettingListbox
+                settingKey='keypadZeroPosition'
+                options={['zero first', 'zero last']}
+              />
+            </div>
+          </div>
+        </Disclosure.Panel>
+      </Transition>
+    </Disclosure>
+  );
+}
+
+export default Sidebar;

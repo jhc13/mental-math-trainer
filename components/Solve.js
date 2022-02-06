@@ -71,7 +71,7 @@ function Solve({ operands, operation, onCorrectAnswer }) {
 
   useEffect(() => {
     const handleKeyDown = ({ key }) => {
-      if (['c', 'C', ' ', 'Enter'].includes(key)) {
+      if (key.toLowerCase() === 'c') {
         clear();
       } else if (['Backspace', 'Delete'].includes(key)) {
         erase();

@@ -17,7 +17,7 @@ function Start({ onButtonClick }) {
   return (
     <button
       onClick={onButtonClick}
-      className='mx-auto mt-[30vh] block rounded-xl bg-cyan-800 px-7 py-3 text-5xl'
+      className='mx-auto mt-[30vh] block select-none rounded-xl bg-cyan-800 px-7 py-3 text-5xl'
     >
       Start
     </button>
