@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { SettingsContext } from 'utils/settings';
 
-function Keypad({ pressKey }) {
+function Keypad({ onKeyClick }) {
   const { settings } = useContext(SettingsContext);
   const { reverseKeypad, keypadZeroPosition } = settings;
 
@@ -23,10 +23,7 @@ function Keypad({ pressKey }) {
   const keys = keyOrder.map((text) => (
     <button
       key={text}
-      onClick={(event) => {
-        // noinspection JSUnresolvedVariable
-        pressKey(event.target.textContent);
-      }}
+      onClick={onKeyClick}
       className='aspect-[2] select-none rounded-md bg-cyan-900 first-letter:uppercase active:brightness-[0.8]'
     >
       {text}

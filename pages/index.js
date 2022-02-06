@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { SettingsContext } from 'utils/settings';
 import Problem from 'components/Problem';
 import Keypad from 'components/Keypad';
@@ -25,21 +25,58 @@ function Home() {
   const operation = 'multiplication';
   const maxAnswerLength = getMaxAnswerLength(operands, operation);
 
-  const pressKey = (keyText) => {
+  const clear = () => {
+    setAnswerString('');
+  };
+
+  const erase = useCallback(() => {
+    if (inputDirection === 'right to left') {
+      setAnswerString((answerString) => answerString.slice(1));
+    } else {
+      setAnswerString((answerString) => answerString.slice(0, -1));
+    }
+  }, [inputDirection]);
+
+  const appendDigit = useCallback(
+    (digit) => {
+      if (answerString.length >= maxAnswerLength) {
+        return;
+      }
+      if (inputDirection === 'right to left') {
+        setAnswerString((answerString) => digit + answerString);
+      } else {
+        setAnswerString((answerString) => answerString + digit);
+      }
+    },
+    [answerString.length, inputDirection, maxAnswerLength]
+  );
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const key = event.key;
+      if (['c', 'C', ' ', 'Enter'].includes(key)) {
+        clear();
+      } else if (['Backspace', 'Delete'].includes(key)) {
+        erase();
+      } else if (/^\d$/.test(key)) {
+        appendDigit(key);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [appendDigit, erase]);
+
+  const handleKeyClick = (event) => {
+    const keyText = event.target.textContent;
     if (keyText === 'clear') {
-      setAnswerString('');
+      clear();
     } else if (keyText === 'erase') {
-      if (inputDirection === 'right to left') {
-        setAnswerString((answerString) => answerString.slice(1));
-      } else {
-        setAnswerString((answerString) => answerString.slice(0, -1));
-      }
-    } else if (answerString.length < maxAnswerLength) {
-      if (inputDirection === 'right to left') {
-        setAnswerString((answerString) => keyText + answerString);
-      } else {
-        setAnswerString((answerString) => answerString + keyText);
-      }
+      erase();
+    } else {
+      appendDigit(keyText);
     }
   };
 
@@ -53,7 +90,7 @@ function Home() {
           answer={answerString}
         />
       </div>
-      {showKeypad && <Keypad pressKey={pressKey} />}
+      {showKeypad && <Keypad onKeyClick={handleKeyClick} />}
     </div>
   );
 }
