@@ -27,7 +27,7 @@ const ANSWER_WIDTHS = {
   16: 'w-[17ch]'
 };
 
-function Problem({ operands, operation, maxAnswerLength, answer }) {
+function Problem({ operands, operation, maxAnswerLength, answerString }) {
   const operator = OPERATORS[operation];
   const answerWidthClass = ANSWER_WIDTHS[maxAnswerLength];
   let textSizeClass;
@@ -56,7 +56,7 @@ function Problem({ operands, operation, maxAnswerLength, answer }) {
       <div
         className={`mx-2 ${answerWidthClass} self-end empty:after:content-["\\200B"]`}
       >
-        {answer}
+        {answerString}
       </div>
     </div>
   );
