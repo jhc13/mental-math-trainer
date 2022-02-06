@@ -18,7 +18,7 @@ function Menu() {
         leaveTo='opacity-0'
       >
         <Popover.Panel className='absolute left-0 top-full z-10 w-full max-w-sm select-none p-2'>
-          <div className='rounded-lg bg-zinc-900 p-4 text-lg'>
+          <div className='rounded-lg bg-zinc-900 p-4 text-lg ring drop-shadow-2xl'>
             <div className='flex flex-col gap-4'>
               <div className='text-2xl'>Menu</div>
             </div>
