@@ -22,7 +22,7 @@ function SettingListbox({
       as='div'
       className='relative'
     >
-      <Listbox.Button className='relative w-full rounded-lg bg-zinc-700 py-2 pl-3 pr-10 text-left shadow-md sm:text-sm'>
+      <Listbox.Button className='relative w-full rounded-lg bg-zinc-700 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit sm:text-sm'>
         <div className='truncate first-letter:uppercase'>{name}</div>
         <div className='pointer-events-none absolute inset-y-0 right-0 mr-2 flex items-center'>
           <SelectorIcon className='h-5 w-5 text-gray-300' aria-hidden='true' />
@@ -34,13 +34,13 @@ function SettingListbox({
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
-        <Listbox.Options className='absolute z-10 mt-1 w-full rounded-md bg-zinc-700 py-1 shadow-2xl focus:outline-none sm:text-sm'>
+        <Listbox.Options className='absolute z-10 mt-1 w-full cursor-pointer select-none rounded-md bg-zinc-700 py-1 shadow-2xl focus:outline-none sm:text-sm'>
           {optionValues.map((optionValue, i) => (
             <Listbox.Option
               key={optionValue}
               className={({ active }) =>
                 `${active && 'bg-zinc-600'} ${disabled[i] && 'opacity-30'}
-                          relative cursor-pointer select-none py-2 pl-10 pr-4`
+                          relative py-2 pl-10 pr-4 focus:outline-none`
               }
               value={optionValue}
               disabled={disabled[i]}
