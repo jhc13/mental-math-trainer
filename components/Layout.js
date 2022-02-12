@@ -9,7 +9,7 @@ function Layout({ children }) {
       <header className='grid h-12 grid-cols-[2.25rem_1fr_2.25rem] bg-gray-800 px-2'>
         <Sidebar />
         <Link href='/' passHref>
-          <a className='flex items-center gap-4 justify-self-center'>
+          <a className='flex select-none items-center gap-4 justify-self-center'>
             <Image
               src={logo}
               alt='Mental Math Trainer logo'
