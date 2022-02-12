@@ -84,8 +84,7 @@ function Solve({ onCorrectAnswer }) {
     firstOperandLength,
     secondOperandLength,
     inputDirection,
-    showTimerWhileSolving,
-    showKeypad
+    showTimerWhileSolving
   } = settings;
   const operandLengths = [firstOperandLength, secondOperandLength];
   const [operands] = useState(getOperands(operation, operandLengths));
@@ -171,9 +170,7 @@ function Solve({ onCorrectAnswer }) {
   return (
     <div className='flex h-full flex-col items-center'>
       {showTimerWhileSolving && <Timer startTime={startTime} />}
-      <div
-        className={`${!showKeypad && 'mb-[30vh]'} flex flex-auto items-center`}
-      >
+      <div className={'flex flex-auto items-center'}>
         <Problem
           operands={operands}
           operation={operation}
@@ -181,7 +178,7 @@ function Solve({ onCorrectAnswer }) {
           answerString={answerString}
         />
       </div>
-      {showKeypad && <Keypad onKeyClick={handleKeyClick} />}
+      <Keypad onKeyClick={handleKeyClick} />
     </div>
   );
 }

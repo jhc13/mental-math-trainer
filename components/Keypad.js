@@ -3,7 +3,7 @@ import { SettingsContext } from 'utils/settings';
 
 function Keypad({ onKeyClick }) {
   const { settings } = useContext(SettingsContext);
-  const { reverseKeypad, keypadZeroPosition } = settings;
+  const { showKeypad, reverseKeypad, keypadZeroPosition } = settings;
 
   let keyOrder = [...Array(10).keys()];
   if (keypadZeroPosition === 'zero last') {
@@ -31,7 +31,11 @@ function Keypad({ onKeyClick }) {
   ));
 
   return (
-    <div className='mx-auto grid w-full max-w-sm grid-cols-3 gap-1.5 text-4xl'>
+    <div
+      className={`${
+        showKeypad ? 'opacity-100' : 'invisible opacity-0'
+      } mx-auto grid w-full max-w-sm grid-cols-3 gap-1.5 text-4xl transition-opacity`}
+    >
       {keys}
     </div>
   );
