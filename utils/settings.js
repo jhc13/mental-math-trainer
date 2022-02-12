@@ -1,8 +1,10 @@
 import { createContext, useEffect, useState } from 'react';
-
-const LOCAL_STORAGE_KEY = 'settings';
+import { SETTINGS_LOCAL_STORAGE_KEY } from 'utils/config';
 
 const defaultSettings = {
+  operation: 'multiplication',
+  firstOperandLength: 2,
+  secondOperandLength: 2,
   inputDirection: 'right to left',
   showTimerWhileSolving: false,
   showKeypad: true,
@@ -22,7 +24,9 @@ function SettingsProvider({ children }) {
     const isTouchDevice =
       'ontouchstart' in window || navigator.maxTouchPoints > 0;
     setSettings((settings) => ({ ...settings, showKeypad: isTouchDevice }));
-    const localStorageSettings = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const localStorageSettings = localStorage.getItem(
+      SETTINGS_LOCAL_STORAGE_KEY
+    );
     if (localStorageSettings === null) {
       return;
     }
@@ -33,7 +37,7 @@ function SettingsProvider({ children }) {
   }, []);
   // Update localStorage when the settings change.
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(settings));
+    localStorage.setItem(SETTINGS_LOCAL_STORAGE_KEY, JSON.stringify(settings));
   }, [settings]);
 
   const setSetting = (key, value) => {

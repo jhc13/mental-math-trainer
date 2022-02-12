@@ -1,9 +1,4 @@
-const OPERATORS = {
-  addition: '+',
-  subtraction: '−',
-  multiplication: '×',
-  division: '÷'
-};
+import { OPERATORS } from 'utils/utils';
 
 // Tailwind requires unbroken class strings.
 // Add an extra ch because tabular numbers are slightly wider than proportional

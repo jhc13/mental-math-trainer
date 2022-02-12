@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { SettingsContext } from 'utils/settings';
 import Solve from 'components/Solve';
 import Start from 'components/Start';
 
@@ -63,10 +64,21 @@ function getOperands(operation, operandLengths) {
 }
 
 function Home() {
+  const { settings, setSetting } = useContext(SettingsContext);
+  const { operation, firstOperandLength, secondOperandLength } = settings;
+  const operandLengths = [firstOperandLength, secondOperandLength];
   const [isSolving, setIsSolving] = useState(false);
   const [operands, setOperands] = useState(null);
-  const operandLengths = [2, 2];
-  const operation = 'multiplication';
+
+  useEffect(() => {
+    setIsSolving(false);
+    if (
+      ['subtraction', 'division'].includes(operation) &&
+      secondOperandLength > firstOperandLength
+    ) {
+      setSetting('secondOperandLength', firstOperandLength);
+    }
+  }, [operation, firstOperandLength, secondOperandLength, setSetting]);
 
   const handleCorrectAnswer = () => {
     setIsSolving(false);
