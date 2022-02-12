@@ -64,7 +64,7 @@ function getOperands(operation, operandLengths) {
 }
 
 function Home() {
-  const { settings, setSetting } = useContext(SettingsContext);
+  const { settings } = useContext(SettingsContext);
   const { operation, firstOperandLength, secondOperandLength } = settings;
   const operandLengths = [firstOperandLength, secondOperandLength];
   const [isSolving, setIsSolving] = useState(false);
@@ -72,13 +72,7 @@ function Home() {
 
   useEffect(() => {
     setIsSolving(false);
-    if (
-      ['subtraction', 'division'].includes(operation) &&
-      secondOperandLength > firstOperandLength
-    ) {
-      setSetting('secondOperandLength', firstOperandLength);
-    }
-  }, [operation, firstOperandLength, secondOperandLength, setSetting]);
+  }, [operation, firstOperandLength, secondOperandLength]);
 
   const handleCorrectAnswer = () => {
     setIsSolving(false);

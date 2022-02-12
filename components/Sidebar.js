@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, useContext, useEffect } from 'react';
 import { MenuIcon } from '@heroicons/react/outline';
 import { Disclosure, Transition } from '@headlessui/react';
 import { SettingsContext } from 'utils/settings';
@@ -12,8 +12,17 @@ function getOperandLengths() {
 }
 
 function Sidebar() {
-  const { settings } = useContext(SettingsContext);
-  const { operation, firstOperandLength } = settings;
+  const { settings, setSetting } = useContext(SettingsContext);
+  const { operation, firstOperandLength, secondOperandLength } = settings;
+
+  useEffect(() => {
+    if (
+      ['subtraction', 'division'].includes(operation) &&
+      secondOperandLength > firstOperandLength
+    ) {
+      setSetting('secondOperandLength', firstOperandLength);
+    }
+  }, [operation, firstOperandLength, secondOperandLength, setSetting]);
 
   return (
     <Disclosure as='div' className='flex items-center'>
