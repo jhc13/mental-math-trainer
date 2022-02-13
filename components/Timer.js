@@ -13,7 +13,9 @@ function Timer({ startTime }) {
     };
   }, [startTime]);
 
-  return <div className='text-2xl tabular-nums'>{formatSeconds(seconds)}</div>;
+  return (
+    <div className='text-2xl tabular-nums'>{formatSeconds(seconds, true)}</div>
+  );
 }
 
 export default Timer;
