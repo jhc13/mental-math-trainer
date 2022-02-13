@@ -12,7 +12,7 @@ function Home() {
     operation,
     firstOperandLength,
     secondOperandLength,
-    breakBetweenSets,
+    solveInSets,
     problemsPerSet
   } = settings;
 
@@ -23,16 +23,16 @@ function Home() {
     operation,
     firstOperandLength,
     secondOperandLength,
-    breakBetweenSets,
+    solveInSets,
     problemsPerSet
   ]);
 
   useEffect(() => {
-    if (breakBetweenSets && problemCount === problemsPerSet) {
+    if (solveInSets && problemCount === problemsPerSet) {
       setIsSolving(false);
       setProblemCount(0);
     }
-  }, [problemCount, breakBetweenSets, problemsPerSet]);
+  }, [problemCount, solveInSets, problemsPerSet]);
 
   const handleCorrectAnswer = ({ operation, operands, centiseconds }) => {
     const operator = OPERATORS[operation];
