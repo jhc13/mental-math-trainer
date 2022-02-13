@@ -29,7 +29,7 @@ function SettingNumberInput({ settingKey, min, max }) {
         }}
         onChange={(event) => {
           let newValue = parseInt(event.target.value);
-          if (newValue < min) {
+          if (isNaN(newValue) || newValue < min) {
             newValue = min;
           } else if (newValue > max) {
             newValue = max;
