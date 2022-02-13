@@ -24,7 +24,9 @@ function Keypad({ onKeyClick }) {
     <button
       key={text}
       onClick={onKeyClick}
-      className='aspect-[2] select-none rounded-md bg-cyan-900 first-letter:uppercase active:brightness-[0.8]'
+      className={`${
+        typeof text === 'string' ? 'text-2xl' : ''
+      } aspect-[2] select-none rounded-md bg-cyan-900 first-letter:uppercase active:brightness-[0.8]`}
     >
       {text}
     </button>
