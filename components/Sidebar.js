@@ -33,10 +33,10 @@ function Sidebar() {
       </Disclosure.Button>
       <Transition
         as={Fragment}
-        enter='transition ease-in-out duration-500'
+        enter='transition-transform duration-500 ease-in-out'
         enterFrom='-translate-x-full'
         enterTo='translate-x-0'
-        leave='transition ease-in-out duration-500'
+        leave='transition-transform duration-500 ease-in-out'
         leaveFrom='translate-x-0'
         leaveTo='-translate-x-full'
       >
@@ -95,10 +95,7 @@ function Sidebar() {
             </div>
             <Transition
               show={solveInSets}
-              enter='transition-opacity duration-200'
-              enterFrom='opacity-0'
-              enterTo='opacity-100'
-              leave='transition-opacity duration-200'
+              leave='transition-opacity duration-100 ease-in'
               leaveFrom='opacity-100'
               leaveTo='opacity-0'
             >

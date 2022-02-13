@@ -30,7 +30,7 @@ function SettingListbox({
       </Listbox.Button>
       <Transition
         as={Fragment}
-        leave='transition ease-in duration-100'
+        leave='transition-opacity duration-100 ease-in'
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
