@@ -6,12 +6,33 @@ import Start from 'components/Start';
 
 function Home() {
   const [isSolving, setIsSolving] = useState(false);
+  const [problemCount, setProblemCount] = useState(0);
   const { settings } = useContext(SettingsContext);
-  const { operation, firstOperandLength, secondOperandLength } = settings;
+  const {
+    operation,
+    firstOperandLength,
+    secondOperandLength,
+    breakBetweenSets,
+    problemsPerSet
+  } = settings;
 
   useEffect(() => {
     setIsSolving(false);
-  }, [operation, firstOperandLength, secondOperandLength]);
+    setProblemCount(0);
+  }, [
+    operation,
+    firstOperandLength,
+    secondOperandLength,
+    breakBetweenSets,
+    problemsPerSet
+  ]);
+
+  useEffect(() => {
+    if (breakBetweenSets && problemCount === problemsPerSet) {
+      setIsSolving(false);
+      setProblemCount(0);
+    }
+  }, [problemCount, breakBetweenSets, problemsPerSet]);
 
   const handleCorrectAnswer = ({ operation, operands, centiseconds }) => {
     const operator = OPERATORS[operation];
@@ -20,6 +41,7 @@ function Home() {
         centiseconds
       )}`
     );
+    setProblemCount((count) => count + 1);
   };
 
   const handleStartButtonClick = () => {

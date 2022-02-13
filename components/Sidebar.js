@@ -6,6 +6,7 @@ import { OPERATORS, pluralize } from 'utils/utils';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
 import SettingListbox from 'components/SettingListbox';
 import SettingToggle from 'components/SettingToggle';
+import SettingNumberInput from 'components/SettingNumberInput';
 
 function getOperandLengths() {
   return [...Array(MAX_OPERAND_LENGTH).keys()].map((i) => i + 1);
@@ -13,7 +14,12 @@ function getOperandLengths() {
 
 function Sidebar() {
   const { settings, setSetting } = useContext(SettingsContext);
-  const { operation, firstOperandLength, secondOperandLength } = settings;
+  const {
+    operation,
+    firstOperandLength,
+    secondOperandLength,
+    breakBetweenSets
+  } = settings;
 
   useEffect(() => {
     if (
@@ -87,6 +93,30 @@ function Sidebar() {
                 </div>
               </div>
             </div>
+            <div className='flex items-center justify-between'>
+              <div>Break between sets</div>
+              <SettingToggle settingKey='breakBetweenSets' />
+            </div>
+            <Transition
+              show={breakBetweenSets}
+              enter='transition-opacity duration-200'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
+              leave='transition-opacity duration-200'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
+            >
+              <div className='flex items-center justify-between'>
+                <div>Problems per set</div>
+                <div className=''>
+                  <SettingNumberInput
+                    settingKey='problemsPerSet'
+                    min={1}
+                    max={1000}
+                  />
+                </div>
+              </div>
+            </Transition>
             <div className='h-px bg-zinc-400' />
             <div className='flex flex-col gap-1'>
               <div>Answer input direction</div>
@@ -95,15 +125,15 @@ function Sidebar() {
                 optionValues={['right to left', 'left to right']}
               />
             </div>
-            <div className='flex justify-between'>
+            <div className='flex items-center justify-between'>
               <div>Show timer while solving</div>
               <SettingToggle settingKey='showTimerWhileSolving' />
             </div>
-            <div className='flex justify-between'>
+            <div className='flex items-center justify-between'>
               <div>Show keypad</div>
               <SettingToggle settingKey='showKeypad' />
             </div>
-            <div className='flex justify-between'>
+            <div className='flex items-center justify-between'>
               <div>Reverse keypad</div>
               <SettingToggle settingKey='reverseKeypad' />
             </div>
