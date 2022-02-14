@@ -5,7 +5,6 @@ const defaultSettings = {
   operation: 'multiplication',
   firstOperandLength: 2,
   secondOperandLength: 2,
-  solveInSets: true,
   problemsPerSet: 5,
   inputDirection: 'right to left',
   showTimerWhileSolving: false,

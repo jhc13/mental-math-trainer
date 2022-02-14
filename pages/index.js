@@ -8,31 +8,20 @@ function Home() {
   const [isSolving, setIsSolving] = useState(false);
   const [problemCount, setProblemCount] = useState(0);
   const { settings } = useContext(SettingsContext);
-  const {
-    operation,
-    firstOperandLength,
-    secondOperandLength,
-    solveInSets,
-    problemsPerSet
-  } = settings;
+  const { operation, firstOperandLength, secondOperandLength, problemsPerSet } =
+    settings;
 
   useEffect(() => {
     setIsSolving(false);
     setProblemCount(0);
-  }, [
-    operation,
-    firstOperandLength,
-    secondOperandLength,
-    solveInSets,
-    problemsPerSet
-  ]);
+  }, [operation, firstOperandLength, secondOperandLength, problemsPerSet]);
 
   useEffect(() => {
-    if (solveInSets && problemCount === problemsPerSet) {
+    if (problemCount === problemsPerSet) {
       setIsSolving(false);
       setProblemCount(0);
     }
-  }, [problemCount, solveInSets, problemsPerSet]);
+  }, [problemCount, problemsPerSet]);
 
   const handleCorrectAnswer = ({ operation, operands, centiseconds }) => {
     const operator = OPERATORS[operation];

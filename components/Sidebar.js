@@ -14,8 +14,7 @@ function getOperandLengths() {
 
 function Sidebar() {
   const { settings, setSetting } = useContext(SettingsContext);
-  const { operation, firstOperandLength, secondOperandLength, solveInSets } =
-    settings;
+  const { operation, firstOperandLength, secondOperandLength } = settings;
 
   useEffect(() => {
     if (
@@ -90,26 +89,15 @@ function Sidebar() {
               </div>
             </div>
             <div className='flex items-center justify-between'>
-              <div>Solve problems in sets</div>
-              <SettingToggle settingKey='solveInSets' />
-            </div>
-            <Transition
-              show={solveInSets}
-              leave='transition-opacity duration-100 ease-in'
-              leaveFrom='opacity-100'
-              leaveTo='opacity-0'
-            >
-              <div className='flex items-center justify-between'>
-                <div>Problems per set</div>
-                <div className=''>
-                  <SettingNumberInput
-                    settingKey='problemsPerSet'
-                    min={1}
-                    max={1000}
-                  />
-                </div>
+              <div>Problems per set</div>
+              <div className=''>
+                <SettingNumberInput
+                  settingKey='problemsPerSet'
+                  min={1}
+                  max={1000}
+                />
               </div>
-            </Transition>
+            </div>
             <div className='h-px bg-zinc-400' />
             <div className='flex flex-col gap-1'>
               <div>Answer input direction</div>
