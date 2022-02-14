@@ -5,7 +5,7 @@ import Timer from 'components/Timer';
 import Problem from 'components/Problem';
 import Keypad from 'components/Keypad';
 
-function Solve({ onCorrectAnswer }) {
+function Solve({ onCorrectAnswer, onAbort }) {
   const { settings } = useContext(SettingsContext);
   const { showTimerWhileSolving } = settings;
 
@@ -16,7 +16,7 @@ function Solve({ onCorrectAnswer }) {
     startTime,
     maxAnswerLength,
     handleKeyClick
-  } = useSolve(onCorrectAnswer);
+  } = useSolve(onCorrectAnswer, onAbort);
 
   return (
     <div className='flex h-full flex-col items-center'>

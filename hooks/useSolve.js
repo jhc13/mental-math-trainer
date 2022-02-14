@@ -74,7 +74,7 @@ function getOperands(operation, operandLengths) {
   }
 }
 
-function useSolve(onCorrectAnswer) {
+function useSolve(onCorrectAnswer, onAbort) {
   const { settings } = useContext(SettingsContext);
   const { operation, firstOperandLength, secondOperandLength, inputDirection } =
     settings;
@@ -132,12 +132,14 @@ function useSolve(onCorrectAnswer) {
 
   useEffect(() => {
     const handleKeyDown = ({ key }) => {
-      if (key.toLowerCase() === 'c') {
-        clear();
+      if (/^\d$/.test(key)) {
+        appendDigit(key);
       } else if (['Backspace', 'Delete'].includes(key)) {
         erase();
-      } else if (/^\d$/.test(key)) {
-        appendDigit(key);
+      } else if (key.toLowerCase() === 'c') {
+        clear();
+      } else if (key === 'Escape') {
+        onAbort();
       }
     };
 
@@ -145,7 +147,7 @@ function useSolve(onCorrectAnswer) {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [erase, appendDigit]);
+  }, [appendDigit, erase, onAbort]);
 
   useEffect(() => {
     let correctAnswer;

@@ -12,9 +12,14 @@ function Home() {
   const { operation, firstOperandLength, secondOperandLength, problemsPerSet } =
     settings;
 
-  useEffect(() => {
+  const reset = () => {
     setIsSolving(false);
+    setProblems([]);
     setProblemCount(0);
+  };
+
+  useEffect(() => {
+    reset();
   }, [operation, firstOperandLength, secondOperandLength, problemsPerSet]);
 
   useEffect(() => {
@@ -28,9 +33,7 @@ function Home() {
           }: ${formatCentiseconds(centiseconds)}`;
         })
       );
-      setIsSolving(false);
-      setProblems([]);
-      setProblemCount(0);
+      reset();
     }
   }, [problemCount, problems, problemsPerSet, operation]);
 
@@ -39,12 +42,16 @@ function Home() {
     setProblemCount((count) => count + 1);
   };
 
+  const handleAbort = () => {
+    reset();
+  };
+
   const handleStartButtonClick = () => {
     setIsSolving(true);
   };
 
   return isSolving ? (
-    <Solve onCorrectAnswer={handleCorrectAnswer} />
+    <Solve onCorrectAnswer={handleCorrectAnswer} onAbort={handleAbort} />
   ) : (
     <Start onButtonClick={handleStartButtonClick} />
   );
