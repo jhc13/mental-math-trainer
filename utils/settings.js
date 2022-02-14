@@ -8,6 +8,7 @@ const defaultSettings = {
   problemsPerSet: 5,
   inputDirection: 'right to left',
   showTimer: false,
+  showAbortButton: true,
   showKeypad: true,
   reverseKeypad: false,
   keypadZeroPosition: 'zero last'

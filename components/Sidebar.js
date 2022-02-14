@@ -111,6 +111,10 @@ function Sidebar() {
               <SettingToggle settingKey='showTimer' />
             </div>
             <div className='flex items-center justify-between'>
+              <div>Show abort button</div>
+              <SettingToggle settingKey='showAbortButton' />
+            </div>
+            <div className='flex items-center justify-between'>
               <div>Show keypad</div>
               <SettingToggle settingKey='showKeypad' />
             </div>
