@@ -83,7 +83,6 @@ function useSolve(onCorrectAnswer) {
   );
   const [answerString, setAnswerString] = useState('');
   const [startTime, setStartTime] = useState(Date.now());
-
   const maxAnswerLength = getMaxAnswerLength(operands, operation);
 
   const clear = () => {
@@ -166,10 +165,27 @@ function useSolve(onCorrectAnswer) {
     }
     if (BigInt(answerString) === correctAnswer) {
       const centiseconds = Math.floor((Date.now() - startTime) / 10);
+      const problem = {
+        operation,
+        firstOperandLength,
+        secondOperandLength,
+        operands,
+        centiseconds,
+        time: Date.now()
+      };
       reset();
-      onCorrectAnswer({ operation, operands, centiseconds });
+      onCorrectAnswer(problem);
     }
-  }, [answerString, operation, operands, startTime, reset, onCorrectAnswer]);
+  }, [
+    answerString,
+    operation,
+    operands,
+    startTime,
+    firstOperandLength,
+    secondOperandLength,
+    reset,
+    onCorrectAnswer
+  ]);
 
   return {
     operation,
