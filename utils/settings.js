@@ -7,7 +7,7 @@ const defaultSettings = {
   secondOperandLength: 2,
   problemsPerSet: 5,
   inputDirection: 'right to left',
-  showTimerWhileSolving: false,
+  showTimer: false,
   showKeypad: true,
   reverseKeypad: false,
   keypadZeroPosition: 'zero last'

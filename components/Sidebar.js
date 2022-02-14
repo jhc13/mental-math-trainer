@@ -107,8 +107,8 @@ function Sidebar() {
               />
             </div>
             <div className='flex items-center justify-between'>
-              <div>Show timer while solving</div>
-              <SettingToggle settingKey='showTimerWhileSolving' />
+              <div>Show timer</div>
+              <SettingToggle settingKey='showTimer' />
             </div>
             <div className='flex items-center justify-between'>
               <div>Show keypad</div>

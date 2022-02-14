@@ -8,7 +8,7 @@ import Keypad from 'components/Keypad';
 
 function Solve({ onCorrectAnswer, onAbort }) {
   const { settings } = useContext(SettingsContext);
-  const { showTimerWhileSolving } = settings;
+  const { showTimer } = settings;
 
   const {
     operation,
@@ -23,7 +23,7 @@ function Solve({ onCorrectAnswer, onAbort }) {
     <div className='flex h-full flex-col items-center'>
       <div className='grid w-full grid-cols-3 place-items-center'>
         <div className='col-start-2'>
-          {showTimerWhileSolving && <Timer startTime={startTime} />}
+          {showTimer && <Timer startTime={startTime} />}
         </div>
         <button
           className='col-start-3 flex items-center gap-1.5 justify-self-end rounded-md bg-red-900 px-2 py-1'
