@@ -37,7 +37,7 @@ function Intermission({ problems, onNewSet }) {
             </div>
             {`(${formatCentiseconds(centisecondsPerProblem)} per problem)`}
           </div>
-          <div className='flex max-h-[22rem] w-96 justify-center overflow-auto px-8'>
+          <div className='flex max-h-[22rem] w-full justify-center overflow-auto'>
             <div className='text-left text-lg tabular-nums'>
               {problems.map((problem, i) => {
                 const { operation, operands, centiseconds } = problem;
