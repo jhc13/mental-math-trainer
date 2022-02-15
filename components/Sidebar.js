@@ -39,7 +39,7 @@ function Sidebar() {
         leaveFrom='translate-x-0'
         leaveTo='-translate-x-full'
       >
-        <Disclosure.Panel className='absolute top-12 left-0 bottom-0 z-10 w-full select-none overflow-auto bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm'>
+        <Disclosure.Panel className='absolute top-12 left-0 bottom-0 z-10 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm'>
           <div className='flex flex-col gap-4'>
             <div className='flex flex-col gap-1'>
               <div>Operation</div>

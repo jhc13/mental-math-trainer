@@ -27,7 +27,7 @@ function Solve({ onCorrectAnswer, onAbort }) {
         </div>
         {showAbortButton && (
           <button
-            className='col-start-3 flex items-center gap-1.5 justify-self-end rounded-md bg-red-900 px-2 py-1'
+            className='col-start-3 flex items-center gap-1.5 justify-self-end rounded-md bg-red-900 px-2 py-1 active:brightness-[0.85]'
             onClick={onAbort}
           >
             <XCircleIcon className='h-5 w-5' aria-hidden='true' />

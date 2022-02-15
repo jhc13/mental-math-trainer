@@ -10,6 +10,15 @@
 
   html {
     -webkit-tap-highlight-color: transparent;
+    scrollbar-color: #3f3f46 #18181b;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2.5 rounded bg-zinc-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded bg-zinc-700;
   }
 
   input[type=number]::-webkit-outer-spin-button,
