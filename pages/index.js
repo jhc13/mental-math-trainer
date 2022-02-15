@@ -6,7 +6,6 @@ import Intermission from 'components/Intermission';
 function Home() {
   const [isSolving, setIsSolving] = useState(false);
   const [problems, setProblems] = useState([]);
-  const [problemCount, setProblemCount] = useState(0);
   const { settings } = useContext(SettingsContext);
   const { operation, firstOperandLength, secondOperandLength, problemsPerSet } =
     settings;
@@ -14,7 +13,6 @@ function Home() {
   const reset = () => {
     setIsSolving(false);
     setProblems([]);
-    setProblemCount(0);
   };
 
   useEffect(() => {
@@ -22,14 +20,13 @@ function Home() {
   }, [operation, firstOperandLength, secondOperandLength, problemsPerSet]);
 
   useEffect(() => {
-    if (problemCount === problemsPerSet) {
+    if (problems.length === problemsPerSet) {
       setIsSolving(false);
     }
-  }, [problemCount, problems, problemsPerSet, operation]);
+  }, [problems, problemsPerSet, operation]);
 
   const handleCorrectAnswer = (problem) => {
     setProblems((problems) => [...problems, problem]);
-    setProblemCount((count) => count + 1);
   };
 
   const handleAbort = () => {
