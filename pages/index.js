@@ -6,12 +6,14 @@ import Intermission from 'components/Intermission';
 function Home() {
   const [isSolving, setIsSolving] = useState(false);
   const [solvedProblems, setSolvedProblems] = useState([]);
+  const [setStartTime, setSetStartTime] = useState(null);
   const { settings } = useContext(SettingsContext);
   const { operation, operandLengths, problemsPerSet } = settings;
 
   const reset = () => {
     setIsSolving(false);
     setSolvedProblems([]);
+    setSetStartTime(null);
   };
 
   useEffect(() => {
@@ -34,12 +36,14 @@ function Home() {
 
   const handleNewSet = () => {
     reset();
+    setSetStartTime(Date.now());
     setIsSolving(true);
   };
 
   return isSolving ? (
     <Solve
       solvedProblemCount={solvedProblems.length}
+      setStartTime={setStartTime}
       onCorrectAnswer={handleCorrectAnswer}
       onAbort={handleAbort}
     />

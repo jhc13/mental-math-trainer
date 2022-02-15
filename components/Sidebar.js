@@ -21,6 +21,7 @@ function Sidebar() {
     inputDirection,
     showProblemNumber,
     showTimer,
+    measuredTime,
     showAbortButton,
     showKeypad,
     reverseKeypad,
@@ -140,6 +141,25 @@ function Sidebar() {
                 onChange={getDefaultChangeHandler('showTimer')}
               />
             </div>
+            <Transition
+              as={Fragment}
+              show={showTimer}
+              enter='transition-opacity duration-100 ease-out'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
+              leave='transition-opacity duration-100 ease-in'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
+            >
+              <div className='flex flex-col gap-1'>
+                Measured time
+                <Listbox
+                  value={measuredTime}
+                  onChange={getDefaultChangeHandler('measuredTime')}
+                  optionValues={['set time', 'problem time']}
+                />
+              </div>
+            </Transition>
             <div className='flex items-center justify-between'>
               Show abort button
               <Toggle
@@ -187,7 +207,7 @@ function Sidebar() {
                 <Listbox
                   value={keypadZeroPosition}
                   onChange={getDefaultChangeHandler('keypadZeroPosition')}
-                  optionValues={['zero first', 'zero last']}
+                  optionValues={['zero last', 'zero first']}
                 />
               </div>
             </Transition>

@@ -45,7 +45,7 @@ function Intermission({ solvedProblems, onNewSet }) {
                 const { operation, operands, centiseconds } = problem;
                 const operator = OPERATORS[operation];
                 return (
-                  <div key={i}>{`${operands[0]} ${operator} ${
+                  <div key={i}>{`${operands[0]}${operator}${
                     operands[1]
                   }: ${formatCentiseconds(centiseconds)}`}</div>
                 );

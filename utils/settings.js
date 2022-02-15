@@ -8,6 +8,7 @@ const defaultSettings = {
   inputDirection: 'right to left',
   showProblemNumber: true,
   showTimer: false,
+  measuredTime: 'set time',
   showAbortButton: true,
   showKeypad: true,
   reverseKeypad: false,

@@ -86,7 +86,7 @@ function useSolve(onCorrectAnswer, onAbort) {
     getOperands(operation, operandLengths)
   );
   const [answerString, setAnswerString] = useState('');
-  const [startTime, setStartTime] = useState(Date.now());
+  const [problemStartTime, setProblemStartTime] = useState(Date.now());
   const maxAnswerLength = getMaxAnswerLength(operands, operation);
 
   const clear = () => {
@@ -118,7 +118,7 @@ function useSolve(onCorrectAnswer, onAbort) {
   const reset = useCallback(() => {
     setOperands(getOperands(operation, operandLengths));
     clear();
-    setStartTime(Date.now());
+    setProblemStartTime(Date.now());
   }, [operation, operandLengths]);
 
   const handleKeyClick = (event) => {
@@ -168,7 +168,7 @@ function useSolve(onCorrectAnswer, onAbort) {
         break;
     }
     if (BigInt(answerString) === correctAnswer) {
-      const centiseconds = Math.floor((Date.now() - startTime) / 10);
+      const centiseconds = Math.floor((Date.now() - problemStartTime) / 10);
       const problem = {
         operation,
         operandLengths,
@@ -183,7 +183,7 @@ function useSolve(onCorrectAnswer, onAbort) {
     answerString,
     operation,
     operands,
-    startTime,
+    problemStartTime,
     operandLengths,
     reset,
     onCorrectAnswer
@@ -193,7 +193,7 @@ function useSolve(onCorrectAnswer, onAbort) {
     operation,
     operands,
     answerString,
-    startTime,
+    problemStartTime,
     maxAnswerLength,
     handleKeyClick
   };

@@ -6,16 +6,21 @@ import Timer from 'components/Timer';
 import Problem from 'components/Problem';
 import Keypad from 'components/Keypad';
 
-function Solve({ solvedProblemCount, onCorrectAnswer, onAbort }) {
+function Solve({ solvedProblemCount, setStartTime, onCorrectAnswer, onAbort }) {
   const { settings } = useContext(SettingsContext);
-  const { problemsPerSet, showProblemNumber, showTimer, showAbortButton } =
-    settings;
+  const {
+    problemsPerSet,
+    showProblemNumber,
+    showTimer,
+    measuredTime,
+    showAbortButton
+  } = settings;
 
   const {
     operation,
     operands,
     answerString,
-    startTime,
+    problemStartTime,
     maxAnswerLength,
     handleKeyClick
   } = useSolve(onCorrectAnswer, onAbort);
@@ -27,7 +32,13 @@ function Solve({ solvedProblemCount, onCorrectAnswer, onAbort }) {
           {showProblemNumber && `${solvedProblemCount + 1}/${problemsPerSet}`}
         </div>
         <div className='col-start-2'>
-          {showTimer && <Timer startTime={startTime} />}
+          {showTimer && (
+            <Timer
+              startTime={
+                measuredTime === 'set time' ? setStartTime : problemStartTime
+              }
+            />
+          )}
         </div>
         {showAbortButton && (
           <button
