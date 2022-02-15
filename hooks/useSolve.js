@@ -29,7 +29,12 @@ function getOperands(operation, operandLengths) {
   switch (operation) {
     case 'addition':
     case 'multiplication':
-      return operandLengths.map((length) => getRandomIntegerByLength(length));
+      return operandLengths.map((length) =>
+        length === 1
+          ? // Exclude 1.
+            getRandomInteger(2, 10)
+          : getRandomIntegerByLength(length)
+      );
     case 'subtraction':
       if (operandLengths[0] !== operandLengths[1]) {
         return operandLengths.map((length) => getRandomIntegerByLength(length));
