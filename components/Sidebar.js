@@ -106,6 +106,10 @@ function Sidebar() {
               />
             </div>
             <div className='flex items-center justify-between'>
+              <div>Show problem number</div>
+              <SettingToggle settingKey='showProblemNumber' />
+            </div>
+            <div className='flex items-center justify-between'>
               <div>Show timer</div>
               <SettingToggle settingKey='showTimer' />
             </div>

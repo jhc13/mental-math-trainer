@@ -6,9 +6,10 @@ import Timer from 'components/Timer';
 import Problem from 'components/Problem';
 import Keypad from 'components/Keypad';
 
-function Solve({ onCorrectAnswer, onAbort }) {
+function Solve({ solvedProblemCount, onCorrectAnswer, onAbort }) {
   const { settings } = useContext(SettingsContext);
-  const { showTimer, showAbortButton } = settings;
+  const { problemsPerSet, showProblemNumber, showTimer, showAbortButton } =
+    settings;
 
   const {
     operation,
@@ -22,6 +23,9 @@ function Solve({ onCorrectAnswer, onAbort }) {
   return (
     <div className='flex h-full flex-col items-center'>
       <div className='grid w-full grid-cols-3 place-items-center'>
+        <div className='justify-self-start text-2xl tabular-nums leading-9'>
+          {showProblemNumber && `${solvedProblemCount + 1}/${problemsPerSet}`}
+        </div>
         <div className='col-start-2'>
           {showTimer && <Timer startTime={startTime} />}
         </div>

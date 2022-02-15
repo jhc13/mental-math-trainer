@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { formatCentiseconds, OPERATORS, pluralize } from 'utils/utils';
 
-function Intermission({ problems, onNewSet }) {
+function Intermission({ solvedProblems, onNewSet }) {
   useEffect(() => {
     const handleKeyDown = ({ key }) => {
       if ([' ', 'Enter'].includes(key)) {
@@ -16,30 +16,32 @@ function Intermission({ problems, onNewSet }) {
   }, [onNewSet]);
 
   let totalCentiseconds, centisecondsPerProblem;
-  if (problems.length) {
-    totalCentiseconds = problems.reduce(
+  if (solvedProblems.length) {
+    totalCentiseconds = solvedProblems.reduce(
       (centiseconds, problem) => centiseconds + problem.centiseconds,
       0
     );
-    centisecondsPerProblem = Math.round(totalCentiseconds / problems.length);
+    centisecondsPerProblem = Math.round(
+      totalCentiseconds / solvedProblems.length
+    );
   }
 
   return (
     <div className='flex flex-col gap-10 pt-5'>
-      {problems.length > 0 && (
+      {solvedProblems.length > 0 && (
         <div className='flex flex-col items-center gap-5'>
           <div className='flex flex-col gap-1 text-center text-xl'>
             <div className='font-bold'>
               {`${pluralize(
                 'problem',
-                problems.length
+                solvedProblems.length
               )} in ${formatCentiseconds(totalCentiseconds)}`}
             </div>
             {`(${formatCentiseconds(centisecondsPerProblem)} per problem)`}
           </div>
           <div className='flex max-h-[22rem] w-full justify-center overflow-auto'>
             <div className='text-left text-lg tabular-nums'>
-              {problems.map((problem, i) => {
+              {solvedProblems.map((problem, i) => {
                 const { operation, operands, centiseconds } = problem;
                 const operator = OPERATORS[operation];
                 return (

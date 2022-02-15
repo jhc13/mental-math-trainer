@@ -5,14 +5,14 @@ import Intermission from 'components/Intermission';
 
 function Home() {
   const [isSolving, setIsSolving] = useState(false);
-  const [problems, setProblems] = useState([]);
+  const [solvedProblems, setSolvedProblems] = useState([]);
   const { settings } = useContext(SettingsContext);
   const { operation, firstOperandLength, secondOperandLength, problemsPerSet } =
     settings;
 
   const reset = () => {
     setIsSolving(false);
-    setProblems([]);
+    setSolvedProblems([]);
   };
 
   useEffect(() => {
@@ -20,13 +20,13 @@ function Home() {
   }, [operation, firstOperandLength, secondOperandLength, problemsPerSet]);
 
   useEffect(() => {
-    if (problems.length === problemsPerSet) {
+    if (solvedProblems.length === problemsPerSet) {
       setIsSolving(false);
     }
-  }, [problems, problemsPerSet, operation]);
+  }, [solvedProblems, problemsPerSet, operation]);
 
   const handleCorrectAnswer = (problem) => {
-    setProblems((problems) => [...problems, problem]);
+    setSolvedProblems((problems) => [...problems, problem]);
   };
 
   const handleAbort = () => {
@@ -39,9 +39,13 @@ function Home() {
   };
 
   return isSolving ? (
-    <Solve onCorrectAnswer={handleCorrectAnswer} onAbort={handleAbort} />
+    <Solve
+      solvedProblemCount={solvedProblems.length}
+      onCorrectAnswer={handleCorrectAnswer}
+      onAbort={handleAbort}
+    />
   ) : (
-    <Intermission problems={problems} onNewSet={handleNewSet} />
+    <Intermission solvedProblems={solvedProblems} onNewSet={handleNewSet} />
   );
 }
 

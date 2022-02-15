@@ -7,6 +7,7 @@ const defaultSettings = {
   secondOperandLength: 2,
   problemsPerSet: 5,
   inputDirection: 'right to left',
+  showProblemNumber: true,
   showTimer: false,
   showAbortButton: true,
   showKeypad: true,
