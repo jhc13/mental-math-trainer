@@ -14,7 +14,8 @@ function getOperandLengths() {
 
 function Sidebar() {
   const { settings, setSetting } = useContext(SettingsContext);
-  const { operation, firstOperandLength, secondOperandLength } = settings;
+  const { operation, firstOperandLength, secondOperandLength, showKeypad } =
+    settings;
 
   useEffect(() => {
     if (
@@ -116,17 +117,39 @@ function Sidebar() {
               <div>Show keypad</div>
               <SettingToggle settingKey='showKeypad' />
             </div>
-            <div className='flex items-center justify-between'>
-              <div>Reverse keypad</div>
-              <SettingToggle settingKey='reverseKeypad' />
-            </div>
-            <div className='flex flex-col gap-1'>
-              <div>Keypad zero position</div>
-              <SettingListbox
-                settingKey='keypadZeroPosition'
-                optionValues={['zero first', 'zero last']}
-              />
-            </div>
+            <Transition
+              as={Fragment}
+              show={showKeypad}
+              enter='transition-opacity duration-100 ease-out'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
+              leave='transition-opacity duration-100 ease-in'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
+            >
+              <div className='flex items-center justify-between'>
+                <div>Reverse keypad</div>
+                <SettingToggle settingKey='reverseKeypad' />
+              </div>
+            </Transition>
+            <Transition
+              as={Fragment}
+              show={showKeypad}
+              enter='transition-opacity duration-100 ease-out'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
+              leave='transition-opacity duration-100 ease-in'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
+            >
+              <div className='flex flex-col gap-1'>
+                <div>Keypad zero position</div>
+                <SettingListbox
+                  settingKey='keypadZeroPosition'
+                  optionValues={['zero first', 'zero last']}
+                />
+              </div>
+            </Transition>
           </div>
         </Disclosure.Panel>
       </Transition>
