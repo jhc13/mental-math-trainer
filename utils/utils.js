@@ -9,7 +9,7 @@ export function pluralize(word, count) {
   return `${count} ${word}${count === 1 ? '' : 's'}`;
 }
 
-export function formatSeconds(totalSeconds, alwaysShowPaddedMinutes = false) {
+export function formatSeconds(totalSeconds, alwaysShowMinutes = false) {
   const SECONDS_PER_MINUTE = 60;
   const SECONDS_PER_HOUR = 60 * SECONDS_PER_MINUTE;
 
@@ -22,10 +22,7 @@ export function formatSeconds(totalSeconds, alwaysShowPaddedMinutes = false) {
   if (hours) {
     return `${hours}:${paddedMinutes}:${paddedSeconds}`;
   }
-  if (alwaysShowPaddedMinutes) {
-    return `${paddedMinutes}:${paddedSeconds}`;
-  }
-  if (minutes) {
+  if (alwaysShowMinutes || minutes) {
     return `${minutes}:${paddedSeconds}`;
   }
   return seconds;
