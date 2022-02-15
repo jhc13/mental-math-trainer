@@ -7,8 +7,7 @@ function Home() {
   const [isSolving, setIsSolving] = useState(false);
   const [solvedProblems, setSolvedProblems] = useState([]);
   const { settings } = useContext(SettingsContext);
-  const { operation, firstOperandLength, secondOperandLength, problemsPerSet } =
-    settings;
+  const { operation, operandLengths, problemsPerSet } = settings;
 
   const reset = () => {
     setIsSolving(false);
@@ -17,7 +16,7 @@ function Home() {
 
   useEffect(() => {
     reset();
-  }, [operation, firstOperandLength, secondOperandLength, problemsPerSet]);
+  }, [operation, operandLengths, problemsPerSet]);
 
   useEffect(() => {
     if (solvedProblems.length === problemsPerSet) {

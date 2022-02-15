@@ -3,8 +3,7 @@ import { SETTINGS_LOCAL_STORAGE_KEY } from 'utils/config';
 
 const defaultSettings = {
   operation: 'multiplication',
-  firstOperandLength: 2,
-  secondOperandLength: 2,
+  operandLengths: [2, 2],
   problemsPerSet: 5,
   inputDirection: 'right to left',
   showProblemNumber: true,

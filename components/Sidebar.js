@@ -4,9 +4,9 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { SettingsContext } from 'utils/settings';
 import { OPERATORS, pluralize } from 'utils/utils';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
-import SettingListbox from 'components/SettingListbox';
-import SettingToggle from 'components/SettingToggle';
-import SettingNumberInput from 'components/SettingNumberInput';
+import Listbox from 'components/Listbox';
+import Toggle from 'components/Toggle';
+import NumberInput from 'components/NumberInput';
 
 function getOperandLengths() {
   return [...Array(MAX_OPERAND_LENGTH).keys()].map((i) => i + 1);
@@ -14,17 +14,31 @@ function getOperandLengths() {
 
 function Sidebar() {
   const { settings, setSetting } = useContext(SettingsContext);
-  const { operation, firstOperandLength, secondOperandLength, showKeypad } =
-    settings;
+  const {
+    operation,
+    operandLengths,
+    problemsPerSet,
+    inputDirection,
+    showProblemNumber,
+    showTimer,
+    showAbortButton,
+    showKeypad,
+    reverseKeypad,
+    keypadZeroPosition
+  } = settings;
 
   useEffect(() => {
     if (
       ['subtraction', 'division'].includes(operation) &&
-      secondOperandLength > firstOperandLength
+      operandLengths[1] > operandLengths[0]
     ) {
-      setSetting('secondOperandLength', firstOperandLength);
+      setSetting('operandLengths', [operandLengths[0], operandLengths[0]]);
     }
-  }, [operation, firstOperandLength, secondOperandLength, setSetting]);
+  }, [operation, operandLengths, setSetting]);
+
+  const getDefaultChangeHandler = (settingKey) => (value) => {
+    setSetting(settingKey, value);
+  };
 
   return (
     <Disclosure as='div' className='flex items-center'>
@@ -43,9 +57,10 @@ function Sidebar() {
         <Disclosure.Panel className='absolute top-12 left-0 bottom-0 z-10 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm'>
           <div className='flex flex-col gap-4'>
             <div className='flex flex-col gap-1'>
-              <div>Operation</div>
-              <SettingListbox
-                settingKey='operation'
+              Operation
+              <Listbox
+                value={operation}
+                onChange={getDefaultChangeHandler('operation')}
                 optionValues={[
                   'addition',
                   'subtraction',
@@ -55,10 +70,13 @@ function Sidebar() {
               />
             </div>
             <div className='flex flex-col gap-1'>
-              <div>Operand lengths</div>
+              Operand lengths
               <div className='grid grid-cols-[1fr_auto_1fr] items-center gap-4'>
-                <SettingListbox
-                  settingKey='firstOperandLength'
+                <Listbox
+                  value={operandLengths[0]}
+                  onChange={(value) => {
+                    setSetting('operandLengths', [value, operandLengths[1]]);
+                  }}
                   optionValues={getOperandLengths()}
                   optionNames={getOperandLengths().map((length) =>
                     pluralize('digit', length)
@@ -67,18 +85,21 @@ function Sidebar() {
                 <div className='justify-self-center'>
                   {OPERATORS[operation]}
                 </div>
-                <SettingListbox
-                  settingKey='secondOperandLength'
+                <Listbox
+                  value={operandLengths[1]}
+                  onChange={(value) => {
+                    setSetting('operandLengths', [operandLengths[0], value]);
+                  }}
                   optionValues={getOperandLengths()}
                   optionNames={getOperandLengths().map((length) =>
                     pluralize('digit', length)
                   )}
                   disabled={
                     ['subtraction', 'division'].includes(operation)
-                      ? Array(firstOperandLength)
+                      ? Array(operandLengths[0])
                           .fill(false)
                           .concat(
-                            Array(MAX_OPERAND_LENGTH - firstOperandLength).fill(
+                            Array(MAX_OPERAND_LENGTH - operandLengths[0]).fill(
                               true
                             )
                           )
@@ -88,38 +109,50 @@ function Sidebar() {
               </div>
             </div>
             <div className='flex items-center justify-between'>
-              <div>Problems per set</div>
-              <div className=''>
-                <SettingNumberInput
-                  settingKey='problemsPerSet'
-                  min={1}
-                  max={1000}
-                />
-              </div>
+              Problems per set
+              <NumberInput
+                value={problemsPerSet}
+                onChange={getDefaultChangeHandler('problemsPerSet')}
+                min={1}
+                max={1000}
+              />
             </div>
             <div className='h-px bg-zinc-400' />
             <div className='flex flex-col gap-1'>
-              <div>Answer input direction</div>
-              <SettingListbox
-                settingKey='inputDirection'
+              Answer input direction
+              <Listbox
+                value={inputDirection}
+                onChange={getDefaultChangeHandler('inputDirection')}
                 optionValues={['right to left', 'left to right']}
               />
             </div>
             <div className='flex items-center justify-between'>
-              <div>Show problem number</div>
-              <SettingToggle settingKey='showProblemNumber' />
+              Show problem number
+              <Toggle
+                value={showProblemNumber}
+                onChange={getDefaultChangeHandler('showProblemNumber')}
+              />
             </div>
             <div className='flex items-center justify-between'>
-              <div>Show timer</div>
-              <SettingToggle settingKey='showTimer' />
+              Show timer
+              <Toggle
+                value={showTimer}
+                onChange={getDefaultChangeHandler('showTimer')}
+              />
             </div>
             <div className='flex items-center justify-between'>
-              <div>Show abort button</div>
-              <SettingToggle settingKey='showAbortButton' />
+              Show abort button
+              <Toggle
+                value={showAbortButton}
+                onChange={getDefaultChangeHandler('showAbortButton')}
+              />
             </div>
             <div className='flex items-center justify-between'>
-              <div>Show keypad</div>
-              <SettingToggle settingKey='showKeypad' />
+              Show keypad
+              <Toggle
+                value={showKeypad}
+                onChange={getDefaultChangeHandler('showKeypad')}
+              />
             </div>
             <Transition
               as={Fragment}
@@ -132,8 +165,11 @@ function Sidebar() {
               leaveTo='opacity-0'
             >
               <div className='flex items-center justify-between'>
-                <div>Reverse keypad</div>
-                <SettingToggle settingKey='reverseKeypad' />
+                Reverse keypad
+                <Toggle
+                  value={reverseKeypad}
+                  onChange={getDefaultChangeHandler('reverseKeypad')}
+                />
               </div>
             </Transition>
             <Transition
@@ -147,9 +183,10 @@ function Sidebar() {
               leaveTo='opacity-0'
             >
               <div className='flex flex-col gap-1'>
-                <div>Keypad zero position</div>
-                <SettingListbox
-                  settingKey='keypadZeroPosition'
+                Keypad zero position
+                <Listbox
+                  value={keypadZeroPosition}
+                  onChange={getDefaultChangeHandler('keypadZeroPosition')}
                   optionValues={['zero first', 'zero last']}
                 />
               </div>

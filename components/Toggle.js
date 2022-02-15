@@ -1,17 +1,10 @@
-import { useContext } from 'react';
 import { Switch } from '@headlessui/react';
-import { SettingsContext } from 'utils/settings';
 
-function SettingToggle({ settingKey }) {
-  const { settings, setSetting } = useContext(SettingsContext);
-  const value = settings[settingKey];
-
+function Toggle({ value, onChange }) {
   return (
     <Switch
       checked={value}
-      onChange={(value) => {
-        setSetting(settingKey, value);
-      }}
+      onChange={onChange}
       className={`${value ? 'bg-green-500' : 'bg-zinc-600'}
           flex h-[30px] w-[58px] rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out`}
     >
@@ -24,4 +17,4 @@ function SettingToggle({ settingKey }) {
   );
 }
 
-export default SettingToggle;
+export default Toggle;

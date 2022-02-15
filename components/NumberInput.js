@@ -1,17 +1,12 @@
-import { useContext } from 'react';
 import { PlusIcon, MinusIcon } from '@heroicons/react/solid';
-import { SettingsContext } from 'utils/settings';
 
-function SettingNumberInput({ settingKey, min, max }) {
-  const { settings, setSetting } = useContext(SettingsContext);
-  const value = settings[settingKey];
-
+function NumberInput({ value, onChange, min, max }) {
   return (
     <div className='relative'>
       <button
         onClick={() => {
           if (value > min) {
-            setSetting(settingKey, value - 1);
+            onChange(value - 1);
           }
         }}
         className='absolute inset-y-0 left-0 px-3'
@@ -34,14 +29,14 @@ function SettingNumberInput({ settingKey, min, max }) {
           } else if (newValue > max) {
             newValue = max;
           }
-          setSetting(settingKey, newValue);
+          onChange(newValue);
         }}
         className='w-32 rounded-lg bg-zinc-700 py-2 px-7 text-center tabular-nums shadow-md focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit sm:text-sm'
       />
       <button
         onClick={() => {
           if (value < max) {
-            setSetting(settingKey, value + 1);
+            onChange(value + 1);
           }
         }}
         className='absolute inset-y-0 right-0 px-3'
@@ -52,4 +47,4 @@ function SettingNumberInput({ settingKey, min, max }) {
   );
 }
 
-export default SettingNumberInput;
+export default NumberInput;

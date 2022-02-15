@@ -1,33 +1,29 @@
-import { Fragment, useContext } from 'react';
-import { Listbox, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
+import { Listbox as HeadlessListbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
-import { SettingsContext } from 'utils/settings';
 
-function SettingListbox({
-  settingKey,
+function Listbox({
+  value,
+  onChange,
   optionValues,
   optionNames = optionValues,
   disabled = Array(optionValues.length).fill(false)
 }) {
-  const { settings, setSetting } = useContext(SettingsContext);
-  const value = settings[settingKey];
   const name = optionNames[optionValues.indexOf(value)];
 
   return (
-    <Listbox
+    <HeadlessListbox
       value={value}
-      onChange={(value) => {
-        setSetting(settingKey, value);
-      }}
+      onChange={onChange}
       as='div'
       className='relative'
     >
-      <Listbox.Button className='relative w-full rounded-lg bg-zinc-700 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit sm:text-sm'>
+      <HeadlessListbox.Button className='relative w-full rounded-lg bg-zinc-700 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit sm:text-sm'>
         <div className='truncate first-letter:uppercase'>{name}</div>
         <div className='pointer-events-none absolute inset-y-0 right-0 mr-2 flex items-center'>
           <SelectorIcon className='h-5 w-5 text-gray-300' aria-hidden='true' />
         </div>
-      </Listbox.Button>
+      </HeadlessListbox.Button>
       <Transition
         as={Fragment}
         enter='transition-opacity duration-100 ease-out'
@@ -37,9 +33,9 @@ function SettingListbox({
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
-        <Listbox.Options className='absolute z-10 mt-1 w-full cursor-pointer select-none rounded-md bg-zinc-700 py-1 shadow-2xl focus:outline-none sm:text-sm'>
+        <HeadlessListbox.Options className='absolute z-10 mt-1 w-full cursor-pointer select-none rounded-md bg-zinc-700 py-1 shadow-2xl focus:outline-none sm:text-sm'>
           {optionValues.map((optionValue, i) => (
-            <Listbox.Option
+            <HeadlessListbox.Option
               key={optionValue}
               className={({ active }) =>
                 `${active && 'bg-zinc-600'} ${disabled[i] && 'opacity-30'}
@@ -66,12 +62,12 @@ function SettingListbox({
                   </div>
                 </>
               )}
-            </Listbox.Option>
+            </HeadlessListbox.Option>
           ))}
-        </Listbox.Options>
+        </HeadlessListbox.Options>
       </Transition>
-    </Listbox>
+    </HeadlessListbox>
   );
 }
 
-export default SettingListbox;
+export default Listbox;

@@ -41,7 +41,7 @@ function Problem({ operation, operands, maxAnswerLength, answerString }) {
       <div className='mx-2 flex flex-col gap-1'>
         <div className='ml-12'>{operands[0]}</div>
         <div className='flex justify-between'>
-          <div>{operator}</div>
+          {operator}
           <div className='ml-4'>{operands[1]}</div>
         </div>
       </div>
