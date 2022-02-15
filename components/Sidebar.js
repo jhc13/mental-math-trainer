@@ -55,37 +55,35 @@ function Sidebar() {
             </div>
             <div className='flex flex-col gap-1'>
               <div>Operand lengths</div>
-              <div className='flex items-center justify-between gap-4'>
-                <div className='flex-auto'>
-                  <SettingListbox
-                    settingKey='firstOperandLength'
-                    optionValues={getOperandLengths()}
-                    optionNames={getOperandLengths().map((length) =>
-                      pluralize('digit', length)
-                    )}
-                  />
+              <div className='grid grid-cols-[1fr_auto_1fr] items-center gap-4'>
+                <SettingListbox
+                  settingKey='firstOperandLength'
+                  optionValues={getOperandLengths()}
+                  optionNames={getOperandLengths().map((length) =>
+                    pluralize('digit', length)
+                  )}
+                />
+                <div className='justify-self-center'>
+                  {OPERATORS[operation]}
                 </div>
-                {OPERATORS[operation]}
-                <div className='flex-auto'>
-                  <SettingListbox
-                    settingKey='secondOperandLength'
-                    optionValues={getOperandLengths()}
-                    optionNames={getOperandLengths().map((length) =>
-                      pluralize('digit', length)
-                    )}
-                    disabled={
-                      ['subtraction', 'division'].includes(operation)
-                        ? Array(firstOperandLength)
-                            .fill(false)
-                            .concat(
-                              Array(
-                                MAX_OPERAND_LENGTH - firstOperandLength
-                              ).fill(true)
+                <SettingListbox
+                  settingKey='secondOperandLength'
+                  optionValues={getOperandLengths()}
+                  optionNames={getOperandLengths().map((length) =>
+                    pluralize('digit', length)
+                  )}
+                  disabled={
+                    ['subtraction', 'division'].includes(operation)
+                      ? Array(firstOperandLength)
+                          .fill(false)
+                          .concat(
+                            Array(MAX_OPERAND_LENGTH - firstOperandLength).fill(
+                              true
                             )
-                        : Array(MAX_OPERAND_LENGTH).fill(false)
-                    }
-                  />
-                </div>
+                          )
+                      : Array(MAX_OPERAND_LENGTH).fill(false)
+                  }
+                />
               </div>
             </div>
             <div className='flex items-center justify-between'>
