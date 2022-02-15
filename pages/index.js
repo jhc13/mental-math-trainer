@@ -1,52 +1,34 @@
 import { useContext, useEffect, useState } from 'react';
 import { SettingsContext } from 'utils/settings';
-import Solve from 'components/Solve';
+import Set from 'components/Set';
 import Intermission from 'components/Intermission';
 
 function Home() {
   const [isSolving, setIsSolving] = useState(false);
   const [solvedProblems, setSolvedProblems] = useState([]);
-  const [setStartTime, setSetStartTime] = useState(null);
   const { settings } = useContext(SettingsContext);
   const { operation, operandLengths, problemsPerSet } = settings;
 
-  const reset = () => {
-    setIsSolving(false);
-    setSolvedProblems([]);
-    setSetStartTime(null);
-  };
-
   useEffect(() => {
-    reset();
+    setIsSolving(false);
   }, [operation, operandLengths, problemsPerSet]);
 
-  useEffect(() => {
-    if (solvedProblems.length === problemsPerSet) {
-      setIsSolving(false);
-    }
-  }, [solvedProblems, problemsPerSet, operation]);
-
-  const handleCorrectAnswer = (problem) => {
-    setSolvedProblems((problems) => [...problems, problem]);
+  const handleAbort = () => {
+    setIsSolving(false);
   };
 
-  const handleAbort = () => {
-    reset();
+  const handleSetEnd = (solvedProblems) => {
+    setSolvedProblems(solvedProblems);
+    setIsSolving(false);
   };
 
   const handleNewSet = () => {
-    reset();
-    setSetStartTime(Date.now());
+    setSolvedProblems([]);
     setIsSolving(true);
   };
 
   return isSolving ? (
-    <Solve
-      solvedProblemCount={solvedProblems.length}
-      setStartTime={setStartTime}
-      onCorrectAnswer={handleCorrectAnswer}
-      onAbort={handleAbort}
-    />
+    <Set onAbort={handleAbort} onSetEnd={handleSetEnd} />
   ) : (
     <Intermission solvedProblems={solvedProblems} onNewSet={handleNewSet} />
   );

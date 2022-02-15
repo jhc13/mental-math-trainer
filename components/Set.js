@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { XCircleIcon } from '@heroicons/react/solid';
-import useSolve from 'hooks/useSolve';
+import useSet from 'hooks/useSet';
 import { SettingsContext } from 'utils/settings';
 import Timer from 'components/Timer';
 import Problem from 'components/Problem';
 import Keypad from 'components/Keypad';
 
-function Solve({ solvedProblemCount, setStartTime, onCorrectAnswer, onAbort }) {
+function Set({ onAbort, onSetEnd }) {
   const { settings } = useContext(SettingsContext);
   const {
     problemsPerSet,
@@ -20,10 +20,12 @@ function Solve({ solvedProblemCount, setStartTime, onCorrectAnswer, onAbort }) {
     operation,
     operands,
     answerString,
+    setStartTime,
     problemStartTime,
+    solvedProblemCount,
     maxAnswerLength,
     handleKeyClick
-  } = useSolve(onCorrectAnswer, onAbort);
+  } = useSet(onAbort, onSetEnd);
 
   return (
     <div className='flex h-full flex-col items-center'>
@@ -63,4 +65,4 @@ function Solve({ solvedProblemCount, setStartTime, onCorrectAnswer, onAbort }) {
   );
 }
 
-export default Solve;
+export default Set;

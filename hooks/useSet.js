@@ -79,14 +79,17 @@ function getOperands(operation, operandLengths) {
   }
 }
 
-function useSolve(onCorrectAnswer, onAbort) {
+function useSet(onAbort, onSetEnd) {
   const { settings } = useContext(SettingsContext);
-  const { operation, operandLengths, inputDirection } = settings;
+  const { operation, operandLengths, problemsPerSet, inputDirection } =
+    settings;
   const [operands, setOperands] = useState(
     getOperands(operation, operandLengths)
   );
   const [answerString, setAnswerString] = useState('');
+  const [setStartTime] = useState(Date.now());
   const [problemStartTime, setProblemStartTime] = useState(Date.now());
+  const [solvedProblems, setSolvedProblems] = useState([]);
   const maxAnswerLength = getMaxAnswerLength(operands, operation);
 
   const clear = () => {
@@ -176,8 +179,8 @@ function useSolve(onCorrectAnswer, onAbort) {
         centiseconds,
         time: Date.now()
       };
+      setSolvedProblems((problems) => [...problems, problem]);
       reset();
-      onCorrectAnswer(problem);
     }
   }, [
     answerString,
@@ -185,18 +188,25 @@ function useSolve(onCorrectAnswer, onAbort) {
     operands,
     problemStartTime,
     operandLengths,
-    reset,
-    onCorrectAnswer
+    reset
   ]);
+
+  useEffect(() => {
+    if (solvedProblems.length === problemsPerSet) {
+      onSetEnd(solvedProblems);
+    }
+  }, [solvedProblems, problemsPerSet, onSetEnd]);
 
   return {
     operation,
     operands,
     answerString,
+    setStartTime,
     problemStartTime,
+    solvedProblemCount: solvedProblems.length,
     maxAnswerLength,
     handleKeyClick
   };
 }
 
-export default useSolve;
+export default useSet;
