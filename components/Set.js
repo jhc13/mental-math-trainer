@@ -6,7 +6,7 @@ import Timer from 'components/Timer';
 import Problem from 'components/Problem';
 import Keypad from 'components/Keypad';
 
-function Set({ onAbort, onSetEnd }) {
+export default function Set({ onAbort, onSetEnd }) {
   const { settings } = useContext(SettingsContext);
   const {
     problemsPerSet,
@@ -64,5 +64,3 @@ function Set({ onAbort, onSetEnd }) {
     </div>
   );
 }
-
-export default Set;

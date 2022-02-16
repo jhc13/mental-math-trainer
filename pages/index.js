@@ -3,7 +3,7 @@ import { SettingsContext } from 'utils/settings';
 import Set from 'components/Set';
 import Intermission from 'components/Intermission';
 
-function Home() {
+export default function Home() {
   const [isSolving, setIsSolving] = useState(false);
   const [solvedProblems, setSolvedProblems] = useState([]);
   const { settings } = useContext(SettingsContext);
@@ -33,5 +33,3 @@ function Home() {
     <Intermission solvedProblems={solvedProblems} onNewSet={handleNewSet} />
   );
 }
-
-export default Home;

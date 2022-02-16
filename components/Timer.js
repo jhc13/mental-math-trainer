@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { formatSeconds } from 'utils/utils';
 
-function Timer({ startTime }) {
+export default function Timer({ startTime }) {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
@@ -19,5 +19,3 @@ function Timer({ startTime }) {
     </div>
   );
 }
-
-export default Timer;

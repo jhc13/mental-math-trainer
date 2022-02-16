@@ -10,7 +10,10 @@
   "dependencies": {
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
+    "@primer/octicons-react": "^16.3.1",
     "next": "12.0.9",
+    "next-auth": "^4.2.1",
+    "nodemailer": "^6.7.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },

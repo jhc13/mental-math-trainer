@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { BackspaceIcon } from '@heroicons/react/solid';
 import { SettingsContext } from 'utils/settings';
 
-function Keypad({ onKeyClick }) {
+export default function Keypad({ onKeyClick }) {
   const { settings } = useContext(SettingsContext);
   const { showKeypad, reverseKeypad, keypadZeroPosition } = settings;
 
@@ -49,5 +49,3 @@ function Keypad({ onKeyClick }) {
     </div>
   );
 }
-
-export default Keypad;

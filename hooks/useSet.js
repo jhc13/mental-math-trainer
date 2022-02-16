@@ -79,7 +79,7 @@ function getOperands(operation, operandLengths) {
   }
 }
 
-function useSet(onAbort, onSetEnd) {
+export default function useSet(onAbort, onSetEnd) {
   const { settings } = useContext(SettingsContext);
   const { operation, operandLengths, problemsPerSet, inputDirection } =
     settings;
@@ -210,5 +210,3 @@ function useSet(onAbort, onSetEnd) {
     handleKeypadPress
   };
 }
-
-export default useSet;

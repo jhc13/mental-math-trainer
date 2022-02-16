@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Listbox as HeadlessListbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 
-function Listbox({
+export default function Listbox({
   value,
   onChange,
   optionValues,
@@ -69,5 +69,3 @@ function Listbox({
     </HeadlessListbox>
   );
 }
-
-export default Listbox;

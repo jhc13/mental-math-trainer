@@ -22,7 +22,12 @@ const ANSWER_WIDTHS = {
   16: 'w-[17ch]'
 };
 
-function Problem({ operation, operands, maxAnswerLength, answerString }) {
+export default function Problem({
+  operation,
+  operands,
+  maxAnswerLength,
+  answerString
+}) {
   const operator = OPERATORS[operation];
   const answerWidthClass = ANSWER_WIDTHS[maxAnswerLength];
   let textSizeClass;
@@ -56,5 +61,3 @@ function Problem({ operation, operands, maxAnswerLength, answerString }) {
     </div>
   );
 }
-
-export default Problem;

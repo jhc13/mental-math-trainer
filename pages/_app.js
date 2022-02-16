@@ -1,9 +1,13 @@
 import Head from 'next/head';
+import { SessionProvider } from 'next-auth/react';
 import { SettingsProvider } from 'utils/settings';
 import Layout from 'components/Layout';
 import 'styles/globals.css';
 
-function MyApp({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps }
+}) {
   return (
     <>
       <Head>
@@ -30,13 +34,13 @@ function MyApp({ Component, pageProps }) {
         <meta name='msapplication-TileColor' content='#2d89ef' />
         <meta name='theme-color' content='#1f2937' />
       </Head>
-      <SettingsProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </SettingsProvider>
+      <SessionProvider session={session}>
+        <SettingsProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SettingsProvider>
+      </SessionProvider>
     </>
   );
 }
-
-export default MyApp;

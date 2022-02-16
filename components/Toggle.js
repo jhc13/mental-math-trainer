@@ -1,6 +1,6 @@
 import { Switch } from '@headlessui/react';
 
-function Toggle({ value, onChange }) {
+export default function Toggle({ value, onChange }) {
   return (
     <Switch
       checked={value}
@@ -16,5 +16,3 @@ function Toggle({ value, onChange }) {
     </Switch>
   );
 }
-
-export default Toggle;

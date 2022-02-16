@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { formatCentiseconds, OPERATORS, pluralize } from 'utils/utils';
 
-function Intermission({ solvedProblems, onNewSet }) {
+export default function Intermission({ solvedProblems, onNewSet }) {
   useEffect(() => {
     const handleKeyDown = ({ key }) => {
       if ([' ', 'Enter'].includes(key)) {
@@ -27,7 +27,7 @@ function Intermission({ solvedProblems, onNewSet }) {
   }
 
   return (
-    <div className='flex flex-col gap-10 pt-5'>
+    <div className='mt-5 flex flex-col gap-10'>
       {solvedProblems.length > 0 && (
         <div className='flex flex-col items-center gap-5'>
           <div className='flex flex-col gap-1 text-center text-xl'>
@@ -63,5 +63,3 @@ function Intermission({ solvedProblems, onNewSet }) {
     </div>
   );
 }
-
-export default Intermission;

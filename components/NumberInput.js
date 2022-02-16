@@ -1,6 +1,6 @@
-import { PlusIcon, MinusIcon } from '@heroicons/react/solid';
+import { MinusIcon, PlusIcon } from '@heroicons/react/solid';
 
-function NumberInput({ value, onChange, min, max }) {
+export default function NumberInput({ value, onChange, min, max }) {
   return (
     <div className='relative'>
       <button
@@ -46,5 +46,3 @@ function NumberInput({ value, onChange, min, max }) {
     </div>
   );
 }
-
-export default NumberInput;
