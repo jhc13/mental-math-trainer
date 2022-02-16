@@ -24,7 +24,7 @@ function Set({ onAbort, onSetEnd }) {
     problemStartTime,
     solvedProblemCount,
     maxAnswerLength,
-    handleKeyClick
+    handleKeypadPress
   } = useSet(onAbort, onSetEnd);
 
   return (
@@ -60,7 +60,7 @@ function Set({ onAbort, onSetEnd }) {
           answerString={answerString}
         />
       </div>
-      <Keypad onKeyClick={handleKeyClick} />
+      <Keypad onKeyClick={handleKeypadPress} />
     </div>
   );
 }

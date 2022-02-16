@@ -96,7 +96,7 @@ function useSet(onAbort, onSetEnd) {
     setAnswerString('');
   };
 
-  const erase = useCallback(() => {
+  const backspace = useCallback(() => {
     if (inputDirection === 'right to left') {
       setAnswerString((answerString) => answerString.slice(1));
     } else {
@@ -124,25 +124,27 @@ function useSet(onAbort, onSetEnd) {
     setProblemStartTime(Date.now());
   }, [operation, operandLengths]);
 
-  const handleKeyClick = (event) => {
-    const keyText = event.target.textContent;
-    if (keyText === 'clear') {
-      clear();
-    } else if (keyText === 'erase') {
-      erase();
-    } else {
-      appendDigit(keyText);
-    }
-  };
+  const handleKeypadPress = useCallback(
+    (key) => {
+      if (key === 'clear') {
+        clear();
+      } else if (key === 'backspace') {
+        backspace();
+      } else {
+        appendDigit(key);
+      }
+    },
+    [backspace, appendDigit]
+  );
 
   useEffect(() => {
     const handleKeyDown = ({ key }) => {
       if (/^\d$/.test(key)) {
-        appendDigit(key);
+        handleKeypadPress(key);
       } else if (['Backspace', 'Delete'].includes(key)) {
-        erase();
+        handleKeypadPress('backspace');
       } else if (key.toLowerCase() === 'c') {
-        clear();
+        handleKeypadPress('clear');
       } else if (key === 'Escape') {
         onAbort();
       }
@@ -152,7 +154,7 @@ function useSet(onAbort, onSetEnd) {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [appendDigit, erase, onAbort]);
+  }, [handleKeypadPress, onAbort]);
 
   useEffect(() => {
     let correctAnswer;
@@ -205,7 +207,7 @@ function useSet(onAbort, onSetEnd) {
     problemStartTime,
     solvedProblemCount: solvedProblems.length,
     maxAnswerLength,
-    handleKeyClick
+    handleKeypadPress
   };
 }
 
