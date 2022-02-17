@@ -29,4 +29,8 @@
   input[type=number] {
     -moz-appearance: textfield;
   }
+
+  input[type=email] {
+    font-variant-ligatures: no-contextual;
+  }
 }
