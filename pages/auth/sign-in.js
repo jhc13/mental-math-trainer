@@ -1,16 +1,22 @@
 import Image from 'next/image';
+import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { MarkGithubIcon } from '@primer/octicons-react';
 import googleLogo from 'public/google-logo.svg';
 
-function EmailSignIn() {
+function EmailSignIn({ setEmail, setSignInEmailSent }) {
   const { register, handleSubmit } = useForm();
   const onSubmit = async ({ email }) => {
-    await signIn('email', {
+    const { url } = await signIn('email', {
       email,
-      callbackUrl: '/'
+      callbackUrl: '/',
+      redirect: false
     });
+    if (url !== null) {
+      setEmail(email);
+      setSignInEmailSent(true);
+    }
   };
 
   return (
@@ -34,10 +40,26 @@ function EmailSignIn() {
 }
 
 export default function SignIn() {
+  const [email, setEmail] = useState(null);
+  const [signInEmailSent, setSignInEmailSent] = useState(false);
+
+  if (signInEmailSent) {
+    return (
+      <div className='mt-5'>
+        <h1 className='text-center text-xl font-bold'>Check your email</h1>
+        <p className='mt-1 text-center text-lg'>
+          {`A sign-in link has been sent to ${email}.`}
+        </p>
+      </div>
+    );
+  }
   return (
     <>
       <div className='mx-auto mt-5 flex w-max select-none flex-col items-stretch gap-2.5 drop-shadow-lg'>
-        <EmailSignIn />
+        <EmailSignIn
+          setEmail={setEmail}
+          setSignInEmailSent={setSignInEmailSent}
+        />
         <div className='flex items-center justify-between gap-1.5'>
           <div className='h-px flex-auto bg-zinc-400' />
           or

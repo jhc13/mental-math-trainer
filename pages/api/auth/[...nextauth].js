@@ -24,7 +24,10 @@ export default NextAuth({
     strategy: 'jwt'
   },
   pages: {
-    signIn: '/auth/sign-in'
+    signIn: '/auth/sign-in',
+    signOut: '/',
+    error: '/',
+    verifyRequest: '/'
   },
   adapter: PrismaAdapter(prisma)
 });
