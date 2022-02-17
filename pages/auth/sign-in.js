@@ -1,9 +1,26 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { MarkGithubIcon } from '@primer/octicons-react';
 import googleLogo from 'public/google-logo.svg';
+
+const DEFAULT_ERROR_MESSAGE =
+  'An error occurred while attempting to sign in. Try signing in with a different account.';
+
+const ERROR_MESSAGES = {
+  OAuthSignin: DEFAULT_ERROR_MESSAGE,
+  OAuthCallback: DEFAULT_ERROR_MESSAGE,
+  OAuthCreateAccount: DEFAULT_ERROR_MESSAGE,
+  EmailCreateAccount: DEFAULT_ERROR_MESSAGE,
+  Callback: DEFAULT_ERROR_MESSAGE,
+  OAuthAccountNotLinked:
+    'The email address associated with that account is already linked to a different account that was previously used to sign in. Sign in with the previously used account.',
+  EmailSignin: 'An error occurred while sending the sign-in email.',
+  SessionRequired: 'You must be signed in to access this page.',
+  Default: DEFAULT_ERROR_MESSAGE
+};
 
 function EmailSignIn({ setEmail, setSignInEmailSent }) {
   const { register, handleSubmit } = useForm();
@@ -20,7 +37,10 @@ function EmailSignIn({ setEmail, setSignInEmailSent }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='flex select-none flex-col '
+    >
       <label htmlFor='email' className='mb-1 text-lg'>
         Email
       </label>
@@ -42,6 +62,8 @@ function EmailSignIn({ setEmail, setSignInEmailSent }) {
 export default function SignIn() {
   const [email, setEmail] = useState(null);
   const [signInEmailSent, setSignInEmailSent] = useState(false);
+  const router = useRouter();
+  const { error } = router.query;
 
   if (signInEmailSent) {
     return (
@@ -54,32 +76,33 @@ export default function SignIn() {
     );
   }
   return (
-    <>
-      <div className='mx-auto mt-5 flex w-max select-none flex-col items-stretch gap-2.5 drop-shadow-lg'>
-        <EmailSignIn
-          setEmail={setEmail}
-          setSignInEmailSent={setSignInEmailSent}
-        />
-        <div className='flex items-center justify-between gap-1.5'>
-          <div className='h-px flex-auto bg-zinc-400' />
-          or
-          <div className='h-px flex-auto bg-zinc-400' />
-        </div>
-        <button
-          onClick={() => signIn('google', { callbackUrl: '/' })}
-          className='flex items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'
-        >
-          <Image src={googleLogo} alt='Google logo' width={24} height={24} />
-          Sign in with Google
-        </button>
-        <button
-          onClick={() => signIn('github', { callbackUrl: '/' })}
-          className='flex items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'
-        >
-          <MarkGithubIcon size={24} fill='black' />
-          Sign in with GitHub
-        </button>
+    <div className='mx-auto mt-5 flex w-max flex-col items-stretch gap-2.5 drop-shadow-lg'>
+      <EmailSignIn
+        setEmail={setEmail}
+        setSignInEmailSent={setSignInEmailSent}
+      />
+      <div className='flex select-none items-center justify-between gap-1.5 '>
+        <div className='h-px flex-auto bg-zinc-400' />
+        or
+        <div className='h-px flex-auto bg-zinc-400' />
       </div>
-    </>
+      <button
+        onClick={() => signIn('google', { callbackUrl: '/' })}
+        className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'
+      >
+        <Image src={googleLogo} alt='Google logo' width={24} height={24} />
+        Sign in with Google
+      </button>
+      <button
+        onClick={() => signIn('github', { callbackUrl: '/' })}
+        className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'
+      >
+        <MarkGithubIcon size={24} fill='black' />
+        Sign in with GitHub
+      </button>
+      {error !== undefined && (
+        <p className='w-72 text-red-400'>{ERROR_MESSAGES[error]}</p>
+      )}
+    </div>
   );
 }
