@@ -18,7 +18,7 @@ export default function Listbox({
       as='div'
       className='relative'
     >
-      <HeadlessListbox.Button className='relative w-full rounded-lg bg-zinc-700 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit sm:text-sm'>
+      <HeadlessListbox.Button className='relative w-full rounded-lg bg-zinc-700 py-2 pl-3 pr-10 text-left drop-shadow-lg focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit sm:text-sm'>
         <div className='truncate first-letter:uppercase'>{name}</div>
         <div className='pointer-events-none absolute inset-y-0 right-0 mr-2 flex items-center'>
           <SelectorIcon className='h-5 w-5 text-gray-300' aria-hidden='true' />
@@ -33,7 +33,7 @@ export default function Listbox({
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
-        <HeadlessListbox.Options className='absolute z-10 mt-1 w-full cursor-pointer select-none rounded-md bg-zinc-700 py-1 shadow-2xl focus:outline-none sm:text-sm'>
+        <HeadlessListbox.Options className='absolute z-10 mt-1 w-full cursor-pointer select-none rounded-md bg-zinc-700 py-1 drop-shadow-2xl focus:outline-none sm:text-sm'>
           {optionValues.map((optionValue, i) => (
             <HeadlessListbox.Option
               key={optionValue}

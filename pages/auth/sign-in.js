@@ -36,7 +36,7 @@ function EmailSignIn() {
 export default function SignIn() {
   return (
     <>
-      <div className='mx-auto mt-5 flex w-max select-none flex-col items-stretch gap-2.5'>
+      <div className='mx-auto mt-5 flex w-max select-none flex-col items-stretch gap-2.5 drop-shadow-lg'>
         <EmailSignIn />
         <div className='flex items-center justify-between gap-1.5'>
           <div className='h-px flex-auto bg-zinc-400' />
