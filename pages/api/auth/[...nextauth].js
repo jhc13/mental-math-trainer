@@ -26,7 +26,7 @@ export default NextAuth({
   pages: {
     signIn: '/auth/sign-in',
     signOut: '/',
-    error: '/',
+    error: '/auth/error',
     verifyRequest: '/'
   },
   adapter: PrismaAdapter(prisma)
