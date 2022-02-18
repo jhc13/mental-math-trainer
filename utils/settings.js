@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
-import { SETTINGS_LOCAL_STORAGE_KEY } from 'utils/config';
+
+const SETTINGS_LOCAL_STORAGE_KEY = 'settings';
 
 const defaultSettings = {
   operation: 'multiplication',

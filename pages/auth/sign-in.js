@@ -9,7 +9,7 @@ import googleLogo from 'public/google-logo.svg';
 const DEFAULT_ERROR_MESSAGE =
   'An error occurred while attempting to sign in. Try signing in with a different account.';
 
-const ERROR_MESSAGES = {
+const errorMessages = {
   OAuthSignin: DEFAULT_ERROR_MESSAGE,
   OAuthCallback: DEFAULT_ERROR_MESSAGE,
   OAuthCreateAccount: DEFAULT_ERROR_MESSAGE,
@@ -101,7 +101,7 @@ export default function SignIn() {
         Sign in with GitHub
       </button>
       {error !== undefined && (
-        <p className='text-red-400'>{ERROR_MESSAGES[error]}</p>
+        <p className='text-red-400'>{errorMessages[error]}</p>
       )}
     </div>
   );
