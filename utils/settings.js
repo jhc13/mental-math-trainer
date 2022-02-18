@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-
-const SETTINGS_LOCAL_STORAGE_KEY = 'settings';
+import { useSession } from 'next-auth/react';
 
 const defaultSettings = {
   operation: 'multiplication',
@@ -23,26 +22,56 @@ const SettingsContext = createContext({
 
 function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(defaultSettings);
-  // Load the settings from local storage.
+  const { data: session } = useSession();
+
+  // Load settings.
   useEffect(() => {
-    const isTouchDevice =
-      'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    setSettings((settings) => ({ ...settings, showKeypad: isTouchDevice }));
-    const localStorageSettings = localStorage.getItem(
-      SETTINGS_LOCAL_STORAGE_KEY
-    );
-    if (localStorageSettings === null) {
-      return;
+    let showKeypad = localStorage.getItem('showKeypad');
+    if (showKeypad === null) {
+      showKeypad = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    } else {
+      // The boolean value is saved as a string in localStorage.
+      showKeypad = JSON.parse(showKeypad);
     }
-    setSettings((settings) => ({
-      ...settings,
-      ...JSON.parse(localStorageSettings)
-    }));
-  }, []);
-  // Update localStorage when the settings change.
+    if (session) {
+      (async () => {
+        const response = await fetch(`/api/users/${session.user.id}/settings`);
+        const databaseSettings = await response.json();
+        delete databaseSettings.userId;
+        setSettings({ ...databaseSettings, showKeypad });
+      })();
+    } else {
+      const localStorageSettings = localStorage.getItem('settings');
+      if (localStorageSettings === null) {
+        return;
+      }
+      setSettings({
+        ...JSON.parse(localStorageSettings),
+        showKeypad
+      });
+    }
+  }, [session]);
+
+  // Save setting changes.
   useEffect(() => {
-    localStorage.setItem(SETTINGS_LOCAL_STORAGE_KEY, JSON.stringify(settings));
-  }, [settings]);
+    const settingsWithoutShowKeypad = { ...settings };
+    delete settingsWithoutShowKeypad.showKeypad;
+    if (session) {
+      (async () => {
+        await fetch(`/api/users/${session.user.id}/settings`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(settingsWithoutShowKeypad)
+        });
+      })();
+    } else {
+      localStorage.setItem(
+        'settings',
+        JSON.stringify(settingsWithoutShowKeypad)
+      );
+    }
+    localStorage.setItem('showKeypad', settings.showKeypad);
+  }, [settings, session]);
 
   const setSetting = (key, value) => {
     setSettings((settings) => ({ ...settings, [key]: value }));

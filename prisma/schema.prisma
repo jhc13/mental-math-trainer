@@ -16,6 +16,28 @@ model User {
   accounts      Account[]
 
   displayName String?
+  settings    Settings?
+}
+
+model Settings {
+  userId             String  @id
+  operation          String
+  operandLengths     Int[]
+  problemsPerSet     Int
+  inputDirection     String
+  showProblemNumber  Boolean
+  showTimer          Boolean
+  measuredTime       String
+  showAbortButton    Boolean
+  reverseKeypad      Boolean
+  keypadZeroPosition String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Test {
+  OK
+  YES
 }
 
 model Account {
