@@ -31,5 +31,35 @@ export default NextAuth({
     error: '/auth/error',
     verifyRequest: '/'
   },
+  callbacks: {
+    async jwt({ token, user, isNewUser }) {
+      if (user) {
+        token.userId = user.id;
+        if (isNewUser) {
+          // Set the initial display name.
+          const displayName =
+            user.name || user.email.slice(0, user.email.lastIndexOf('@'));
+          const updatedUser = await prisma.user.update({
+            where: {
+              id: user.id
+            },
+            data: {
+              displayName
+            }
+          });
+          token.displayName = updatedUser.displayName;
+        } else {
+          token.displayName = user.displayName;
+        }
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      const { userId, displayName } = token;
+      session.user.id = userId;
+      session.user.displayName = displayName;
+      return session;
+    }
+  },
   adapter: PrismaAdapter(prisma)
 });

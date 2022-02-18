@@ -70,7 +70,7 @@ export default function Sidebar() {
             <div className='flex flex-col gap-4'>
               {session ? (
                 <div className='flex items-center justify-between'>
-                  {`Signed in as ${session.user.name}`}
+                  {`Signed in as ${session.user.displayName}`}
                   <button
                     onClick={() => signOut({ redirect: false })}
                     className='rounded-md bg-red-900 px-2.5 py-1 active:brightness-[0.85]'
