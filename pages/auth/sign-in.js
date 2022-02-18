@@ -50,7 +50,7 @@ function EmailSignIn({ setEmail, setSignInEmailSent }) {
         placeholder='email@example.com'
         autoComplete='email'
         {...register('email', { required: true })}
-        className='h-12 w-72 rounded-t-md rounded-b-none bg-zinc-700 px-3'
+        className='h-12 rounded-t-md rounded-b-none bg-zinc-700 px-3'
       />
       <button className='rounded-b-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'>
         Sign in with email
@@ -76,7 +76,7 @@ export default function SignIn() {
     );
   }
   return (
-    <div className='mx-auto mt-5 flex w-max flex-col items-stretch gap-2.5 drop-shadow-lg'>
+    <div className='mx-auto mt-5 flex w-72 flex-col items-stretch gap-2.5 drop-shadow-lg'>
       <EmailSignIn
         setEmail={setEmail}
         setSignInEmailSent={setSignInEmailSent}
@@ -101,7 +101,7 @@ export default function SignIn() {
         Sign in with GitHub
       </button>
       {error !== undefined && (
-        <p className='w-72 text-red-400'>{ERROR_MESSAGES[error]}</p>
+        <p className='text-red-400'>{ERROR_MESSAGES[error]}</p>
       )}
     </div>
   );
