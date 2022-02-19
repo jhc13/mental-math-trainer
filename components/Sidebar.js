@@ -1,18 +1,11 @@
 import Link from 'next/link';
-import { Fragment, useContext, useEffect } from 'react';
+import { Fragment, useContext } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { MenuIcon } from '@heroicons/react/outline';
 import { Disclosure, Transition } from '@headlessui/react';
 import { SettingsContext } from 'utils/settings';
-import { OPERATORS, pluralize } from 'utils/utils';
-import { MAX_OPERAND_LENGTH } from 'utils/config';
 import Listbox from 'components/Listbox';
 import Toggle from 'components/Toggle';
-import NumberInput from 'components/NumberInput';
-
-function getOperandLengths() {
-  return [...Array(MAX_OPERAND_LENGTH).keys()].map((i) => i + 1);
-}
 
 function Divider() {
   return <div className='h-px bg-zinc-400' />;
@@ -22,9 +15,6 @@ export default function Sidebar() {
   const { data: session } = useSession();
   const { settings, setSetting } = useContext(SettingsContext);
   const {
-    operation,
-    operandLengths,
-    problemsPerSet,
     inputDirection,
     showProblemNumber,
     showTimer,
@@ -34,15 +24,6 @@ export default function Sidebar() {
     reverseKeypad,
     keypadZeroPosition
   } = settings;
-
-  useEffect(() => {
-    if (
-      ['SUBTRACTION', 'DIVISION'].includes(operation) &&
-      operandLengths[1] > operandLengths[0]
-    ) {
-      setSetting('operandLengths', [operandLengths[0], operandLengths[0]]);
-    }
-  }, [operation, operandLengths, setSetting]);
 
   const getDefaultChangeHandler = (settingKey) => (value) => {
     setSetting(settingKey, value);
@@ -65,7 +46,7 @@ export default function Sidebar() {
         leaveFrom='translate-x-0'
         leaveTo='-translate-x-full'
       >
-        <Disclosure.Panel className='absolute top-12 left-0 bottom-0 z-10 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm'>
+        <Disclosure.Panel className='absolute top-12 left-0 bottom-0 z-20 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm'>
           {({ close }) => (
             <div className='flex flex-col gap-4'>
               {session ? (
@@ -88,74 +69,6 @@ export default function Sidebar() {
                   </a>
                 </Link>
               )}
-              <Divider />
-              <div className='flex flex-col gap-1'>
-                Operation
-                <Listbox
-                  value={operation}
-                  onChange={getDefaultChangeHandler('operation')}
-                  optionValues={[
-                    'ADDITION',
-                    'SUBTRACTION',
-                    'MULTIPLICATION',
-                    'DIVISION'
-                  ]}
-                  optionNames={[
-                    'Addition',
-                    'Subtraction',
-                    'Multiplication',
-                    'Division'
-                  ]}
-                />
-              </div>
-              <div className='flex flex-col gap-1'>
-                Operand lengths
-                <div className='grid grid-cols-[1fr_auto_1fr] items-center gap-4'>
-                  <Listbox
-                    value={operandLengths[0]}
-                    onChange={(value) => {
-                      setSetting('operandLengths', [value, operandLengths[1]]);
-                    }}
-                    optionValues={getOperandLengths()}
-                    optionNames={getOperandLengths().map((length) =>
-                      pluralize('digit', length)
-                    )}
-                  />
-                  <div className='justify-self-center'>
-                    {OPERATORS[operation]}
-                  </div>
-                  <Listbox
-                    value={operandLengths[1]}
-                    onChange={(value) => {
-                      setSetting('operandLengths', [operandLengths[0], value]);
-                    }}
-                    optionValues={getOperandLengths()}
-                    optionNames={getOperandLengths().map((length) =>
-                      pluralize('digit', length)
-                    )}
-                    disabled={
-                      ['SUBTRACTION', 'DIVISION'].includes(operation)
-                        ? Array(operandLengths[0])
-                            .fill(false)
-                            .concat(
-                              Array(
-                                MAX_OPERAND_LENGTH - operandLengths[0]
-                              ).fill(true)
-                            )
-                        : Array(MAX_OPERAND_LENGTH).fill(false)
-                    }
-                  />
-                </div>
-              </div>
-              <div className='flex items-center justify-between'>
-                Problems per set
-                <NumberInput
-                  value={problemsPerSet}
-                  onChange={getDefaultChangeHandler('problemsPerSet')}
-                  min={1}
-                  max={1000}
-                />
-              </div>
               <Divider />
               <div className='flex flex-col gap-1'>
                 Answer input direction

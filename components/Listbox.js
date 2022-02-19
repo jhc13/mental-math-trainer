@@ -39,20 +39,13 @@ export default function Listbox({
               key={optionValue}
               className={({ active }) =>
                 `${active && 'bg-zinc-600'} ${disabled[i] && 'opacity-30'}
-                          relative py-2 pl-10 pr-4 focus:outline-none`
+                          relative py-2 pl-3 pr-10 focus:outline-none`
               }
               value={optionValue}
               disabled={disabled[i]}
             >
               {({ selected }) => (
                 <>
-                  {selected && (
-                    <div
-                      className={`absolute inset-y-0 left-0 flex items-center pl-3 text-green-500`}
-                    >
-                      <CheckIcon className='h-5 w-5' aria-hidden='true' />
-                    </div>
-                  )}
                   <div
                     className={`${
                       selected ? 'font-medium' : 'font-normal'
@@ -60,6 +53,13 @@ export default function Listbox({
                   >
                     {optionNames[i]}
                   </div>
+                  {selected && (
+                    <div
+                      className={`absolute inset-y-0 right-0 mr-3 flex items-center text-green-500`}
+                    >
+                      <CheckIcon className='h-5 w-5' aria-hidden='true' />
+                    </div>
+                  )}
                 </>
               )}
             </HeadlessListbox.Option>

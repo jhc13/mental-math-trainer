@@ -1,19 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { SettingsContext } from 'utils/settings';
 import Set from 'components/Set';
 import Intermission from 'components/Intermission';
 
 export default function Home() {
   const [isSolving, setIsSolving] = useState(false);
   const [solvedProblems, setSolvedProblems] = useState([]);
-  const { settings } = useContext(SettingsContext);
-  const { operation, operandLengths, problemsPerSet } = settings;
   const { data: session } = useSession();
-
-  useEffect(() => {
-    setIsSolving(false);
-  }, [operation, operandLengths, problemsPerSet]);
 
   const handleAbort = () => {
     setIsSolving(false);
