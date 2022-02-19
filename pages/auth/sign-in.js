@@ -76,7 +76,7 @@ export default function SignIn() {
     );
   }
   return (
-    <div className='mx-auto mt-5 flex w-72 flex-col items-stretch gap-2.5 drop-shadow-lg'>
+    <div className='mx-auto mt-5 flex w-72 flex-col items-stretch gap-2.5 shadow-md'>
       <EmailSignIn
         setEmail={setEmail}
         setSignInEmailSent={setSignInEmailSent}

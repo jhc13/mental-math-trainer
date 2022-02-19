@@ -6,12 +6,12 @@ export default function Toggle({ value, onChange }) {
       checked={value}
       onChange={onChange}
       className={`${value ? 'bg-green-500' : 'bg-zinc-600'}
-          flex h-[30px] w-[58px] rounded-full border-2 border-transparent drop-shadow-lg transition-colors duration-200 ease-in-out`}
+          flex h-[30px] w-[58px] rounded-full border-2 border-transparent shadow-md transition-colors duration-200 ease-in-out`}
     >
       <div
         aria-hidden='true'
         className={`${value ? 'translate-x-7' : 'translate-x-0'}
-            pointer-events-none h-[26px] w-[26px] rounded-full bg-white drop-shadow-lg transition duration-200 ease-in-out`}
+            pointer-events-none h-[26px] w-[26px] rounded-full bg-white shadow-md transition duration-200 ease-in-out`}
       />
     </Switch>
   );

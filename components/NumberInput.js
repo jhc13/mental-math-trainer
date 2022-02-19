@@ -2,7 +2,7 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/solid';
 
 export default function NumberInput({ value, onChange, min, max }) {
   return (
-    <div className='relative drop-shadow-lg'>
+    <div className='relative w-fit shadow-md'>
       <button
         onClick={() => {
           if (value > min) {
