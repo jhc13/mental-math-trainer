@@ -7,7 +7,7 @@ export default function Keypad({ onKeyClick }) {
   const { showKeypad, reverseKeypad, keypadZeroPosition } = settings;
 
   let keyOrder = [...Array(10).keys()].map(String);
-  if (keypadZeroPosition === 'zero last') {
+  if (keypadZeroPosition === 'ZERO_LAST') {
     keyOrder.push(keyOrder.shift());
   }
   const zeroIndex = keyOrder.indexOf('0');

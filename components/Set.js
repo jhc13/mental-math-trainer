@@ -12,7 +12,7 @@ export default function Set({ onAbort, onSetEnd }) {
     problemsPerSet,
     showProblemNumber,
     showTimer,
-    measuredTime,
+    timerDisplayTime,
     showAbortButton
   } = settings;
 
@@ -37,7 +37,9 @@ export default function Set({ onAbort, onSetEnd }) {
           {showTimer && (
             <Timer
               startTime={
-                measuredTime === 'set time' ? setStartTime : problemStartTime
+                timerDisplayTime === 'SET_TIME'
+                  ? setStartTime
+                  : problemStartTime
               }
             />
           )}

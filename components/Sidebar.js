@@ -28,7 +28,7 @@ export default function Sidebar() {
     inputDirection,
     showProblemNumber,
     showTimer,
-    measuredTime,
+    timerDisplayTime,
     showAbortButton,
     showKeypad,
     reverseKeypad,
@@ -37,7 +37,7 @@ export default function Sidebar() {
 
   useEffect(() => {
     if (
-      ['subtraction', 'division'].includes(operation) &&
+      ['SUBTRACTION', 'DIVISION'].includes(operation) &&
       operandLengths[1] > operandLengths[0]
     ) {
       setSetting('operandLengths', [operandLengths[0], operandLengths[0]]);
@@ -95,10 +95,16 @@ export default function Sidebar() {
                   value={operation}
                   onChange={getDefaultChangeHandler('operation')}
                   optionValues={[
-                    'addition',
-                    'subtraction',
-                    'multiplication',
-                    'division'
+                    'ADDITION',
+                    'SUBTRACTION',
+                    'MULTIPLICATION',
+                    'DIVISION'
+                  ]}
+                  optionNames={[
+                    'Addition',
+                    'Subtraction',
+                    'Multiplication',
+                    'Division'
                   ]}
                 />
               </div>
@@ -128,7 +134,7 @@ export default function Sidebar() {
                       pluralize('digit', length)
                     )}
                     disabled={
-                      ['subtraction', 'division'].includes(operation)
+                      ['SUBTRACTION', 'DIVISION'].includes(operation)
                         ? Array(operandLengths[0])
                             .fill(false)
                             .concat(
@@ -156,7 +162,8 @@ export default function Sidebar() {
                 <Listbox
                   value={inputDirection}
                   onChange={getDefaultChangeHandler('inputDirection')}
-                  optionValues={['right to left', 'left to right']}
+                  optionValues={['RIGHT_TO_LEFT', 'LEFT_TO_RIGHT']}
+                  optionNames={['Right to left', 'Left to right']}
                 />
               </div>
               <div className='flex items-center justify-between'>
@@ -184,11 +191,12 @@ export default function Sidebar() {
                 leaveTo='opacity-0'
               >
                 <div className='flex flex-col gap-1'>
-                  Measured time
+                  Timer display time
                   <Listbox
-                    value={measuredTime}
-                    onChange={getDefaultChangeHandler('measuredTime')}
-                    optionValues={['set time', 'problem time']}
+                    value={timerDisplayTime}
+                    onChange={getDefaultChangeHandler('timerDisplayTime')}
+                    optionValues={['SET_TIME', 'PROBLEM_TIME']}
+                    optionNames={['Set time', 'Problem time']}
                   />
                 </div>
               </Transition>
@@ -239,7 +247,8 @@ export default function Sidebar() {
                   <Listbox
                     value={keypadZeroPosition}
                     onChange={getDefaultChangeHandler('keypadZeroPosition')}
-                    optionValues={['zero last', 'zero first']}
+                    optionValues={['ZERO_LAST', 'ZERO_FIRST']}
+                    optionNames={['Zero last', 'Zero first']}
                   />
                 </div>
               </Transition>

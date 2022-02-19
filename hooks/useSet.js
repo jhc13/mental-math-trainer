@@ -4,12 +4,12 @@ import { SettingsContext } from 'utils/settings';
 function getMaxAnswerLength(operands, operation) {
   const operandLengths = operands.map((operand) => operand.toString().length);
   switch (operation) {
-    case 'addition':
+    case 'ADDITION':
       return Math.max(...operandLengths) + 1;
-    case 'subtraction':
-    case 'division':
+    case 'SUBTRACTION':
+    case 'DIVISION':
       return operandLengths[0];
-    case 'multiplication':
+    case 'MULTIPLICATION':
       return operandLengths[0] + operandLengths[1];
   }
 }
@@ -27,15 +27,15 @@ function getRandomIntegerByLength(length) {
 
 function getOperands(operation, operandLengths) {
   switch (operation) {
-    case 'addition':
-    case 'multiplication':
+    case 'ADDITION':
+    case 'MULTIPLICATION':
       return operandLengths.map((length) =>
         length === 1
           ? // Exclude 1.
             getRandomInteger(2, 10)
           : getRandomIntegerByLength(length)
       );
-    case 'subtraction':
+    case 'SUBTRACTION':
       if (operandLengths[0] !== operandLengths[1]) {
         return operandLengths.map((length) => getRandomIntegerByLength(length));
       }
@@ -44,7 +44,7 @@ function getOperands(operation, operandLengths) {
       const minuend = getRandomInteger(minMinuend, maxMinuend);
       const subtrahend = getRandomInteger(minMinuend - 1, minuend);
       return [minuend, subtrahend];
-    case 'division':
+    case 'DIVISION':
       let divisor, minQuotient, maxQuotient;
       if (operandLengths[0] === operandLengths[1]) {
         if (operandLengths[0] === 1) {
@@ -97,7 +97,7 @@ export default function useSet(onAbort, onSetEnd) {
   };
 
   const backspace = useCallback(() => {
-    if (inputDirection === 'right to left') {
+    if (inputDirection === 'RIGHT_TO_LEFT') {
       setAnswerString((answerString) => answerString.slice(1));
     } else {
       setAnswerString((answerString) => answerString.slice(0, -1));
@@ -109,7 +109,7 @@ export default function useSet(onAbort, onSetEnd) {
       if (answerString.length >= maxAnswerLength) {
         return;
       }
-      if (inputDirection === 'right to left') {
+      if (inputDirection === 'RIGHT_TO_LEFT') {
         setAnswerString((answerString) => digit + answerString);
       } else {
         setAnswerString((answerString) => answerString + digit);
@@ -159,16 +159,16 @@ export default function useSet(onAbort, onSetEnd) {
   useEffect(() => {
     let correctAnswer;
     switch (operation) {
-      case 'addition':
+      case 'ADDITION':
         correctAnswer = BigInt(operands[0]) + BigInt(operands[1]);
         break;
-      case 'subtraction':
+      case 'SUBTRACTION':
         correctAnswer = BigInt(operands[0]) - BigInt(operands[1]);
         break;
-      case 'multiplication':
+      case 'MULTIPLICATION':
         correctAnswer = BigInt(operands[0]) * BigInt(operands[1]);
         break;
-      case 'division':
+      case 'DIVISION':
         correctAnswer = BigInt(operands[0]) / BigInt(operands[1]);
         break;
     }

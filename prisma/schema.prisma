@@ -21,29 +21,29 @@ model User {
 }
 
 model Settings {
-  userId             String  @id
-  operation          String
+  userId             String             @id
+  operation          Operation
   operandLengths     Int[]
   problemsPerSet     Int
-  inputDirection     String
+  inputDirection     InputDirection
   showProblemNumber  Boolean
   showTimer          Boolean
-  measuredTime       String
+  timerDisplayTime   TimerDisplayTime
   showAbortButton    Boolean
   reverseKeypad      Boolean
-  keypadZeroPosition String
+  keypadZeroPosition KeypadZeroPosition
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Problem {
-  id             String   @id @default(cuid())
+  id             String    @id @default(cuid())
   userId         String
-  operation      String
+  operation      Operation
   operandLengths Int[]
   operands       Int[]
   centiseconds   Int
-  timestamp      DateTime @db.Timestamptz(3)
+  timestamp      DateTime  @db.Timestamptz(3)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -76,4 +76,26 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum Operation {
+  ADDITION
+  SUBTRACTION
+  MULTIPLICATION
+  DIVISION
+}
+
+enum InputDirection {
+  RIGHT_TO_LEFT
+  LEFT_TO_RIGHT
+}
+
+enum TimerDisplayTime {
+  SET_TIME
+  PROBLEM_TIME
+}
+
+enum KeypadZeroPosition {
+  ZERO_LAST
+  ZERO_FIRST
 }

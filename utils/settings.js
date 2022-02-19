@@ -2,17 +2,17 @@ import { createContext, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 
 const defaultSettings = {
-  operation: 'multiplication',
+  operation: 'MULTIPLICATION',
   operandLengths: [2, 2],
   problemsPerSet: 5,
-  inputDirection: 'right to left',
+  inputDirection: 'RIGHT_TO_LEFT',
   showProblemNumber: true,
   showTimer: false,
-  measuredTime: 'set time',
+  timerDisplayTime: 'SET_TIME',
   showAbortButton: true,
   showKeypad: true,
   reverseKeypad: false,
-  keypadZeroPosition: 'zero last'
+  keypadZeroPosition: 'ZERO_LAST'
 };
 
 const SettingsContext = createContext({
