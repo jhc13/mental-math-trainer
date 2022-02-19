@@ -17,6 +17,7 @@ model User {
 
   displayName String?
   settings    Settings?
+  problems    Problem[]
 }
 
 model Settings {
@@ -31,6 +32,18 @@ model Settings {
   showAbortButton    Boolean
   reverseKeypad      Boolean
   keypadZeroPosition String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Problem {
+  id             String   @id @default(cuid())
+  userId         String
+  operation      String
+  operandLengths Int[]
+  operands       Int[]
+  centiseconds   Int
+  timestamp      DateTime @db.Timestamptz(3)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

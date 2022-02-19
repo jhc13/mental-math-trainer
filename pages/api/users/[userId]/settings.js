@@ -1,14 +1,10 @@
-import { getSession } from 'next-auth/react';
 import prisma from 'prisma/prisma';
+import isUserAuthenticated from 'utils/auth';
 
 export default async function handler(req, res) {
-  const session = await getSession({ req });
   const { userId } = req.query;
-  if (session === null) {
-    return res.status(401).end();
-  }
-  if (session.user.id !== userId) {
-    return res.status(403).end();
+  if (!(await isUserAuthenticated(req, res, userId))) {
+    return;
   }
 
   if (req.method === 'GET') {
@@ -17,7 +13,11 @@ export default async function handler(req, res) {
         userId
       }
     });
-    res.status(200).json(settings);
+    if (settings) {
+      res.status(200).json(settings);
+    } else {
+      res.status(404).end();
+    }
   } else if (req.method === 'PUT') {
     const settings = req.body;
     const updatedSettings = await prisma.settings.upsert({
@@ -29,11 +29,7 @@ export default async function handler(req, res) {
       },
       create: {
         ...settings,
-        user: {
-          connect: {
-            id: userId
-          }
-        }
+        userId
       }
     });
     res.status(200).json(updatedSettings);

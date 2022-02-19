@@ -36,9 +36,11 @@ function SettingsProvider({ children }) {
     if (session) {
       (async () => {
         const response = await fetch(`/api/users/${session.user.id}/settings`);
-        const databaseSettings = await response.json();
-        delete databaseSettings.userId;
-        setSettings({ ...databaseSettings, showKeypad });
+        if (response.ok) {
+          const databaseSettings = await response.json();
+          delete databaseSettings.userId;
+          setSettings({ ...databaseSettings, showKeypad });
+        }
       })();
     } else {
       const localStorageSettings = localStorage.getItem('settings');

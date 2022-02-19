@@ -179,7 +179,7 @@ export default function useSet(onAbort, onSetEnd) {
         operandLengths,
         operands,
         centiseconds,
-        time: Date.now()
+        timestamp: new Date()
       };
       setSolvedProblems((problems) => [...problems, problem]);
       reset();
