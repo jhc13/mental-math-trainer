@@ -35,11 +35,6 @@ model Settings {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-enum Test {
-  OK
-  YES
-}
-
 model Account {
   id                       String  @id @default(cuid())
   userId                   String
