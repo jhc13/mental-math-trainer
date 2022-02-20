@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Fragment } from 'react';
+import useSWR from 'swr';
 import { signOut, useSession } from 'next-auth/react';
 import { MenuIcon } from '@heroicons/react/outline';
 import { Disclosure, Transition } from '@headlessui/react';
@@ -10,6 +11,11 @@ function Divider() {
 
 export default function MenuSidebar() {
   const { data: session } = useSession();
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const { data, mutate } = useSWR(
+    session ? `/api/users/${session.user.id}/displayName` : null,
+    fetcher
+  );
 
   return (
     <Disclosure as='div' className='flex items-center'>
@@ -32,14 +38,27 @@ export default function MenuSidebar() {
           {({ close }) => (
             <div className='flex flex-col gap-4'>
               {session ? (
-                <div className='flex items-center justify-between'>
-                  {`Signed in as ${session.user.displayName}`}
-                  <button
-                    onClick={() => signOut({ redirect: false })}
-                    className='rounded-md bg-red-900 px-2.5 py-1 active:brightness-[0.85]'
-                  >
-                    Sign out
-                  </button>
+                <div className='flex flex-col gap-1'>
+                  <div className='text-center'>Signed in as</div>
+                  <input
+                    value={data.displayName}
+                    onChange={async (event) => {
+                      const newDisplayName = event.target.value;
+                      await mutate(
+                        {
+                          displayName: newDisplayName
+                        },
+                        false
+                      );
+                      await fetch(`/api/users/${session.user.id}/displayName`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(event.target.value)
+                      });
+                      await mutate();
+                    }}
+                    className='rounded bg-[#202022] text-center hover:bg-zinc-800 focus:bg-zinc-800'
+                  />
                 </div>
               ) : (
                 <Link href='/auth/sign-in'>
@@ -52,6 +71,17 @@ export default function MenuSidebar() {
                 </Link>
               )}
               <Divider />
+              {session && (
+                <>
+                  <Divider />
+                  <button
+                    onClick={() => signOut({ redirect: false })}
+                    className='w-fit text-left'
+                  >
+                    Sign out
+                  </button>
+                </>
+              )}
             </div>
           )}
         </Disclosure.Panel>

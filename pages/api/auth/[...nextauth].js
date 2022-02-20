@@ -39,7 +39,7 @@ export default NextAuth({
           // Set the initial display name.
           const displayName =
             user.name || user.email.slice(0, user.email.lastIndexOf('@'));
-          const updatedUser = await prisma.user.update({
+          await prisma.user.update({
             where: {
               id: user.id
             },
@@ -47,17 +47,13 @@ export default NextAuth({
               displayName
             }
           });
-          token.displayName = updatedUser.displayName;
-        } else {
-          token.displayName = user.displayName;
         }
       }
       return token;
     },
     async session({ session, token }) {
-      const { userId, displayName } = token;
+      const { userId } = token;
       session.user.id = userId;
-      session.user.displayName = displayName;
       return session;
     }
   },
