@@ -21,7 +21,7 @@ export default function Listbox({
       <HeadlessListbox.Button className='relative w-full rounded-lg bg-zinc-700 py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit sm:text-sm'>
         <div className='truncate'>{name}</div>
         <div className='pointer-events-none absolute inset-y-0 right-0 mr-2 flex items-center'>
-          <SelectorIcon className='h-5 w-5 text-gray-300' aria-hidden='true' />
+          <SelectorIcon className='h-5 w-5 text-zinc-300' aria-hidden='true' />
         </div>
       </HeadlessListbox.Button>
       <Transition

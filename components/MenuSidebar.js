@@ -2,9 +2,16 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 import useSWR from 'swr';
 import { signOut, useSession } from 'next-auth/react';
-import { MenuIcon } from '@heroicons/react/outline';
+import {
+  MenuIcon,
+  ChartBarIcon,
+  LogoutIcon,
+  TrashIcon
+} from '@heroicons/react/outline';
 import { Disclosure, Transition } from '@headlessui/react';
 import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
+import logo from '../public/logo.svg';
+import Image from 'next/image';
 
 function DisplayName({ userId }) {
   const { data, mutate } = useSWR(`/api/users/${userId}/displayName`);
@@ -47,7 +54,7 @@ export default function MenuSidebar() {
         aria-label='Show menu'
         className='focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit'
       >
-        <MenuIcon className='h-9 w-9 text-gray-300' />
+        <MenuIcon className='h-9 w-9 text-zinc-300' />
       </Disclosure.Button>
       <Transition
         as={Fragment}
@@ -67,24 +74,53 @@ export default function MenuSidebar() {
                   <DisplayName userId={session.user.id} />
                 </div>
               ) : (
-                <Link href='/auth/sign-in'>
-                  <a
-                    onClick={close}
-                    className='self-center rounded-md bg-cyan-800 px-2.5 py-1 active:brightness-[0.85]'
-                  >
-                    Sign in
-                  </a>
-                </Link>
+                <div className='flex flex-col gap-2'>
+                  <div className='text-center text-base'>Not signed in</div>
+                  <Link href='/auth/sign-in'>
+                    <a
+                      onClick={close}
+                      className='self-center rounded-md bg-cyan-800 px-3 py-1 active:brightness-[0.85]'
+                    >
+                      Sign in
+                    </a>
+                  </Link>
+                </div>
               )}
               <Divider />
+              <Link href='/'>
+                <a onClick={close} className='flex items-center gap-3'>
+                  <Image
+                    src={logo}
+                    alt=''
+                    width={24}
+                    height={24}
+                    fill={'red'}
+                  />
+                  Solve
+                </a>
+              </Link>
+              <Link href='/stats'>
+                <a onClick={close} className='flex items-center gap-3'>
+                  <ChartBarIcon className='h-6 w-6 text-zinc-300' />
+                  Stats
+                </a>
+              </Link>
               {session && (
                 <>
                   <Divider />
                   <button
                     onClick={() => signOut({ redirect: false })}
-                    className='w-fit text-left'
+                    className='flex w-fit items-center gap-3'
                   >
+                    <LogoutIcon className='h-6 w-6 text-zinc-300' />
                     Sign out
+                  </button>
+                  <button
+                    onClick={() => {}}
+                    className='flex w-fit items-center gap-3'
+                  >
+                    <TrashIcon className='h-6 w-6 -translate-x-[2px] text-zinc-300' />
+                    Delete account
                   </button>
                 </>
               )}

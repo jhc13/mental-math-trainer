@@ -28,7 +28,7 @@ export default function MenuSidebar() {
         aria-label='Show menu'
         className='focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit'
       >
-        <CogIcon className='h-9 w-9 text-gray-300' />
+        <CogIcon className='h-9 w-9 text-zinc-300' />
       </Disclosure.Button>
       <Transition
         as={Fragment}

@@ -11,7 +11,7 @@ export default function NumberInput({ value, onChange, min, max }) {
         }}
         className='absolute inset-y-0 left-0 px-3'
       >
-        <MinusIcon className='h-5 w-5 text-gray-300' />
+        <MinusIcon className='h-5 w-5 text-zinc-300' />
       </button>
       <input
         type='number'
@@ -41,7 +41,7 @@ export default function NumberInput({ value, onChange, min, max }) {
         }}
         className='absolute inset-y-0 right-0 px-3'
       >
-        <PlusIcon className='h-5 w-5 text-gray-300' />
+        <PlusIcon className='h-5 w-5 text-zinc-300' />
       </button>
     </div>
   );

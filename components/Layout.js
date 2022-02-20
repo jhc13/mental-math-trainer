@@ -6,7 +6,7 @@ import logo from 'public/logo.svg';
 
 export default function Layout({ children }) {
   return (
-    <div className='fixed inset-0 flex flex-col overflow-y-auto overflow-x-hidden bg-zinc-800 text-white'>
+    <div className='fixed inset-0 flex flex-col overflow-y-auto overflow-x-hidden bg-zinc-800 text-zinc-100'>
       <header className='grid h-12 grid-cols-[2.25rem_1fr_2.25rem] bg-gray-800 px-2'>
         <MenuSidebar />
         <Link href='/' passHref>
