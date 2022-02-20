@@ -10,8 +10,7 @@ import {
 } from '@heroicons/react/outline';
 import { Disclosure, Transition } from '@headlessui/react';
 import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
-import logo from '../public/logo.svg';
-import Image from 'next/image';
+import Logo from 'public/logo.svg';
 
 function DisplayName({ userId }) {
   const { data, mutate } = useSWR(`/api/users/${userId}/displayName`);
@@ -92,13 +91,7 @@ export default function MenuSidebar() {
               <Divider />
               <Link href='/'>
                 <a onClick={close} className='flex items-center gap-3'>
-                  <Image
-                    src={logo}
-                    alt=''
-                    width={24}
-                    height={24}
-                    fill={'red'}
-                  />
+                  <Logo className='h-6 w-6 fill-zinc-300 stroke-zinc-300' />
                   Solve
                 </a>
               </Link>

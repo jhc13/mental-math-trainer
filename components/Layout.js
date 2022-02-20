@@ -1,8 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import MenuSidebar from 'components/MenuSidebar';
 import SettingsSidebar from 'components/SettingsSidebar';
-import logo from 'public/logo.svg';
+import Logo from 'public/logo.svg';
 
 export default function Layout({ children }) {
   return (
@@ -11,12 +10,7 @@ export default function Layout({ children }) {
         <MenuSidebar />
         <Link href='/' passHref>
           <a className='flex select-none items-center gap-4 justify-self-center'>
-            <Image
-              src={logo}
-              alt='Mental Math Trainer logo'
-              width={36}
-              height={36}
-            />
+            <Logo className='h-9 w-9 fill-sky-500 stroke-sky-500' />
             <div className='hidden text-xl sm:block'>Mental Math Trainer</div>
           </a>
         </Link>

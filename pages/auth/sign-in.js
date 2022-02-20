@@ -1,10 +1,9 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { MarkGithubIcon } from '@primer/octicons-react';
-import googleLogo from 'public/google-logo.svg';
+import GoogleLogo from 'public/google-logo.svg';
 
 const DEFAULT_ERROR_MESSAGE =
   'An error occurred while attempting to sign in. Try signing in with a different account.';
@@ -90,7 +89,7 @@ export default function SignIn() {
         onClick={() => signIn('google', { callbackUrl: '/' })}
         className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg shadow-md active:brightness-[0.85]'
       >
-        <Image src={googleLogo} alt='Google logo' width={24} height={24} />
+        <GoogleLogo className='h-6 w-6' />
         Sign in with Google
       </button>
       <button

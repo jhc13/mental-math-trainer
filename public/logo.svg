@@ -1,21 +1,21 @@
-<svg width="138" height="138" version="1.1" viewBox="0 0 36.51 36.51" xmlns="http://www.w3.org/2000/svg">
- <g>
-  <g fill="none" stroke="#0ea5e9" stroke-width="2.646">
-   <rect x="1.323" y="1.323" width="33.87" height="33.87" rx="3.844" ry="3.844"/>
-   <path d="m1.323 18.26h33.87"/>
-   <path d="m18.26 1.323v33.87"/>
-   <g stroke-linecap="round">
-    <path d="m9.789 13.37v-7.167"/>
-    <path d="m6.206 9.789h7.167"/>
-    <path d="m23.14 9.789h7.167"/>
-    <path d="m23.14 26.72h7.167"/>
-    <path d="m7.256 24.19 5.068 5.068"/>
-    <path d="m12.32 24.19-5.068 5.068"/>
-   </g>
+<svg width="138" height="138" fill="#0ea5e9" stroke="#0ea5e9" version="1.1" viewBox="0 0 36.51 36.51"
+     xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke-width="2.646">
+    <rect x="1.323" y="1.323" width="33.87" height="33.87" rx="3.844"
+          ry="3.844"/>
+    <path d="m1.323 18.26h33.87"/>
+    <path d="m18.26 1.323v33.87"/>
+    <g stroke-linecap="round">
+      <path d="m9.789 13.37v-7.167"/>
+      <path d="m6.206 9.789h7.167"/>
+      <path d="m23.14 9.789h7.167"/>
+      <path d="m23.14 26.72h7.167"/>
+      <path d="m7.256 24.19 5.068 5.068"/>
+      <path d="m12.32 24.19-5.068 5.068"/>
+    </g>
   </g>
-  <g fill="#0ea5e9">
-   <circle cx="26.72" cy="23.05" r="1.323"/>
-   <circle cx="26.72" cy="30.4" r="1.323"/>
+  <g stroke="none">
+    <circle cx="26.72" cy="23.05" r="1.323"/>
+    <circle cx="26.72" cy="30.4" r="1.323"/>
   </g>
- </g>
 </svg>
