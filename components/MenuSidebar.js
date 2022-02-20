@@ -92,7 +92,7 @@ export default function MenuSidebar() {
               <Link href='/'>
                 <a onClick={close} className='flex items-center gap-3'>
                   <Logo className='h-6 w-6 fill-zinc-300 stroke-zinc-300' />
-                  Solve
+                  Trainer
                 </a>
               </Link>
               <Link href='/stats'>

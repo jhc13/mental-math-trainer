@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Set from 'components/Set';
 import Intermission from 'components/Intermission';
 
-export default function Home() {
+export default function Trainer() {
   const [isSolving, setIsSolving] = useState(false);
   const [solvedProblems, setSolvedProblems] = useState([]);
   const { data: session } = useSession();
+
+  // Abort if the user signs out during a set.
+  useEffect(() => {
+    if (!session) {
+      setIsSolving(false);
+    }
+  }, [session]);
 
   const handleAbort = () => {
     setIsSolving(false);
