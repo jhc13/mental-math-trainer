@@ -116,7 +116,7 @@ export default function Intermission({ solvedProblems, onNewSet }) {
             }
           />
         </div>
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center justify-center gap-3'>
           <NumberInput
             value={problemsPerSet}
             onChange={getDefaultChangeHandler('problemsPerSet')}
