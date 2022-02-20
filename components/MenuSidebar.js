@@ -14,13 +14,14 @@ function DisplayName({ userId }) {
       maxLength={MAX_DISPLAY_NAME_LENGTH}
       value={data ? data?.displayName : 'Loading...'}
       onChange={async (event) => {
-        const newDisplayName = event.target.value;
         await mutate(
           {
-            displayName: newDisplayName
+            displayName: event.target.value
           },
           false
         );
+      }}
+      onBlur={async (event) => {
         await fetch(`/api/users/${userId}/displayName`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -28,7 +29,7 @@ function DisplayName({ userId }) {
         });
         await mutate();
       }}
-      className='rounded bg-[#202022] text-center hover:bg-zinc-800 focus:bg-zinc-800'
+      className='rounded bg-[#202022] py-1 text-center font-bold hover:bg-zinc-800 focus:bg-zinc-800'
     />
   );
 }
@@ -61,8 +62,8 @@ export default function MenuSidebar() {
           {({ close }) => (
             <div className='flex flex-col gap-4'>
               {session ? (
-                <div className='flex flex-col gap-1'>
-                  <div className='text-center'>Signed in as</div>
+                <div className='flex flex-col gap-0.5'>
+                  <div className='text-center text-base'>Signed in as</div>
                   <DisplayName userId={session.user.id} />
                 </div>
               ) : (
