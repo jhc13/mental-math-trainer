@@ -5,7 +5,7 @@ import { SettingsContext } from 'utils/settings';
 import Listbox from 'components/Listbox';
 import Toggle from 'components/Toggle';
 
-export default function MenuSidebar() {
+export default function SettingsSidebar({ onClick }) {
   const { settings, setSetting } = useContext(SettingsContext);
   const {
     inputDirection,
@@ -23,7 +23,7 @@ export default function MenuSidebar() {
   };
 
   return (
-    <Disclosure as='div' className='flex items-center'>
+    <Disclosure as='div' onClick={onClick} className='flex items-center'>
       <Disclosure.Button
         aria-label='Show menu'
         className='focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit'

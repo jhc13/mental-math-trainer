@@ -44,11 +44,11 @@ function Divider() {
   return <div className='h-px bg-zinc-400' />;
 }
 
-export default function MenuSidebar() {
+export default function MenuSidebar({ topSidebar, onClick }) {
   const { data: session } = useSession();
 
   return (
-    <Disclosure as='div' className='flex items-center'>
+    <Disclosure as='div' onClick={onClick} className='flex items-center'>
       <Disclosure.Button
         aria-label='Show menu'
         className='focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit'
@@ -64,7 +64,11 @@ export default function MenuSidebar() {
         leaveFrom='translate-x-0'
         leaveTo='-translate-x-full'
       >
-        <Disclosure.Panel className='absolute top-12 left-0 bottom-0 z-20 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm'>
+        <Disclosure.Panel
+          className={`${
+            topSidebar === 'MENU' ? 'z-30' : 'z-20'
+          } absolute top-12 left-0 bottom-0 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm`}
+        >
           {({ close }) => (
             <div className='flex flex-col gap-4'>
               <div className='h-16'>
