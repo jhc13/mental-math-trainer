@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { SWRConfig } from 'swr';
 import { SessionProvider } from 'next-auth/react';
 import { SettingsProvider } from 'utils/settings';
 import Layout from 'components/Layout';
@@ -34,13 +35,19 @@ export default function App({
         <meta name='msapplication-TileColor' content='#2d89ef' />
         <meta name='theme-color' content='#1f2937' />
       </Head>
-      <SessionProvider session={session}>
-        <SettingsProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </SettingsProvider>
-      </SessionProvider>
+      <SWRConfig
+        value={{
+          fetcher: (...args) => fetch(...args).then((res) => res.json())
+        }}
+      >
+        <SessionProvider session={session}>
+          <SettingsProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </SettingsProvider>
+        </SessionProvider>
+      </SWRConfig>
     </>
   );
 }

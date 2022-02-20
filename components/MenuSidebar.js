@@ -5,17 +5,38 @@ import { signOut, useSession } from 'next-auth/react';
 import { MenuIcon } from '@heroicons/react/outline';
 import { Disclosure, Transition } from '@headlessui/react';
 
+function DisplayName({ userId }) {
+  const { data, mutate } = useSWR(`/api/users/${userId}/displayName`);
+
+  return (
+    <input
+      value={data ? data?.displayName : 'Loading...'}
+      onChange={async (event) => {
+        const newDisplayName = event.target.value;
+        await mutate(
+          {
+            displayName: newDisplayName
+          },
+          false
+        );
+        await fetch(`/api/users/${userId}/displayName`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ displayName: event.target.value })
+        });
+        await mutate();
+      }}
+      className='rounded bg-[#202022] text-center hover:bg-zinc-800 focus:bg-zinc-800'
+    />
+  );
+}
+
 function Divider() {
   return <div className='h-px bg-zinc-400' />;
 }
 
 export default function MenuSidebar() {
   const { data: session } = useSession();
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const { data, mutate } = useSWR(
-    session ? `/api/users/${session.user.id}/displayName` : null,
-    fetcher
-  );
 
   return (
     <Disclosure as='div' className='flex items-center'>
@@ -40,25 +61,7 @@ export default function MenuSidebar() {
               {session ? (
                 <div className='flex flex-col gap-1'>
                   <div className='text-center'>Signed in as</div>
-                  <input
-                    value={data.displayName}
-                    onChange={async (event) => {
-                      const newDisplayName = event.target.value;
-                      await mutate(
-                        {
-                          displayName: newDisplayName
-                        },
-                        false
-                      );
-                      await fetch(`/api/users/${session.user.id}/displayName`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(event.target.value)
-                      });
-                      await mutate();
-                    }}
-                    className='rounded bg-[#202022] text-center hover:bg-zinc-800 focus:bg-zinc-800'
-                  />
+                  <DisplayName userId={session.user.id} />
                 </div>
               ) : (
                 <Link href='/auth/sign-in'>

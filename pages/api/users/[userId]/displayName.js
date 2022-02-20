@@ -22,9 +22,7 @@ export default async function handler(req, res) {
       where: {
         id: userId
       },
-      data: {
-        displayName: req.body
-      },
+      data: req.body,
       select: {
         displayName: true
       }
