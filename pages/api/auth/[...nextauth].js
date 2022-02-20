@@ -5,6 +5,7 @@ import GitHubProvider from 'next-auth/providers/github';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from 'prisma/prisma';
 import sendSignInLinkEmail from 'utils/email';
+import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
 
 export default NextAuth({
   providers: [
@@ -37,8 +38,9 @@ export default NextAuth({
         token.userId = user.id;
         if (isNewUser) {
           // Set the initial display name.
-          const displayName =
+          let displayName =
             user.name || user.email.slice(0, user.email.lastIndexOf('@'));
+          displayName = displayName.slice(0, MAX_DISPLAY_NAME_LENGTH);
           await prisma.user.update({
             where: {
               id: user.id

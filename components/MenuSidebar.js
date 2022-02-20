@@ -4,12 +4,14 @@ import useSWR from 'swr';
 import { signOut, useSession } from 'next-auth/react';
 import { MenuIcon } from '@heroicons/react/outline';
 import { Disclosure, Transition } from '@headlessui/react';
+import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
 
 function DisplayName({ userId }) {
   const { data, mutate } = useSWR(`/api/users/${userId}/displayName`);
 
   return (
     <input
+      maxLength={MAX_DISPLAY_NAME_LENGTH}
       value={data ? data?.displayName : 'Loading...'}
       onChange={async (event) => {
         const newDisplayName = event.target.value;
