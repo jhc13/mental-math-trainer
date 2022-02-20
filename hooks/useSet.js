@@ -126,9 +126,9 @@ export default function useSet(onAbort, onSetEnd) {
 
   const handleKeypadPress = useCallback(
     (key) => {
-      if (key === 'clear') {
+      if (key === 'CLEAR') {
         clear();
-      } else if (key === 'backspace') {
+      } else if (key === 'BACKSPACE') {
         backspace();
       } else {
         appendDigit(key);
@@ -142,9 +142,9 @@ export default function useSet(onAbort, onSetEnd) {
       if (/^\d$/.test(key)) {
         handleKeypadPress(key);
       } else if (['Backspace', 'Delete'].includes(key)) {
-        handleKeypadPress('backspace');
+        handleKeypadPress('BACKSPACE');
       } else if (key.toLowerCase() === 'c') {
-        handleKeypadPress('clear');
+        handleKeypadPress('CLEAR');
       } else if (key === 'Escape') {
         onAbort();
       }
