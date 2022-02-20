@@ -116,7 +116,12 @@ export default function MenuSidebar({ topSidebar, onClick }) {
                     Sign out
                   </button>
                   <button
-                    onClick={() => {}}
+                    onClick={async () => {
+                      await fetch(`/api/users/${session.user.id}`, {
+                        method: 'DELETE'
+                      });
+                      await signOut({ redirect: false });
+                    }}
                     className='flex w-fit items-center gap-3'
                   >
                     <TrashIcon className='h-6 w-6 -translate-x-[2px] text-zinc-300' />
