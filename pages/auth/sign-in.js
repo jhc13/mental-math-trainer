@@ -39,7 +39,7 @@ function EmailSignIn({ setEmail, setSignInEmailSent }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex select-none flex-col '
+      className='flex select-none flex-col shadow-md'
     >
       <label htmlFor='email' className='mb-1 text-lg'>
         Email
@@ -76,26 +76,26 @@ export default function SignIn() {
     );
   }
   return (
-    <div className='mx-auto mt-5 flex w-72 flex-col items-stretch gap-2.5 shadow-md'>
+    <div className='mx-auto mt-5 flex w-72 flex-col items-stretch gap-2.5'>
       <EmailSignIn
         setEmail={setEmail}
         setSignInEmailSent={setSignInEmailSent}
       />
-      <div className='flex select-none items-center justify-between gap-1.5 '>
+      <div className='flex select-none items-center justify-between gap-1.5'>
         <div className='h-px flex-auto bg-zinc-400' />
         or
         <div className='h-px flex-auto bg-zinc-400' />
       </div>
       <button
         onClick={() => signIn('google', { callbackUrl: '/' })}
-        className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'
+        className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg shadow-md active:brightness-[0.85]'
       >
         <Image src={googleLogo} alt='Google logo' width={24} height={24} />
         Sign in with Google
       </button>
       <button
         onClick={() => signIn('github', { callbackUrl: '/' })}
-        className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'
+        className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg shadow-md active:brightness-[0.85]'
       >
         <MarkGithubIcon size={24} fill='black' />
         Sign in with GitHub
