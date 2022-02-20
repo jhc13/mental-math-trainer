@@ -78,7 +78,7 @@ export default function Intermission({ solvedProblems, onNewSet }) {
           </div>
         </div>
       )}
-      <div className='mx-auto flex flex-col gap-4'>
+      <div className='mx-auto flex select-none flex-col gap-4'>
         <div className='grid grid-cols-[7rem_4.5rem_7rem] gap-3'>
           <Listbox
             value={operandLengths[0]}
