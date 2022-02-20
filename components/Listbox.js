@@ -33,7 +33,7 @@ export default function Listbox({
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
-        <HeadlessListbox.Options className='absolute z-10 mt-1 w-full cursor-pointer select-none rounded-md bg-zinc-700 py-1 shadow-md focus:outline-none sm:text-sm'>
+        <HeadlessListbox.Options className='absolute z-10 mt-1 max-h-[10.5rem] w-full cursor-pointer select-none overflow-auto rounded-md bg-zinc-700 py-1 shadow-md focus:outline-none sm:max-h-fit sm:text-sm'>
           {optionValues.map((optionValue, i) => (
             <HeadlessListbox.Option
               key={optionValue}
