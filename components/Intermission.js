@@ -9,7 +9,7 @@ function getOperandLengths() {
   return [...Array(MAX_OPERAND_LENGTH).keys()].map((i) => i + 1);
 }
 
-export default function Intermission({ solvedProblems, onNewSet }) {
+export default function Intermission({ problems, onNewSet }) {
   const { settings, setSetting } = useContext(SettingsContext);
   const { operation, operandLengths, problemsPerSet } = settings;
 
@@ -36,14 +36,12 @@ export default function Intermission({ solvedProblems, onNewSet }) {
   }, [operation, operandLengths, setSetting]);
 
   let totalCentiseconds, centisecondsPerProblem;
-  if (solvedProblems.length) {
-    totalCentiseconds = solvedProblems.reduce(
+  if (problems.length) {
+    totalCentiseconds = problems.reduce(
       (centiseconds, problem) => centiseconds + problem.centiseconds,
       0
     );
-    centisecondsPerProblem = Math.round(
-      totalCentiseconds / solvedProblems.length
-    );
+    centisecondsPerProblem = Math.round(totalCentiseconds / problems.length);
   }
 
   const getDefaultChangeHandler = (settingKey) => (value) => {
@@ -52,20 +50,20 @@ export default function Intermission({ solvedProblems, onNewSet }) {
 
   return (
     <div className='mt-5 flex flex-col gap-10'>
-      {solvedProblems.length > 0 && (
+      {problems.length > 0 && (
         <div className='flex flex-col items-center gap-5'>
           <div className='flex flex-col gap-1 text-center text-xl'>
             <h1 className='font-bold'>
               {`${pluralize(
                 'problem',
-                solvedProblems.length
+                problems.length
               )} in ${formatCentiseconds(totalCentiseconds)}`}
             </h1>
             {`(${formatCentiseconds(centisecondsPerProblem)} per problem)`}
           </div>
           <div className='flex max-h-36 w-full justify-center overflow-auto sm:max-h-[21rem]'>
             <div className='text-left text-lg tabular-nums'>
-              {solvedProblems.map((problem, i) => {
+              {problems.map((problem, i) => {
                 const { operation, operands, centiseconds } = problem;
                 const operator = OPERATORS[operation];
                 return (

@@ -5,7 +5,7 @@ import Intermission from 'components/Intermission';
 
 export default function Trainer() {
   const [isSolving, setIsSolving] = useState(false);
-  const [solvedProblems, setSolvedProblems] = useState([]);
+  const [problems, setProblems] = useState([]);
   const { data: session } = useSession();
 
   // Abort if the user signs out during a set.
@@ -19,26 +19,26 @@ export default function Trainer() {
     setIsSolving(false);
   };
 
-  const handleSetEnd = async (solvedProblems) => {
-    setSolvedProblems(solvedProblems);
+  const handleSetEnd = async (problems) => {
+    setProblems(problems);
     setIsSolving(false);
     if (session) {
       await fetch(`/api/users/${session.user.id}/problems`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(solvedProblems)
+        body: JSON.stringify(problems)
       });
     }
   };
 
   const handleNewSet = () => {
-    setSolvedProblems([]);
+    setProblems([]);
     setIsSolving(true);
   };
 
   return isSolving ? (
     <Set onAbort={handleAbort} onSetEnd={handleSetEnd} />
   ) : (
-    <Intermission solvedProblems={solvedProblems} onNewSet={handleNewSet} />
+    <Intermission problems={problems} onNewSet={handleNewSet} />
   );
 }
