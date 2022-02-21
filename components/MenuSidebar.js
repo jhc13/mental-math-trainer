@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import useSWR from 'swr';
 import { signOut, useSession } from 'next-auth/react';
 import {
@@ -10,6 +10,7 @@ import {
 } from '@heroicons/react/outline';
 import { Disclosure, Transition } from '@headlessui/react';
 import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
+import ConfirmationDialog from 'components/ConfirmationDialog';
 import Logo from 'public/logo.svg';
 
 function DisplayName({ userId }) {
@@ -45,6 +46,8 @@ function Divider() {
 }
 
 export default function MenuSidebar({ topSidebar, onClick }) {
+  const [isDeleteAccountDialogOpen, setIsDeleteAccountDialogOpen] =
+    useState(false);
   const { data: session } = useSession();
 
   return (
@@ -116,17 +119,27 @@ export default function MenuSidebar({ topSidebar, onClick }) {
                     Sign out
                   </button>
                   <button
-                    onClick={async () => {
-                      await fetch(`/api/users/${session.user.id}`, {
-                        method: 'DELETE'
-                      });
-                      await signOut({ redirect: false });
+                    onClick={() => {
+                      setIsDeleteAccountDialogOpen(true);
                     }}
                     className='flex w-fit items-center gap-3'
                   >
                     <TrashIcon className='h-6 w-6 -translate-x-[2px] text-zinc-300' />
                     Delete account
                   </button>
+                  <ConfirmationDialog
+                    isOpen={isDeleteAccountDialogOpen}
+                    setIsOpen={setIsDeleteAccountDialogOpen}
+                    title='Delete account'
+                    description='Are you sure you want to permanently delete your account and all of your data? This action cannot be undone.'
+                    action='Delete account'
+                    onAction={async () => {
+                      await fetch(`/api/users/${session.user.id}`, {
+                        method: 'DELETE'
+                      });
+                      await signOut({ redirect: false });
+                    }}
+                  />
                 </>
               )}
             </div>
