@@ -1,4 +1,4 @@
-import { OPERATORS } from 'utils/utils';
+import { OPERATORS } from 'utils/format';
 
 // Tailwind requires unbroken class strings.
 // Add an extra ch because tabular numbers are slightly wider than proportional

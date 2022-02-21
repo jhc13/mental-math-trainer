@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
-import { formatCentiseconds, OPERATORS, pluralize } from 'utils/utils';
+import { SettingsContext } from 'utils/settings';
+import { formatCentiseconds, OPERATORS, pluralize } from 'utils/format';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
 import Listbox from 'components/Listbox';
 import NumberInput from 'components/NumberInput';
-import { SettingsContext } from '../utils/settings';
 
 function getOperandLengths() {
   return [...Array(MAX_OPERAND_LENGTH).keys()].map((i) => i + 1);
