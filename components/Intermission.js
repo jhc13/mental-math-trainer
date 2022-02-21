@@ -55,12 +55,12 @@ export default function Intermission({ solvedProblems, onNewSet }) {
       {solvedProblems.length > 0 && (
         <div className='flex flex-col items-center gap-5'>
           <div className='flex flex-col gap-1 text-center text-xl'>
-            <div className='font-bold'>
+            <h1 className='font-bold'>
               {`${pluralize(
                 'problem',
                 solvedProblems.length
               )} in ${formatCentiseconds(totalCentiseconds)}`}
-            </div>
+            </h1>
             {`(${formatCentiseconds(centisecondsPerProblem)} per problem)`}
           </div>
           <div className='flex max-h-36 w-full justify-center overflow-auto sm:max-h-[21rem]'>
