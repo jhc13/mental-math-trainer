@@ -69,7 +69,7 @@ export default function ConfirmationDialog({
                   </div>
                 </div>
               </div>
-              <div className='bg-zinc-800 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6'>
+              <div className='bg-zinc-800 p-4 sm:flex sm:flex-row-reverse'>
                 <button
                   className='inline-flex w-full justify-center rounded-md bg-red-700 px-4 py-2 font-medium shadow-sm focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit active:brightness-[0.85] sm:ml-3 sm:w-auto'
                   onClick={() => {
