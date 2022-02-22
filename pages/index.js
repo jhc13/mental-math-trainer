@@ -23,11 +23,13 @@ export default function Trainer() {
     setProblems(problems);
     setIsSolving(false);
     if (session) {
-      await fetch(`/api/users/${session.user.id}/problems`, {
+      const response = await fetch(`/api/users/${session.user.id}/problems`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(problems)
       });
+      const setBests = await response.json();
+      console.log(setBests);
     }
   };
 

@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { SettingsContext } from 'utils/settings';
 import { formatCentiseconds, OPERATORS, pluralize } from 'utils/format';
-import { MAX_OPERAND_LENGTH } from 'utils/config';
+import { MAX_OPERAND_LENGTH, MAX_PROBLEMS_PER_SET } from 'utils/config';
 import Listbox from 'components/Listbox';
 import NumberInput from 'components/NumberInput';
 
@@ -119,7 +119,7 @@ export default function Intermission({ problems, onNewSet }) {
             value={problemsPerSet}
             onChange={getDefaultChangeHandler('problemsPerSet')}
             min={1}
-            max={1000}
+            max={MAX_PROBLEMS_PER_SET}
           />
           Problems
         </div>
