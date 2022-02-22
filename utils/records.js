@@ -15,7 +15,7 @@ const recordFormats = [
   new RecordFormat('AVERAGE', 1000)
 ];
 
-export default function getSetBests(problems) {
+function getSetBests(problems) {
   const setProblemCount = problems.length;
   const numberedProblems = problems.map((problem, index) => [index, problem]);
   let setBests = [];
@@ -75,3 +75,5 @@ export default function getSetBests(problems) {
   }
   return setBests;
 }
+
+export { recordFormats, getSetBests };

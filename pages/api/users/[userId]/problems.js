@@ -1,7 +1,7 @@
 import prisma from 'prisma/prisma';
 import cuid from 'cuid';
 import isUserAuthenticated from 'utils/auth';
-import getSetBests from 'utils/records';
+import { getSetBests } from 'utils/records';
 import { MAX_PROBLEMS_PER_SET } from 'utils/config';
 
 async function getNewRecords(userId, problems, setBests) {
