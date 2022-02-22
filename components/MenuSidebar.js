@@ -19,6 +19,7 @@ function DisplayName({ userId }) {
   return (
     <input
       maxLength={MAX_DISPLAY_NAME_LENGTH}
+      spellCheck={false}
       value={data ? data?.displayName : 'Loading...'}
       onChange={async (event) => {
         await mutate(
