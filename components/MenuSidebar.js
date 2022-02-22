@@ -98,13 +98,13 @@ export default function MenuSidebar({ topSidebar, onClick }) {
               <Divider />
               <Link href='/'>
                 <a onClick={close} className='flex items-center gap-3'>
-                  <Logo className='h-6 w-6 fill-zinc-300 stroke-zinc-300' />
+                  <Logo className='h-6 w-6 fill-sky-600 stroke-sky-600' />
                   Trainer
                 </a>
               </Link>
               <Link href='/stats'>
                 <a onClick={close} className='flex items-center gap-3'>
-                  <ChartBarIcon className='h-6 w-6 text-zinc-300' />
+                  <ChartBarIcon className='h-6 w-6 text-sky-600' />
                   Stats
                 </a>
               </Link>
@@ -115,7 +115,7 @@ export default function MenuSidebar({ topSidebar, onClick }) {
                     onClick={() => signOut({ redirect: false })}
                     className='flex w-fit items-center gap-3'
                   >
-                    <LogoutIcon className='h-6 w-6 text-zinc-300' />
+                    <LogoutIcon className='h-6 w-6 translate-y-px text-red-800' />
                     Sign out
                   </button>
                   <button
@@ -124,7 +124,7 @@ export default function MenuSidebar({ topSidebar, onClick }) {
                     }}
                     className='flex w-fit items-center gap-3'
                   >
-                    <TrashIcon className='h-6 w-6 -translate-x-[2px] text-zinc-300' />
+                    <TrashIcon className='h-6 w-6 -translate-x-[2px] translate-y-px text-red-800' />
                     Delete account
                   </button>
                   <ConfirmationDialog
