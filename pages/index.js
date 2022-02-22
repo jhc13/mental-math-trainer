@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { SettingsContext } from 'utils/settings';
 import Set from 'components/Set';
 import Intermission from 'components/Intermission';
 
@@ -7,6 +8,8 @@ export default function Trainer() {
   const [isSolving, setIsSolving] = useState(false);
   const [problems, setProblems] = useState(null);
   const { data: session } = useSession();
+  const { settings } = useContext(SettingsContext);
+  const { operation, operandLengths, problemsPerSet } = settings;
 
   // Abort if the user signs out during a set.
   useEffect(() => {
@@ -14,6 +17,11 @@ export default function Trainer() {
       setIsSolving(false);
     }
   }, [session]);
+
+  // Abort if the set settings change (in another tab).
+  useEffect(() => {
+    setIsSolving(false);
+  }, [operation, operandLengths, problemsPerSet]);
 
   const handleAbort = () => {
     setIsSolving(false);
