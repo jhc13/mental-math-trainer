@@ -1,4 +1,6 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import getSetBests from 'utils/records';
 import { SettingsContext } from 'utils/settings';
 import { formatCentiseconds, OPERATORS, pluralize } from 'utils/format';
 import { MAX_OPERAND_LENGTH, MAX_PROBLEMS_PER_SET } from 'utils/config';
@@ -10,8 +12,30 @@ function getOperandLengths() {
 }
 
 export default function Intermission({ problems, onNewSet }) {
+  const { data: session } = useSession();
+  const [bests, setBests] = useState(null);
   const { settings, setSetting } = useContext(SettingsContext);
   const { operation, operandLengths, problemsPerSet } = settings;
+
+  // Get the bests once on initial load.
+  useEffect(() => {
+    if (!problems || bests) {
+      return;
+    }
+    if (session) {
+      (async () => {
+        const response = await fetch(`/api/users/${session.user.id}/problems`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(problems)
+        });
+        setBests(await response.json());
+      })();
+    } else {
+      // Calculate the bests locally if not signed in.
+      setBests(getSetBests(problems));
+    }
+  }, [problems, bests, session]);
 
   useEffect(() => {
     const handleKeyDown = ({ key }) => {
@@ -36,7 +60,7 @@ export default function Intermission({ problems, onNewSet }) {
   }, [operation, operandLengths, setSetting]);
 
   let totalCentiseconds, centisecondsPerProblem;
-  if (problems.length) {
+  if (problems) {
     totalCentiseconds = problems.reduce(
       (centiseconds, problem) => centiseconds + problem.centiseconds,
       0
@@ -50,7 +74,7 @@ export default function Intermission({ problems, onNewSet }) {
 
   return (
     <div className='mt-5 flex flex-col gap-10'>
-      {problems.length > 0 && (
+      {problems && (
         <div className='flex flex-col items-center gap-5'>
           <div className='flex flex-col gap-1 text-center text-xl'>
             <h1 className='font-bold'>
@@ -74,6 +98,7 @@ export default function Intermission({ problems, onNewSet }) {
               })}
             </div>
           </div>
+          <div>{bests ? JSON.stringify(bests) : 'Loading...'}</div>
         </div>
       )}
       <div className='mx-auto flex select-none flex-col gap-4'>

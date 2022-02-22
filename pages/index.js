@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Set from 'components/Set';
 import Intermission from 'components/Intermission';
 
 export default function Trainer() {
   const [isSolving, setIsSolving] = useState(false);
-  const [problems, setProblems] = useState([]);
+  const [problems, setProblems] = useState(null);
   const { data: session } = useSession();
 
   // Abort if the user signs out during a set.
@@ -19,22 +19,13 @@ export default function Trainer() {
     setIsSolving(false);
   };
 
-  const handleSetEnd = async (problems) => {
+  const handleSetEnd = useCallback(async (problems) => {
     setProblems(problems);
     setIsSolving(false);
-    if (session) {
-      const response = await fetch(`/api/users/${session.user.id}/problems`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(problems)
-      });
-      const setBests = await response.json();
-      console.log(setBests);
-    }
-  };
+  }, []);
 
   const handleNewSet = () => {
-    setProblems([]);
+    setProblems(null);
     setIsSolving(true);
   };
 
