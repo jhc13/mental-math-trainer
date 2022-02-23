@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { recordFormats, getSetBests } from 'utils/records';
 import { formatCentiseconds, OPERATORS, pluralize } from 'utils/format';
@@ -6,6 +6,7 @@ import { formatCentiseconds, OPERATORS, pluralize } from 'utils/format';
 export default function SetResults({ problems }) {
   const [bests, setBests] = useState(null);
   const [selectedBest, setSelectedBest] = useState(null);
+  const firstSelectedBestProblem = useRef();
   const { data: session } = useSession();
 
   // Get the bests once on initial load.
@@ -27,6 +28,12 @@ export default function SetResults({ problems }) {
       setBests(getSetBests(problems));
     }
   }, [problems, bests, session]);
+
+  useEffect(() => {
+    if (firstSelectedBestProblem.current) {
+      firstSelectedBestProblem.current.scrollIntoView();
+    }
+  }, [selectedBest]);
 
   const totalCentiseconds = problems.reduce(
     (centiseconds, problem) => centiseconds + problem.centiseconds,
@@ -115,21 +122,26 @@ export default function SetResults({ problems }) {
           <div className='flex flex-col gap-0.5 text-left'>{bestLabels}</div>
           <div className='flex flex-col gap-0.5 text-right'>{bestTimes}</div>
         </div>
-        <div className='max-h-36 overflow-auto sm:max-h-[21rem]'>
-          <div className='grid grid-cols-[auto_auto] justify-center gap-y-0.5 gap-x-2'>
+        <div className='max-h-[9.5rem] overflow-auto scroll-smooth sm:max-h-[22.5rem]'>
+          <div className='grid grid-cols-[auto_auto] justify-center gap-y-0.5 gap-x-1'>
             {problems.map((problem, i) => {
               const { operation, operands, centiseconds } = problem;
               const operator = OPERATORS[operation];
+              const refProp =
+                selectedBest && i === selectedBest.startIndex
+                  ? { ref: firstSelectedBestProblem }
+                  : {};
               return (
                 <>
                   <div
+                    {...refProp}
                     className={`${
                       selectedBest &&
                       i >= selectedBest.startIndex &&
                       i < selectedBest.startIndex + selectedBest.problemCount
                         ? selectedBest.excludedIndices.includes(i)
-                          ? 'text-yellow-400 line-through'
-                          : 'text-lime-400'
+                          ? 'text-yellow-600 line-through'
+                          : 'text-lime-500'
                         : ''
                     } px-1.5 text-right transition-colors`}
                   >
@@ -141,8 +153,8 @@ export default function SetResults({ problems }) {
                       i >= selectedBest.startIndex &&
                       i < selectedBest.startIndex + selectedBest.problemCount
                         ? selectedBest.excludedIndices.includes(i)
-                          ? 'text-yellow-400'
-                          : 'text-lime-400'
+                          ? 'text-yellow-600'
+                          : 'text-lime-500'
                         : ''
                     } px-1.5 transition-colors`}
                   >
