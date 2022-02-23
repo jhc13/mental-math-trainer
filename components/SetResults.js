@@ -140,8 +140,8 @@ export default function SetResults({ problems }) {
                       i >= selectedBest.startIndex &&
                       i < selectedBest.startIndex + selectedBest.problemCount
                         ? selectedBest.excludedIndices.includes(i)
-                          ? 'text-yellow-600 line-through'
-                          : 'text-lime-500'
+                          ? 'text-zinc-500 line-through'
+                          : 'text-sky-300'
                         : ''
                     } px-1.5 text-right transition-colors`}
                   >
@@ -153,8 +153,8 @@ export default function SetResults({ problems }) {
                       i >= selectedBest.startIndex &&
                       i < selectedBest.startIndex + selectedBest.problemCount
                         ? selectedBest.excludedIndices.includes(i)
-                          ? 'text-yellow-600'
-                          : 'text-lime-500'
+                          ? 'text-zinc-500'
+                          : 'text-sky-300'
                         : ''
                     } px-1.5 transition-colors`}
                   >
