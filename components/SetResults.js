@@ -45,7 +45,7 @@ export default function SetResults({ problems }) {
         return (
           <div
             key={i}
-            className={best.isNewRecord ? 'text-sky-500 sm:font-bold' : ''}
+            className={best.isNewRecord ? 'font-semibold text-sky-500' : ''}
           >{`Best ${
             best.problemCount === 1
               ? 'single'
@@ -61,7 +61,7 @@ export default function SetResults({ problems }) {
         return (
           <div
             key={i}
-            className={best.isNewRecord ? 'text-sky-500 sm:font-bold' : ''}
+            className={best.isNewRecord ? 'font-semibold text-sky-500' : ''}
           >
             {formatCentiseconds(best.centiseconds)}
           </div>
@@ -91,7 +91,7 @@ export default function SetResults({ problems }) {
 
   return (
     <div className='flex flex-col gap-6'>
-      <h1 className='text-center text-2xl font-bold'>
+      <h1 className='text-center text-2xl font-semibold'>
         {`${pluralize('problem', problems.length)} in ${formatCentiseconds(
           totalCentiseconds
         )}`}

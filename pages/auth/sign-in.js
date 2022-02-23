@@ -67,7 +67,7 @@ export default function SignIn() {
   if (signInEmailSent) {
     return (
       <div className='mt-5'>
-        <h1 className='text-center text-xl font-bold'>Check your email</h1>
+        <h1 className='text-center text-xl font-semibold'>Check your email</h1>
         <p className='mt-1 text-center text-lg'>
           {`A sign-in link has been sent to ${email}.`}
         </p>

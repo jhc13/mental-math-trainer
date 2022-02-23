@@ -14,7 +14,7 @@ export default function Error() {
 
   return (
     <div className='mt-5'>
-      <h1 className='text-center text-xl font-bold'>Error</h1>
+      <h1 className='text-center text-xl font-semibold'>Error</h1>
       <p className='mt-1 text-center text-lg'>{message}</p>
     </div>
   );

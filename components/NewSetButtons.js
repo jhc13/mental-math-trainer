@@ -89,7 +89,7 @@ export default function NewSetButtons({ onNewSet }) {
       </div>
       <button
         onClick={onNewSet}
-        className='mx-auto select-none rounded-lg bg-cyan-800 px-3.5 py-2 text-2xl active:brightness-[0.85]'
+        className='mx-auto select-none rounded-lg bg-cyan-800 px-3.5 py-2 text-2xl font-medium active:brightness-[0.85]'
       >
         New Set
       </button>

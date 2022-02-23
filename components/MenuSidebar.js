@@ -37,7 +37,7 @@ function DisplayName({ userId }) {
         });
         await mutate();
       }}
-      className='rounded bg-[#202022] py-1 text-center text-xl font-bold hover:bg-zinc-800 focus:bg-zinc-800'
+      className='rounded bg-[#202022] py-1 text-center text-xl font-medium hover:bg-zinc-800 focus:bg-zinc-800'
     />
   );
 }

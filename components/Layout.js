@@ -22,7 +22,9 @@ export default function Layout({ children }) {
           <Link href='/' passHref>
             <a className='flex select-none items-center gap-4 justify-self-center'>
               <Logo className='h-9 w-9 fill-sky-500 stroke-sky-500' />
-              <div className='hidden text-xl sm:block'>Mental Math Trainer</div>
+              <div className='hidden text-xl font-medium sm:block'>
+                Mental Math Trainer
+              </div>
             </a>
           </Link>
           <SettingsSidebar
