@@ -28,51 +28,54 @@ export default function SetSettings() {
 
   return (
     <div className='mx-auto flex select-none flex-col gap-4'>
-      <div className='grid grid-cols-[7rem_4.5rem_7rem] gap-3'>
-        <Listbox
-          value={operandLengths[0]}
-          onChange={(value) => {
-            setSetting('operandLengths', [value, operandLengths[1]]);
-          }}
-          optionValues={getOperandLengths()}
-          optionNames={getOperandLengths().map((length) =>
-            pluralize('digit', length)
-          )}
-        />
-        <Listbox
-          value={operation}
-          onChange={getDefaultChangeHandler('operation')}
-          optionValues={Object.keys(OPERATORS)}
-          optionNames={Object.values(OPERATORS)}
-        />
-        <Listbox
-          value={operandLengths[1]}
-          onChange={(value) => {
-            setSetting('operandLengths', [operandLengths[0], value]);
-          }}
-          optionValues={getOperandLengths()}
-          optionNames={getOperandLengths().map((length) =>
-            pluralize('digit', length)
-          )}
-          disabled={
-            ['SUBTRACTION', 'DIVISION'].includes(operation)
-              ? Array(operandLengths[0])
-                  .fill(false)
-                  .concat(
-                    Array(MAX_OPERAND_LENGTH - operandLengths[0]).fill(true)
-                  )
-              : Array(MAX_OPERAND_LENGTH).fill(false)
-          }
-        />
+      <div className='flex flex-col gap-1'>
+        <div className='text-lg'>Problem type</div>
+        <div className='grid grid-cols-[7rem_4.5rem_7rem] gap-3'>
+          <Listbox
+            value={operandLengths[0]}
+            onChange={(value) => {
+              setSetting('operandLengths', [value, operandLengths[1]]);
+            }}
+            optionValues={getOperandLengths()}
+            optionNames={getOperandLengths().map((length) =>
+              pluralize('digit', length)
+            )}
+          />
+          <Listbox
+            value={operation}
+            onChange={getDefaultChangeHandler('operation')}
+            optionValues={Object.keys(OPERATORS)}
+            optionNames={Object.values(OPERATORS)}
+          />
+          <Listbox
+            value={operandLengths[1]}
+            onChange={(value) => {
+              setSetting('operandLengths', [operandLengths[0], value]);
+            }}
+            optionValues={getOperandLengths()}
+            optionNames={getOperandLengths().map((length) =>
+              pluralize('digit', length)
+            )}
+            disabled={
+              ['SUBTRACTION', 'DIVISION'].includes(operation)
+                ? Array(operandLengths[0])
+                    .fill(false)
+                    .concat(
+                      Array(MAX_OPERAND_LENGTH - operandLengths[0]).fill(true)
+                    )
+                : Array(MAX_OPERAND_LENGTH).fill(false)
+            }
+          />
+        </div>
       </div>
-      <div className='flex items-center justify-center gap-3'>
+      <div className='flex flex-col gap-1'>
+        <div className='text-lg'>Number of problems</div>
         <NumberInput
           value={setProblemCount}
           onChange={getDefaultChangeHandler('setProblemCount')}
           min={1}
           max={MAX_PROBLEMS_PER_SET}
         />
-        Problems
       </div>
     </div>
   );
