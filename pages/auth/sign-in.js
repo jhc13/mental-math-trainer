@@ -66,7 +66,7 @@ export default function SignIn() {
 
   if (signInEmailSent) {
     return (
-      <div className='mt-5'>
+      <div className='mt-8'>
         <h1 className='text-center text-xl font-semibold'>Check your email</h1>
         <p className='mt-1 text-center text-lg'>
           {`A sign-in link has been sent to ${email}.`}
@@ -75,7 +75,7 @@ export default function SignIn() {
     );
   }
   return (
-    <div className='mx-auto mt-5 flex w-72 flex-col items-stretch gap-2.5'>
+    <div className='mx-auto mt-8 flex w-72 flex-col items-stretch gap-2.5'>
       <EmailSignIn
         setEmail={setEmail}
         setSignInEmailSent={setSignInEmailSent}

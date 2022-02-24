@@ -12,13 +12,7 @@ export default function Layout({ children }) {
       {/* Use overflow-x-hidden to prevent the scrollbar from showing up when
           the right sidebar is opened or closed. */}
       <div className='fixed inset-0 flex flex-col overflow-y-auto overflow-x-hidden bg-zinc-800 text-zinc-100'>
-        <header className='grid h-12 grid-cols-[2.25rem_1fr_2.25rem] bg-gray-800 px-2'>
-          <MenuSidebar
-            topSidebar={topSidebar}
-            onClick={() => {
-              setTopSidebar('MENU');
-            }}
-          />
+        <header className='fixed inset-x-0 top-0 flex h-12 justify-center bg-gray-800 px-2'>
           <Link href='/' passHref>
             <a className='flex select-none items-center gap-4 justify-self-center'>
               <Logo className='h-9 w-9 fill-sky-500 stroke-sky-500' />
@@ -27,13 +21,19 @@ export default function Layout({ children }) {
               </div>
             </a>
           </Link>
-          <SettingsSidebar
-            onClick={() => {
-              setTopSidebar('SETTINGS');
-            }}
-          />
         </header>
-        <main className='mx-auto my-3 w-full max-w-screen-md flex-auto px-3'>
+        <MenuSidebar
+          topSidebar={topSidebar}
+          onClick={() => {
+            setTopSidebar('MENU');
+          }}
+        />
+        <SettingsSidebar
+          onClick={() => {
+            setTopSidebar('SETTINGS');
+          }}
+        />
+        <main className='mx-auto mt-12 flex w-full max-w-screen-md flex-auto flex-col'>
           {children}
         </main>
       </div>

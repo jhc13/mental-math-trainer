@@ -26,7 +26,7 @@ export default function SettingsSidebar({ onClick }) {
     <Disclosure as='div' onClick={onClick} className='flex items-center'>
       <Disclosure.Button
         aria-label='Show menu'
-        className='focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit'
+        className='fixed top-1.5 right-1.5 focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit'
       >
         <CogIcon className='h-9 w-9 text-zinc-300' />
       </Disclosure.Button>
@@ -39,7 +39,7 @@ export default function SettingsSidebar({ onClick }) {
         leaveFrom='translate-x-0'
         leaveTo='translate-x-full'
       >
-        <Disclosure.Panel className='absolute top-12 right-0 bottom-0 z-20 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm'>
+        <Disclosure.Panel className='fixed top-12 right-0 bottom-0 z-20 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm'>
           <div className='flex flex-col gap-4'>
             <div className='flex flex-col gap-1'>
               Answer input direction

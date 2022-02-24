@@ -149,7 +149,6 @@ export default function useSet(onAbort, onSetEnd) {
         onAbort();
       }
     };
-
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);

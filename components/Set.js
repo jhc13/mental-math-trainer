@@ -28,7 +28,7 @@ export default function Set({ onAbort, onSetEnd }) {
   } = useSet(onAbort, onSetEnd);
 
   return (
-    <div className='flex h-full flex-col items-center'>
+    <div className='flex h-full flex-col items-center px-3 pb-5 pt-3'>
       <div className='grid w-full grid-cols-3 place-items-center'>
         <div className='justify-self-start text-2xl tabular-nums leading-9'>
           {showProblemNumber && `${solvedProblemCount + 1}/${problemsPerSet}`}

@@ -9,22 +9,9 @@ function getOperandLengths() {
   return [...Array(MAX_OPERAND_LENGTH).keys()].map((i) => i + 1);
 }
 
-export default function NewSetButtons({ onNewSet }) {
+export default function SetSettings() {
   const { settings, setSetting } = useContext(SettingsContext);
   const { operation, operandLengths, problemsPerSet } = settings;
-
-  useEffect(() => {
-    const handleKeyDown = ({ key }) => {
-      if ([' ', 'Enter'].includes(key)) {
-        onNewSet();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [onNewSet]);
 
   useEffect(() => {
     if (
@@ -87,12 +74,6 @@ export default function NewSetButtons({ onNewSet }) {
         />
         Problems
       </div>
-      <button
-        onClick={onNewSet}
-        className='mx-auto select-none rounded-lg bg-cyan-800 px-3.5 py-2 text-2xl font-medium active:brightness-[0.85]'
-      >
-        New Set
-      </button>
     </div>
   );
 }
