@@ -25,7 +25,7 @@ model Settings {
   userId             String             @id
   operation          Operation
   operandLengths     Int[]
-  problemsPerSet     Int
+  setProblemCount    Int
   inputDirection     InputDirection
   showProblemNumber  Boolean
   showTimer          Boolean

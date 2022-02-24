@@ -9,7 +9,7 @@ export default function Trainer() {
   const [problems, setProblems] = useState(null);
   const { data: session } = useSession();
   const { settings } = useContext(SettingsContext);
-  const { operation, operandLengths, problemsPerSet } = settings;
+  const { operation, operandLengths, setProblemCount } = settings;
 
   // Abort if the user signs out during a set.
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Trainer() {
   // Abort if the set settings change (in another tab).
   useEffect(() => {
     setIsSolving(false);
-  }, [operation, operandLengths, problemsPerSet]);
+  }, [operation, operandLengths, setProblemCount]);
 
   const handleAbort = () => {
     setIsSolving(false);

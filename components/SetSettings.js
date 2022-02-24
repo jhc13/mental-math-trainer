@@ -11,7 +11,7 @@ function getOperandLengths() {
 
 export default function SetSettings() {
   const { settings, setSetting } = useContext(SettingsContext);
-  const { operation, operandLengths, problemsPerSet } = settings;
+  const { operation, operandLengths, setProblemCount } = settings;
 
   useEffect(() => {
     if (
@@ -67,8 +67,8 @@ export default function SetSettings() {
       </div>
       <div className='flex items-center justify-center gap-3'>
         <NumberInput
-          value={problemsPerSet}
-          onChange={getDefaultChangeHandler('problemsPerSet')}
+          value={setProblemCount}
+          onChange={getDefaultChangeHandler('setProblemCount')}
           min={1}
           max={MAX_PROBLEMS_PER_SET}
         />

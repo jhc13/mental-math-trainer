@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 const defaultSettings = {
   operation: 'MULTIPLICATION',
   operandLengths: [2, 2],
-  problemsPerSet: 5,
+  setProblemCount: 5,
   inputDirection: 'RIGHT_TO_LEFT',
   showProblemNumber: true,
   showTimer: false,

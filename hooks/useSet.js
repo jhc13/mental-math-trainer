@@ -81,7 +81,7 @@ function getOperands(operation, operandLengths) {
 
 export default function useSet(onAbort, onSetEnd) {
   const { settings } = useContext(SettingsContext);
-  const { operation, operandLengths, problemsPerSet, inputDirection } =
+  const { operation, operandLengths, setProblemCount, inputDirection } =
     settings;
   const [operands, setOperands] = useState(
     getOperands(operation, operandLengths)
@@ -193,10 +193,10 @@ export default function useSet(onAbort, onSetEnd) {
   ]);
 
   useEffect(() => {
-    if (solvedProblems.length === problemsPerSet) {
+    if (solvedProblems.length === setProblemCount) {
       onSetEnd(solvedProblems);
     }
-  }, [solvedProblems, problemsPerSet, onSetEnd]);
+  }, [solvedProblems, setProblemCount, onSetEnd]);
 
   return {
     operation,
