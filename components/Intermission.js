@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { useContext, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { Disclosure, Transition } from '@headlessui/react';
-import { AdjustmentsIcon } from '@heroicons/react/outline';
 import { SettingsContext } from 'utils/settings';
 import { OPERATORS, pluralize } from 'utils/format';
 import SetResults from 'components/SetResults';
@@ -36,7 +35,7 @@ export default function Intermission({ problems, onNewSet }) {
           <div
             className={`${
               problems ? 'block sm:hidden' : 'hidden'
-            } flex flex-wrap items-center justify-center gap-2`}
+            } flex flex-wrap items-center justify-center gap-2.5`}
           >
             <div className='font-medium'>
               {`${pluralize('digit', operandLengths[0])} ${
@@ -51,7 +50,22 @@ export default function Intermission({ problems, onNewSet }) {
                 aria-label='Adjust set settings'
                 className='rounded bg-cyan-800 p-px active:brightness-[0.85]'
               >
-                <AdjustmentsIcon className='h-8 w-8' />
+                {/* Adjustments icon from heroicons, added directly instead of
+                    as a component to change the stroke width. */}
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                  className='h-8 w-8'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth={1.5}
+                    d='M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4'
+                  />
+                </svg>
               </Disclosure.Button>
               <Transition
                 enter='transition duration-150 ease-out'
