@@ -42,72 +42,56 @@ export default function SetResults({ problems }) {
   const centisecondsPerProblem = Math.round(
     totalCentiseconds / problems.length
   );
-  const bestLabels = [<div key={-1}>Set mean:</div>];
-  const bestTimes = [
+  const bestElements = [
+    <div key={-2}>Set mean:</div>,
     <div key={-1}>{formatCentiseconds(centisecondsPerProblem)}</div>
   ];
   const handleBestClick = (best) => {
     setSelectedBest(selectedBest === best ? null : best);
   };
   if (bests) {
-    bestLabels.push(
-      ...bests.map((best, i) => {
-        return (
-          <div
-            key={i}
-            onClick={() => handleBestClick(best)}
-            className={`${
-              best.isNewRecord ? 'font-semibold text-sky-500' : ''
-            } cursor-pointer`}
-          >{`Best ${
-            best.problemCount === 1
-              ? 'single'
-              : `${best.calculationMethod.toLowerCase()} of ${
-                  best.problemCount
-                }`
-          }:`}</div>
-        );
-      })
-    );
-    bestTimes.push(
-      ...bests.map((best, i) => {
-        return (
-          <div
-            key={i}
-            onClick={() => handleBestClick(best)}
-            className={`${
-              best.isNewRecord ? 'font-semibold text-sky-500' : ''
-            } cursor-pointer`}
-          >
-            {formatCentiseconds(best.centiseconds)}
-          </div>
-        );
-      })
-    );
+    for (const [i, best] of bests.entries()) {
+      bestElements.push(
+        <div
+          key={2 * i}
+          onClick={() => handleBestClick(best)}
+          className={`${
+            best.isNewRecord ? 'font-semibold text-sky-500' : ''
+          } cursor-pointer`}
+        >{`Best ${
+          best.problemCount === 1
+            ? 'single'
+            : `${best.calculationMethod.toLowerCase()} of ${best.problemCount}`
+        }:`}</div>,
+        <div
+          key={2 * i + 1}
+          onClick={() => handleBestClick(best)}
+          className={`${
+            best.isNewRecord ? 'font-semibold text-sky-500' : ''
+          } cursor-pointer`}
+        >
+          {formatCentiseconds(best.centiseconds)}
+        </div>
+      );
+    }
   } else {
     const validFormats = recordFormats.filter(
       (format) => format.problemCount <= problems.length
     );
-    bestLabels.push(
-      ...validFormats.map((format, i) => {
-        return (
-          <div key={i}>
-            {`Best ${
-              format.problemCount === 1
-                ? 'single'
-                : `${format.calculationMethod.toLowerCase()} of ${
-                    format.problemCount
-                  }`
-            }:`}
-          </div>
-        );
-      })
-    );
-    bestTimes.push(
-      ...validFormats.map((_, i) => {
-        return <div key={i}>...</div>;
-      })
-    );
+    for (const [i, format] of validFormats.entries()) {
+      bestElements.push(
+        <div key={2 * i}>
+          {`Best ${
+            format.problemCount === 1
+              ? 'single'
+              : `${format.calculationMethod.toLowerCase()} of ${
+                  format.problemCount
+                }`
+          }:`}
+        </div>,
+        <div key={2 * i + 1}>...</div>
+      );
+    }
   }
 
   return (
@@ -118,12 +102,11 @@ export default function SetResults({ problems }) {
         )}`}
       </h1>
       <div className='flex flex-col gap-6 text-lg tabular-nums sm:grid sm:grid-cols-2'>
-        <div className='flex justify-center gap-3'>
-          <div className='flex flex-col gap-0.5 text-left'>{bestLabels}</div>
-          <div className='flex flex-col gap-0.5 text-right'>{bestTimes}</div>
+        <div className='grid auto-rows-min grid-cols-[auto_auto] justify-center gap-x-2.5 gap-y-0.5'>
+          {bestElements}
         </div>
         <div className='max-h-[9.5rem] overflow-auto scroll-smooth sm:max-h-[22.5rem]'>
-          <div className='grid grid-cols-[auto_auto] justify-center gap-y-0.5 gap-x-1'>
+          <div className='grid grid-cols-[auto_auto] justify-center gap-y-0.5 gap-x-2.5'>
             {problems.map((problem, i) => {
               const { operation, operands, centiseconds } = problem;
               const operator = OPERATORS[operation];
@@ -143,7 +126,7 @@ export default function SetResults({ problems }) {
                           ? 'text-zinc-500 line-through'
                           : 'text-sky-300'
                         : ''
-                    } px-1.5 text-right transition-colors`}
+                    } text-right transition-colors`}
                   >
                     {i + 1}.
                   </div>
@@ -156,7 +139,7 @@ export default function SetResults({ problems }) {
                           ? 'text-zinc-500'
                           : 'text-sky-300'
                         : ''
-                    } px-1.5 transition-colors`}
+                    } transition-colors`}
                   >
                     {`${operands[0]}${operator}${
                       operands[1]
