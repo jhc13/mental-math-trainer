@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { Popover, Transition } from '@headlessui/react';
-import { InformationCircleIcon } from '@heroicons/react/solid';
+import {
+  InformationCircleIcon,
+  ExternalLinkIcon
+} from '@heroicons/react/solid';
 import { recordFormats, getSetBests } from 'utils/records';
 import { formatCentiseconds, OPERATORS, pluralize } from 'utils/format';
 
@@ -128,7 +131,17 @@ export default function SetResults({ problems }) {
                   </p>
                   <p>
                     An <strong>average</strong> is like a mean, but with the
-                    fastest and slowest 5% of results (rounded up) removed.
+                    fastest and slowest 5% of results (rounded up) removed. It
+                    is also called a{' '}
+                    <a
+                      href='https://en.wikipedia.org/wiki/Truncated_mean'
+                      target='_blank'
+                      rel='noreferrer'
+                      className='text-blue-400 underline'
+                    >
+                      trimmed mean
+                    </a>
+                    .
                   </p>
                   <p>
                     For example, consider an average of 50. 5% of 50 is 2.5, and
