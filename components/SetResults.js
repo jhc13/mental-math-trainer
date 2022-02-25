@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { Popover, Transition } from '@headlessui/react';
+import { InformationCircleIcon } from '@heroicons/react/solid';
 import { recordFormats, getSetBests } from 'utils/records';
 import { formatCentiseconds, OPERATORS, pluralize } from 'utils/format';
 
@@ -101,12 +103,47 @@ export default function SetResults({ problems }) {
           totalCentiseconds
         )}`}
       </h1>
-      <div className='flex flex-col gap-6 text-lg tabular-nums sm:grid sm:grid-cols-2'>
-        <div className='grid auto-rows-min grid-cols-[auto_auto] justify-center gap-x-2.5 gap-y-0.5'>
+      <div className='flex flex-col place-items-center gap-6 text-lg tabular-nums sm:grid sm:grid-cols-2'>
+        <div className='relative grid w-fit auto-rows-min grid-cols-[auto_auto] gap-x-2.5 gap-y-0.5'>
+          <Popover className='absolute -left-9 z-10 flex'>
+            <Popover.Button
+              aria-label='Information'
+              className='p-1 focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit active:brightness-[0.85]'
+            >
+              <InformationCircleIcon className='h-5 w-5' />
+            </Popover.Button>
+            <Transition
+              enter='transition-opacity duration-200 ease-out'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
+              leave='transition-opacity duration-150 ease-in'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'
+            >
+              <Popover.Panel className='absolute left-8 w-64 rounded-md bg-zinc-900 p-3 shadow-md'>
+                <div className='flex flex-col gap-4 text-center text-base'>
+                  <p>
+                    A <strong>mean</strong> is the sum of consecutive solve
+                    times divided by the number of problems.
+                  </p>
+                  <p>
+                    An <strong>average</strong> is like a mean, but with the
+                    fastest and slowest 5% of results (rounded up) removed.
+                  </p>
+                  <p>
+                    For example, consider an average of 50. 5% of 50 is 2.5, and
+                    rounded up, it is 3. So the fastest 3 results and slowest 3
+                    results are excluded, and the remaining 44 solve times are
+                    added together and divided by 44.
+                  </p>
+                </div>
+              </Popover.Panel>
+            </Transition>
+          </Popover>
           {bestElements}
         </div>
         <div className='max-h-[9.5rem] overflow-auto scroll-smooth sm:max-h-[22.5rem]'>
-          <div className='grid grid-cols-[auto_auto] justify-center gap-y-0.5 gap-x-2.5'>
+          <div className='grid grid-cols-[auto_auto] gap-y-0.5 gap-x-2.5'>
             {problems.map((problem, i) => {
               const { operation, operands, centiseconds } = problem;
               const operator = OPERATORS[operation];
