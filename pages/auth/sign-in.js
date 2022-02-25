@@ -22,13 +22,16 @@ const errorMessages = {
 };
 
 function EmailSignIn({ setEmail, setSignInEmailSent }) {
+  const [isSending, setIsSending] = useState(false);
   const { register, handleSubmit } = useForm();
   const onSubmit = async ({ email }) => {
+    setIsSending(true);
     const { url } = await signIn('email', {
       email,
       callbackUrl: '/',
       redirect: false
     });
+    setIsSending(false);
     if (url !== null) {
       setEmail(email);
       setSignInEmailSent(true);
@@ -52,7 +55,7 @@ function EmailSignIn({ setEmail, setSignInEmailSent }) {
         className='h-12 rounded-t-md rounded-b-none bg-zinc-700 px-3'
       />
       <button className='rounded-b-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'>
-        Sign in with email
+        {isSending ? 'Sending sign-in link...' : 'Sign in with email'}
       </button>
     </form>
   );
