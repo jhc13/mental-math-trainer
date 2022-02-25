@@ -31,11 +31,11 @@ export default function Intermission({ problems, onNewSet }) {
         <div className={`${problems ? 'hidden sm:block' : ''} mx-auto`}>
           <SetSettings onNewSet={onNewSet} />
         </div>
-        <div className='flex flex-col items-center gap-1.5'>
+        <div className='flex flex-col items-center gap-3'>
           <div
             className={`${
               problems ? 'block sm:hidden' : 'hidden'
-            } flex flex-wrap items-center justify-center gap-2.5`}
+            } flex select-none flex-wrap items-center justify-center gap-x-2.5 gap-y-3`}
           >
             <div className='font-medium'>
               {`${pluralize('digit', operandLengths[0])} ${
