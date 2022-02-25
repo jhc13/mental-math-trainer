@@ -141,6 +141,7 @@ export default function SetResults({ problems }) {
                     >
                       trimmed mean
                     </a>
+                    <ExternalLinkIcon className='inline h-5 w-5 text-blue-400' />
                     .
                   </p>
                   <p>
