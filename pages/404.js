@@ -5,6 +5,7 @@ export default function PageNotFound() {
     <>
       <Head>
         <title>Page Not Found – Mental Math Trainer</title>
+        <meta name='description' content='The requested page was not found.' />
       </Head>
       <div className='mt-8'>
         <h1 className='text-center text-xl font-semibold'>404</h1>

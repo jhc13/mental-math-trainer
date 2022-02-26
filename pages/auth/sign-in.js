@@ -73,6 +73,10 @@ export default function SignIn() {
       <>
         <Head>
           <title>Sign-In Link Sent – Mental Math Trainer</title>
+          <meta
+            name='description'
+            content='Check your email for the link to sign in to Mental Math Trainer.'
+          />
         </Head>
         <div className='mt-8'>
           <h1 className='text-center text-xl font-semibold'>
@@ -88,7 +92,11 @@ export default function SignIn() {
   return (
     <>
       <Head>
-        <title>Sign-In – Mental Math Trainer</title>
+        <title>Sign In – Mental Math Trainer</title>
+        <meta
+          name='description'
+          content='Sign in to Mental Math Trainer using your email, Google or Github.'
+        />
       </Head>
       <div className='mx-auto mt-8 flex w-72 flex-col items-stretch gap-2.5'>
         <EmailSignIn

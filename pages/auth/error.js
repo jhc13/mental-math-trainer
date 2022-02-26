@@ -10,13 +10,17 @@ export default function Error() {
     message =
       'The sign-in link is invalid. It may have expired or already been used.';
   } else {
-    message = 'An error occurred.';
+    message = 'An authentication error has occurred.';
   }
 
   return (
     <>
       <Head>
-        <title>Error – Mental Math Trainer</title>
+        <title>Authentication Error – Mental Math Trainer</title>
+        <meta
+          name='description'
+          content='An authentication error has occurred.'
+        />
       </Head>
       <div className='mt-8'>
         <h1 className='text-center text-xl font-semibold'>Error</h1>
