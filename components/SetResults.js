@@ -106,7 +106,7 @@ export default function SetResults({ problems }) {
           totalCentiseconds
         )}`}
       </h1>
-      <div className='flex flex-col place-items-center gap-6 text-lg tabular-nums sm:grid sm:grid-cols-2'>
+      <div className='flex flex-col items-center justify-items-center gap-6 text-lg tabular-nums sm:grid sm:grid-cols-2 sm:items-start'>
         <div className='relative grid w-fit auto-rows-min grid-cols-[auto_auto] gap-x-2.5 gap-y-0.5'>
           <Popover className='absolute -left-9 z-10 flex'>
             <Popover.Button
@@ -123,7 +123,7 @@ export default function SetResults({ problems }) {
               leaveFrom='opacity-100'
               leaveTo='opacity-0'
             >
-              <Popover.Panel className='absolute left-8 w-64 rounded-md bg-zinc-900 p-3 shadow-md'>
+              <Popover.Panel className='absolute left-8 w-64 rounded-md bg-zinc-900 p-3 shadow-md sm:w-[24rem]'>
                 <div className='flex flex-col gap-4 text-center text-base'>
                   <p>
                     A <strong>mean</strong> is the sum of consecutive solve
