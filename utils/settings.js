@@ -24,6 +24,10 @@ function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(defaultSettings);
   const { data: session } = useSession();
 
+  const setSetting = (key, value) => {
+    setSettings((settings) => ({ ...settings, [key]: value }));
+  };
+
   // Load settings.
   useEffect(() => {
     let showKeypad = localStorage.getItem('showKeypad');
@@ -45,6 +49,7 @@ function SettingsProvider({ children }) {
     } else {
       const localStorageSettings = localStorage.getItem('settings');
       if (localStorageSettings === null) {
+        setSetting('showKeypad', showKeypad);
         return;
       }
       setSettings({
@@ -70,10 +75,6 @@ function SettingsProvider({ children }) {
     localStorage.setItem('settings', JSON.stringify(settingsWithoutShowKeypad));
     localStorage.setItem('showKeypad', settings.showKeypad);
   }, [settings, session]);
-
-  const setSetting = (key, value) => {
-    setSettings((settings) => ({ ...settings, [key]: value }));
-  };
 
   return (
     <SettingsContext.Provider value={{ settings, setSetting }}>
