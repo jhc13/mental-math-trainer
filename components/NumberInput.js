@@ -4,6 +4,7 @@ export default function NumberInput({ value, onChange, min, max }) {
   return (
     <div className='relative w-fit shadow-md'>
       <button
+        aria-label='Decrease'
         onClick={() => {
           if (value > min) {
             onChange(value - 1);
@@ -34,6 +35,7 @@ export default function NumberInput({ value, onChange, min, max }) {
         className='w-32 rounded-lg bg-zinc-700 py-2 px-7 text-center tabular-nums focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit sm:text-sm'
       />
       <button
+        aria-label='Increase'
         onClick={() => {
           if (value < max) {
             onChange(value + 1);
