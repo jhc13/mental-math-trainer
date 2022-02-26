@@ -1,11 +1,18 @@
 import Link from 'next/link';
 import { useState } from 'react';
+import useSWR from 'swr';
+import { useSession } from 'next-auth/react';
 import MenuSidebar from 'components/MenuSidebar';
 import SettingsSidebar from 'components/SettingsSidebar';
 import Logo from 'public/logo.svg';
 
 export default function Layout({ children }) {
   const [topSidebar, setTopSidebar] = useState(null);
+  const { data: session } = useSession();
+  const { data, mutate: mutateDisplayName } = useSWR(
+    session ? `/api/users/${session.user.id}/displayName` : null
+  );
+  const displayName = data ? data.displayName : 'Loading...';
 
   return (
     <>
@@ -27,6 +34,8 @@ export default function Layout({ children }) {
           onClick={() => {
             setTopSidebar('MENU');
           }}
+          displayName={displayName}
+          mutateDisplayName={mutateDisplayName}
         />
         <SettingsSidebar
           onClick={() => {

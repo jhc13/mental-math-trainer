@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
-import useSWR from 'swr';
 import { signOut, useSession } from 'next-auth/react';
 import {
   MenuIcon,
@@ -13,16 +12,14 @@ import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import Logo from 'public/logo.svg';
 
-function DisplayName({ userId }) {
-  const { data, mutate } = useSWR(`/api/users/${userId}/displayName`);
-
+function DisplayName({ displayName, mutateDisplayName, userId }) {
   return (
     <input
       maxLength={MAX_DISPLAY_NAME_LENGTH}
       spellCheck={false}
-      value={data ? data?.displayName : 'Loading...'}
+      value={displayName}
       onChange={async (event) => {
-        await mutate(
+        await mutateDisplayName(
           {
             displayName: event.target.value
           },
@@ -35,7 +32,7 @@ function DisplayName({ userId }) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ displayName: event.target.value })
         });
-        await mutate();
+        await mutateDisplayName();
       }}
       className='rounded bg-[#202022] py-1 text-center text-xl font-medium hover:bg-zinc-800 focus:bg-zinc-800'
     />
@@ -46,7 +43,12 @@ function Divider() {
   return <div className='h-px bg-zinc-400' />;
 }
 
-export default function MenuSidebar({ topSidebar, onClick }) {
+export default function MenuSidebar({
+  topSidebar,
+  onClick,
+  displayName,
+  mutateDisplayName
+}) {
   const [isDeleteAccountDialogOpen, setIsDeleteAccountDialogOpen] =
     useState(false);
   const { data: session } = useSession();
@@ -79,7 +81,11 @@ export default function MenuSidebar({ topSidebar, onClick }) {
                 {session ? (
                   <div className='flex flex-col gap-0.5'>
                     <div className='text-center text-base'>Signed in as</div>
-                    <DisplayName userId={session.user.id} />
+                    <DisplayName
+                      displayName={displayName}
+                      mutateDisplayName={mutateDisplayName}
+                      userId={session.user.id}
+                    />
                   </div>
                 ) : (
                   <div className='flex flex-col gap-1'>
@@ -95,7 +101,6 @@ export default function MenuSidebar({ topSidebar, onClick }) {
                   </div>
                 )}
               </div>
-
               <Divider />
               <Link href='/'>
                 <a onClick={close} className='flex items-center gap-3'>
