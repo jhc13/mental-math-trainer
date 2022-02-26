@@ -66,12 +66,8 @@ function SettingsProvider({ children }) {
           body: JSON.stringify(settingsWithoutShowKeypad)
         });
       })();
-    } else {
-      localStorage.setItem(
-        'settings',
-        JSON.stringify(settingsWithoutShowKeypad)
-      );
     }
+    localStorage.setItem('settings', JSON.stringify(settingsWithoutShowKeypad));
     localStorage.setItem('showKeypad', settings.showKeypad);
   }, [settings, session]);
 
