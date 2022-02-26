@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { SettingsContext } from 'utils/settings';
@@ -37,9 +38,16 @@ export default function Trainer() {
     setIsSolving(true);
   };
 
-  return isSolving ? (
-    <Set onAbort={handleAbort} onSetEnd={handleSetEnd} />
-  ) : (
-    <Intermission problems={problems} onNewSet={handleNewSet} />
+  return (
+    <>
+      <Head>
+        <title>Mental Math Trainer</title>
+      </Head>
+      {isSolving ? (
+        <Set onAbort={handleAbort} onSetEnd={handleSetEnd} />
+      ) : (
+        <Intermission problems={problems} onNewSet={handleNewSet} />
+      )}
+    </>
   );
 }

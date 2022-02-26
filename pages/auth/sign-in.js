@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
@@ -69,42 +70,54 @@ export default function SignIn() {
 
   if (signInEmailSent) {
     return (
-      <div className='mt-8'>
-        <h1 className='text-center text-xl font-semibold'>Check your email</h1>
-        <p className='mt-1 text-center text-lg'>
-          {`A sign-in link has been sent to ${email}.`}
-        </p>
-      </div>
+      <>
+        <Head>
+          <title>Sign-In Link Sent – Mental Math Trainer</title>
+        </Head>
+        <div className='mt-8'>
+          <h1 className='text-center text-xl font-semibold'>
+            Check your email
+          </h1>
+          <p className='mt-1 text-center text-lg'>
+            {`A sign-in link has been sent to ${email}.`}
+          </p>
+        </div>
+      </>
     );
   }
   return (
-    <div className='mx-auto mt-8 flex w-72 flex-col items-stretch gap-2.5'>
-      <EmailSignIn
-        setEmail={setEmail}
-        setSignInEmailSent={setSignInEmailSent}
-      />
-      <div className='flex select-none items-center justify-between gap-1.5'>
-        <div className='h-px flex-auto bg-zinc-400' />
-        or
-        <div className='h-px flex-auto bg-zinc-400' />
+    <>
+      <Head>
+        <title>Sign-In – Mental Math Trainer</title>
+      </Head>
+      <div className='mx-auto mt-8 flex w-72 flex-col items-stretch gap-2.5'>
+        <EmailSignIn
+          setEmail={setEmail}
+          setSignInEmailSent={setSignInEmailSent}
+        />
+        <div className='flex select-none items-center justify-between gap-1.5'>
+          <div className='h-px flex-auto bg-zinc-400' />
+          or
+          <div className='h-px flex-auto bg-zinc-400' />
+        </div>
+        <button
+          onClick={() => signIn('google', { callbackUrl: '/' })}
+          className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg shadow-md active:brightness-[0.85]'
+        >
+          <GoogleLogo className='h-6 w-6' />
+          Sign in with Google
+        </button>
+        <button
+          onClick={() => signIn('github', { callbackUrl: '/' })}
+          className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg shadow-md active:brightness-[0.85]'
+        >
+          <MarkGithubIcon size={24} fill='black' />
+          Sign in with GitHub
+        </button>
+        {error !== undefined && (
+          <p className='text-red-400'>{errorMessages[error]}</p>
+        )}
       </div>
-      <button
-        onClick={() => signIn('google', { callbackUrl: '/' })}
-        className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg shadow-md active:brightness-[0.85]'
-      >
-        <GoogleLogo className='h-6 w-6' />
-        Sign in with Google
-      </button>
-      <button
-        onClick={() => signIn('github', { callbackUrl: '/' })}
-        className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg shadow-md active:brightness-[0.85]'
-      >
-        <MarkGithubIcon size={24} fill='black' />
-        Sign in with GitHub
-      </button>
-      {error !== undefined && (
-        <p className='text-red-400'>{errorMessages[error]}</p>
-      )}
-    </div>
+    </>
   );
 }

@@ -12,7 +12,6 @@ export default function App({
   return (
     <>
       <Head>
-        <title>Mental Math Trainer</title>
         <link
           rel='apple-touch-icon'
           sizes='180x180'
