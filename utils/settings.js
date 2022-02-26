@@ -3,12 +3,12 @@ import { useSession } from 'next-auth/react';
 
 const defaultSettings = {
   operation: 'MULTIPLICATION',
-  operandLengths: [2, 2],
+  operandLengths: [1, 1],
   setProblemCount: 5,
-  inputDirection: 'RIGHT_TO_LEFT',
+  inputDirection: 'LEFT_TO_RIGHT',
   showProblemNumber: true,
-  showTimer: false,
-  timerDisplayTime: 'SET_TIME',
+  showTimer: true,
+  timerDisplayTime: 'PROBLEM_TIME',
   showAbortButton: true,
   showKeypad: true,
   reverseKeypad: false,
