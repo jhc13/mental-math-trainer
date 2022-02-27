@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import useSWR from 'swr';
 import { getSession, useSession } from 'next-auth/react';
@@ -21,7 +22,15 @@ export async function getServerSideProps(context) {
 
 export default function Stats() {
   const { data: session } = useSession();
-  const { data } = useSWR(`/api/users/${session.user.id}/stats`);
+  const { data } = useSWR(
+    session ? `/api/users/${session.user.id}/stats` : null
+  );
+  const router = useRouter();
+
+  if (!session) {
+    router.reload();
+    return null;
+  }
 
   return (
     <>
