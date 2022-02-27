@@ -1,13 +1,10 @@
 import { useContext, useEffect } from 'react';
 import { SettingsContext } from 'utils/settings';
 import { OPERATORS, pluralize } from 'utils/format';
+import { getOperandLengths } from 'utils/utils';
 import { MAX_OPERAND_LENGTH, MAX_PROBLEMS_PER_SET } from 'utils/config';
 import Listbox from 'components/Listbox';
 import NumberInput from 'components/NumberInput';
-
-function getOperandLengths() {
-  return [...Array(MAX_OPERAND_LENGTH).keys()].map((i) => i + 1);
-}
 
 export default function SetSettings() {
   const { settings, setSetting } = useContext(SettingsContext);

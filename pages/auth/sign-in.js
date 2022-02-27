@@ -104,11 +104,7 @@ export default function SignIn() {
         />
       </Head>
       <div className='mx-auto mt-8 flex w-72 flex-col items-stretch gap-2.5'>
-        <EmailSignIn
-          setEmail={setEmail}
-          setSignInEmailSent={setSignInEmailSent}
-          callbackUrl={callbackUrl}
-        />
+        <EmailSignIn {...{ setEmail, setSignInEmailSent, callbackUrl }} />
         <div className='flex select-none items-center justify-between gap-1.5'>
           <div className='h-px flex-auto bg-zinc-400' />
           or
