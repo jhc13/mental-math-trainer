@@ -21,9 +21,12 @@ export default function Trainer() {
   }, [session]);
 
   // Abort if the set settings change (in another tab).
+  // Adding the operandLengths array directly as a dependency causes unintended
+  // aborts.
+  const [firstOperandLength, secondOperandLength] = operandLengths;
   useEffect(() => {
     setIsSolving(false);
-  }, [operation, operandLengths, setProblemCount]);
+  }, [operation, firstOperandLength, secondOperandLength, setProblemCount]);
 
   const handleAbort = () => {
     setIsSolving(false);
