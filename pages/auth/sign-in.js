@@ -22,14 +22,14 @@ const errorMessages = {
   Default: DEFAULT_ERROR_MESSAGE
 };
 
-function EmailSignIn({ setEmail, setSignInEmailSent }) {
+function EmailSignIn({ setEmail, setSignInEmailSent, callbackUrl }) {
   const [isSending, setIsSending] = useState(false);
   const { register, handleSubmit } = useForm();
   const onSubmit = async ({ email }) => {
     setIsSending(true);
     const { url } = await signIn('email', {
       email,
-      callbackUrl: '/',
+      callbackUrl: callbackUrl || '/',
       redirect: false
     });
     setIsSending(false);
@@ -66,7 +66,7 @@ export default function SignIn() {
   const [email, setEmail] = useState(null);
   const [signInEmailSent, setSignInEmailSent] = useState(false);
   const router = useRouter();
-  const { error } = router.query;
+  const { callbackUrl, error } = router.query;
 
   if (signInEmailSent) {
     return (
@@ -102,6 +102,7 @@ export default function SignIn() {
         <EmailSignIn
           setEmail={setEmail}
           setSignInEmailSent={setSignInEmailSent}
+          callbackUrl={callbackUrl}
         />
         <div className='flex select-none items-center justify-between gap-1.5'>
           <div className='h-px flex-auto bg-zinc-400' />
@@ -109,14 +110,14 @@ export default function SignIn() {
           <div className='h-px flex-auto bg-zinc-400' />
         </div>
         <button
-          onClick={() => signIn('google', { callbackUrl: '/' })}
+          onClick={() => signIn('google', { callbackUrl: callbackUrl || '/' })}
           className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg shadow-md active:brightness-[0.85]'
         >
           <GoogleLogo className='h-6 w-6' />
           Sign in with Google
         </button>
         <button
-          onClick={() => signIn('github', { callbackUrl: '/' })}
+          onClick={() => signIn('github', { callbackUrl: callbackUrl || '/' })}
           className='flex select-none items-center justify-center gap-2.5 rounded-md bg-cyan-800 py-2.5 text-lg shadow-md active:brightness-[0.85]'
         >
           <MarkGithubIcon size={24} fill='black' />
