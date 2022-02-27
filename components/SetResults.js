@@ -63,11 +63,13 @@ export default function SetResults({ problems }) {
           className={`${
             best.isNewRecord ? 'font-semibold text-sky-500' : ''
           } cursor-pointer`}
-        >{`Best ${
-          best.problemCount === 1
+        >
+          Best{' '}
+          {best.problemCount === 1
             ? 'single'
-            : `${best.calculationMethod.toLowerCase()} of ${best.problemCount}`
-        }:`}</div>,
+            : `${best.calculationMethod.toLowerCase()} of ${best.problemCount}`}
+          :
+        </div>,
         <div
           key={2 * i + 1}
           onClick={() => handleBestClick(best)}
@@ -86,13 +88,13 @@ export default function SetResults({ problems }) {
     for (const [i, format] of validFormats.entries()) {
       bestElements.push(
         <div key={2 * i}>
-          {`Best ${
-            format.problemCount === 1
-              ? 'single'
-              : `${format.calculationMethod.toLowerCase()} of ${
-                  format.problemCount
-                }`
-          }:`}
+          Best{' '}
+          {format.problemCount === 1
+            ? 'single'
+            : `${format.calculationMethod.toLowerCase()} of ${
+                format.problemCount
+              }`}
+          :
         </div>,
         <div key={2 * i + 1}>...</div>
       );
