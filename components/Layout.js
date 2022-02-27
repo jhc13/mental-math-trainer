@@ -12,7 +12,7 @@ export default function Layout({ children }) {
   const { data, mutate: mutateDisplayName } = useSWR(
     session ? `/api/users/${session.user.id}/displayName` : null
   );
-  const displayName = data ? data.displayName : '...';
+  const displayName = data?.displayName;
 
   return (
     <>

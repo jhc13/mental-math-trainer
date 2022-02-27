@@ -17,8 +17,11 @@ function DisplayName({ displayName, mutateDisplayName, userId }) {
     <input
       maxLength={MAX_DISPLAY_NAME_LENGTH}
       spellCheck={false}
-      value={displayName}
+      value={displayName === undefined ? '...' : displayName}
       onChange={async (event) => {
+        if (displayName === undefined) {
+          return;
+        }
         await mutateDisplayName(
           {
             displayName: event.target.value
@@ -27,6 +30,9 @@ function DisplayName({ displayName, mutateDisplayName, userId }) {
         );
       }}
       onBlur={async (event) => {
+        if (displayName === undefined) {
+          return;
+        }
         await fetch(`/api/users/${userId}/displayName`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
