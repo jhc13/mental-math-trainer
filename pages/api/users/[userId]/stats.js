@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
   if (req.method === 'GET') {
     if (operation && operandLengths) {
-      let problemTypeStats = await prisma.problem.aggregate({
+      const aggregations = await prisma.problem.aggregate({
         _count: true,
         _sum: {
           centiseconds: true
@@ -25,13 +25,32 @@ export default async function handler(req, res) {
           }
         }
       });
-      problemTypeStats = {
-        problemCount: problemTypeStats._count,
-        centiseconds: problemTypeStats._sum.centiseconds
+      const records = await prisma.record.findMany({
+        where: {
+          userId,
+          operation,
+          operandLengths: {
+            equals: operandLengths
+          }
+        },
+        orderBy: {
+          timestamp: 'desc'
+        },
+        distinct: ['calculationMethod', 'problemCount'],
+        select: {
+          calculationMethod: true,
+          problemCount: true,
+          centiseconds: true
+        }
+      });
+      const problemTypeStats = {
+        problemCount: aggregations._count,
+        centiseconds: aggregations._sum.centiseconds,
+        records
       };
       res.status(200).json(problemTypeStats);
     } else {
-      let totalStats = await prisma.problem.aggregate({
+      const aggregations = await prisma.problem.aggregate({
         _count: true,
         _sum: {
           centiseconds: true
@@ -40,9 +59,9 @@ export default async function handler(req, res) {
           userId
         }
       });
-      totalStats = {
-        totalProblemCount: totalStats._count,
-        totalCentiseconds: totalStats._sum.centiseconds
+      const totalStats = {
+        totalProblemCount: aggregations._count,
+        totalCentiseconds: aggregations._sum.centiseconds
       };
       res.status(200).json(totalStats);
     }

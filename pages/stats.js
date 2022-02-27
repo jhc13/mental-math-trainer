@@ -117,19 +117,19 @@ export default function Stats() {
           content='View your stats, personal records and improvement over time.'
         />
       </Head>
-      <div className='mt-8 flex flex-col gap-5 sm:gap-12'>
+      <div className='mx-4 mt-8 flex flex-col gap-5 sm:gap-12'>
         <h1 className='text-center text-2xl font-semibold'>Stats</h1>
         <div className='grid justify-center gap-y-4 sm:grid-cols-2 sm:justify-items-center'>
           <div>
-            <h2 className='text-lg font-medium'>
+            <div className='text-lg font-medium'>
               Total number of problems solved
-            </h2>
+            </div>
             <div className='text-3xl font-medium'>
               {totalData ? totalData.totalProblemCount : '...'}
             </div>
           </div>
           <div>
-            <h2 className='text-lg font-medium'>Total time spent solving</h2>
+            <div className='text-lg font-medium'>Total time spent solving</div>
             <div className='text-3xl font-medium'>
               {totalData
                 ? formatCentiseconds(totalData.totalCentiseconds)
@@ -146,19 +146,34 @@ export default function Stats() {
         </div>
         <div className='grid justify-center gap-y-4 sm:grid-cols-2 sm:justify-items-center'>
           <div>
-            <h2 className='text-lg font-medium'>Number of problems solved</h2>
+            <div className='text-lg font-medium'>Number of problems solved</div>
             <div className='text-3xl font-medium'>
               {problemTypeData ? problemTypeData.problemCount : '...'}
             </div>
           </div>
           <div>
-            <h2 className='text-lg font-medium'>Time spent solving</h2>
+            <div className='text-lg font-medium'>Time spent solving</div>
             <div className='text-3xl font-medium'>
               {problemTypeData
                 ? formatCentiseconds(problemTypeData.centiseconds)
                 : '...'}
             </div>
           </div>
+        </div>
+        <div className='text-center'>
+          <div className='text-xl font-medium'>Personal records</div>
+          {problemTypeData
+            ? problemTypeData.records.map((record, i) => (
+                <div key={i} className='text-lg first-letter:uppercase'>
+                  {record.problemCount === 1
+                    ? 'single'
+                    : `${record.calculationMethod.toLowerCase()} of ${
+                        record.problemCount
+                      }`}
+                  : {formatCentiseconds(record.centiseconds)}
+                </div>
+              ))
+            : '...'}
         </div>
       </div>
     </>

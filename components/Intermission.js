@@ -87,7 +87,7 @@ export default function Intermission({ problems, onNewSet }) {
             onClick={onNewSet}
             className='select-none rounded-lg bg-cyan-800 px-3.5 py-2 text-2xl font-medium active:brightness-[0.85]'
           >
-            New Set
+            New set
           </button>
         </div>
         {session === null && (
