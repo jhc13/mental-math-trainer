@@ -46,7 +46,7 @@ function DisplayName({ displayName, mutateDisplayName, userId }) {
 }
 
 function Divider() {
-  return <div className='h-px bg-zinc-400' />;
+  return <div role='separator' className='h-px bg-zinc-400' />;
 }
 
 export default function MenuSidebar({

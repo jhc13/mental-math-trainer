@@ -27,10 +27,10 @@ export async function getServerSideProps(context) {
 }
 
 function ProblemTypeSelector({
-  operandLengths,
-  setOperandLengths,
   operation,
-  setOperation
+  setOperation,
+  operandLengths,
+  setOperandLengths
 }) {
   useEffect(() => {
     if (
@@ -39,7 +39,7 @@ function ProblemTypeSelector({
     ) {
       setOperandLengths([operandLengths[0], operandLengths[0]]);
     }
-  }, [operandLengths, setOperandLengths, operation]);
+  }, [operation, operandLengths, setOperandLengths]);
 
   return (
     <div className='grid grid-cols-[7rem_4.5rem_7rem] gap-3'>
@@ -84,15 +84,24 @@ function ProblemTypeSelector({
 
 export default function Stats() {
   const { data: session } = useSession();
-  const { data } = useSWR(
-    session ? `/api/users/${session.user.id}/stats` : null
-  );
   const router = useRouter();
   const { settings } = useContext(SettingsContext);
   const { operandLengths: operandLengthsSetting, operation: operationSetting } =
     settings;
-  const [operandLengths, setOperandLengths] = useState(operandLengthsSetting);
   const [operation, setOperation] = useState(operationSetting);
+  const [operandLengths, setOperandLengths] = useState(operandLengthsSetting);
+  const { data: totalData } = useSWR(
+    session ? `/api/users/${session.user.id}/stats` : null
+  );
+  const { data: problemTypeData } = useSWR(
+    session
+      ? `/api/users/${
+          session.user.id
+        }/stats?operation=${operation}&operandLengths=${JSON.stringify(
+          operandLengths
+        )}`
+      : null
+  );
 
   if (!session) {
     router.reload();
@@ -116,21 +125,40 @@ export default function Stats() {
               Total number of problems solved
             </h2>
             <div className='text-3xl font-medium'>
-              {data ? data._count : '...'}
+              {totalData ? totalData.totalProblemCount : '...'}
             </div>
           </div>
           <div>
             <h2 className='text-lg font-medium'>Total time spent solving</h2>
             <div className='text-3xl font-medium'>
-              {data ? formatCentiseconds(data._sum.centiseconds) : '...'}
+              {totalData
+                ? formatCentiseconds(totalData.totalCentiseconds)
+                : '...'}
             </div>
           </div>
         </div>
+        <div role='separator' className='h-px bg-zinc-300' />
         <div className='mx-auto flex w-fit flex-col gap-x-3 gap-y-1 sm:flex-row sm:items-center'>
-          <div className='text-lg'>Show stats for</div>
+          <div className='text-lg font-medium'>Stats for</div>
           <ProblemTypeSelector
-            {...{ operandLengths, setOperandLengths, operation, setOperation }}
+            {...{ operation, setOperation, operandLengths, setOperandLengths }}
           />
+        </div>
+        <div className='grid justify-center gap-y-4 sm:grid-cols-2 sm:justify-items-center'>
+          <div>
+            <h2 className='text-lg font-medium'>Number of problems solved</h2>
+            <div className='text-3xl font-medium'>
+              {problemTypeData ? problemTypeData.problemCount : '...'}
+            </div>
+          </div>
+          <div>
+            <h2 className='text-lg font-medium'>Time spent solving</h2>
+            <div className='text-3xl font-medium'>
+              {problemTypeData
+                ? formatCentiseconds(problemTypeData.centiseconds)
+                : '...'}
+            </div>
+          </div>
         </div>
       </div>
     </>
