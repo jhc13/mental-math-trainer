@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { MarkGithubIcon } from '@primer/octicons-react';
 import GoogleLogo from 'public/google-logo.svg';
@@ -65,8 +65,13 @@ function EmailSignIn({ setEmail, setSignInEmailSent, callbackUrl }) {
 export default function SignIn() {
   const [email, setEmail] = useState(null);
   const [signInEmailSent, setSignInEmailSent] = useState(false);
+  const { data: session } = useSession();
   const router = useRouter();
   const { callbackUrl, error } = router.query;
+
+  if (session) {
+    router.push('/').then();
+  }
 
   if (signInEmailSent) {
     return (
