@@ -33,9 +33,14 @@ export default async function handler(req, res) {
             equals: operandLengths
           }
         },
-        orderBy: {
-          timestamp: 'desc'
-        },
+        orderBy: [
+          {
+            problemCount: 'asc'
+          },
+          {
+            timestamp: 'desc'
+          }
+        ],
         distinct: ['calculationMethod', 'problemCount'],
         select: {
           calculationMethod: true,
