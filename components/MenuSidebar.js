@@ -78,7 +78,7 @@ export default function MenuSidebar({
       >
         <Disclosure.Panel
           className={`${
-            topSidebar === 'MENU' ? 'z-30' : 'z-20'
+            topSidebar === 'MENU' ? 'z-20' : 'z-10'
           } fixed top-12 left-0 bottom-0 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm`}
         >
           {({ close }) => (

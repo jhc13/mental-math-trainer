@@ -45,7 +45,7 @@ export default function Layout({ children }) {
             setTopSidebar('SETTINGS');
           }}
         />
-        <main className='mx-auto mt-12 flex w-full max-w-screen-md flex-auto flex-col'>
+        <main className='-z-10 mx-auto mt-12 flex w-full max-w-screen-md flex-auto flex-col'>
           {children}
         </main>
       </div>

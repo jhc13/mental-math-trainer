@@ -16,7 +16,7 @@ export default function ConfirmationDialog({
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog
         as='div'
-        className='fixed inset-0 z-10 select-none overflow-y-auto text-zinc-100'
+        className='fixed inset-0 select-none overflow-y-auto text-zinc-100'
         initialFocus={cancelButtonRef}
         onClose={setIsOpen}
       >
