@@ -8,6 +8,7 @@ import { formatCentiseconds, OPERATORS, pluralize } from '/utils/format';
 import { getOperandLengths } from 'utils/utils';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
 import Listbox from 'components/Listbox';
+import PersonalRecords from 'components/PersonalRecords';
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
@@ -117,10 +118,10 @@ export default function Stats() {
           content='View your stats, personal records and improvement over time.'
         />
       </Head>
-      <div className='mx-4 mt-8 flex flex-col gap-5 sm:gap-12'>
+      <div className='mx-4 my-8 flex flex-col gap-5 sm:gap-12'>
         <h1 className='text-center text-2xl font-semibold'>Stats</h1>
-        <div className='grid justify-center gap-y-4 sm:grid-cols-2 sm:justify-items-center'>
-          <div>
+        <div className='mx-4 grid justify-items-center gap-y-4 sm:grid-cols-2'>
+          <div className='text-center sm:justify-self-start'>
             <div className='text-lg font-medium'>
               Total number of problems solved
             </div>
@@ -128,7 +129,7 @@ export default function Stats() {
               {totalData ? totalData.totalProblemCount : '...'}
             </div>
           </div>
-          <div>
+          <div className='text-center sm:justify-self-end'>
             <div className='text-lg font-medium'>Total time spent solving</div>
             <div className='text-3xl font-medium'>
               {totalData
@@ -138,42 +139,37 @@ export default function Stats() {
           </div>
         </div>
         <div role='separator' className='h-px bg-zinc-300' />
-        <div className='mx-auto flex w-fit flex-col gap-x-3 gap-y-1 sm:flex-row sm:items-center'>
-          <div className='text-lg font-medium'>Stats for</div>
-          <ProblemTypeSelector
-            {...{ operation, setOperation, operandLengths, setOperandLengths }}
-          />
-        </div>
-        <div className='grid justify-center gap-y-4 sm:grid-cols-2 sm:justify-items-center'>
-          <div>
-            <div className='text-lg font-medium'>Number of problems solved</div>
-            <div className='text-3xl font-medium'>
-              {problemTypeData ? problemTypeData.problemCount : '...'}
+        <div className='mx-4 flex flex-col gap-5 sm:gap-12'>
+          <div className='flex flex-col gap-x-3 gap-y-1 self-center sm:flex-row sm:items-center'>
+            <div className='text-lg font-medium'>Stats for</div>
+            <ProblemTypeSelector
+              {...{
+                operation,
+                setOperation,
+                operandLengths,
+                setOperandLengths
+              }}
+            />
+          </div>
+          <div className='grid justify-items-center gap-y-4 sm:grid-cols-2'>
+            <div className='text-center sm:justify-self-start'>
+              <div className='text-lg font-medium'>
+                Number of problems solved
+              </div>
+              <div className='text-3xl font-medium'>
+                {problemTypeData ? problemTypeData.problemCount : '...'}
+              </div>
+            </div>
+            <div className='text-center sm:justify-self-end'>
+              <div className='text-lg font-medium'>Time spent solving</div>
+              <div className='text-3xl font-medium'>
+                {problemTypeData
+                  ? formatCentiseconds(problemTypeData.centiseconds)
+                  : '...'}
+              </div>
             </div>
           </div>
-          <div>
-            <div className='text-lg font-medium'>Time spent solving</div>
-            <div className='text-3xl font-medium'>
-              {problemTypeData
-                ? formatCentiseconds(problemTypeData.centiseconds)
-                : '...'}
-            </div>
-          </div>
-        </div>
-        <div className='text-center'>
-          <div className='text-xl font-medium'>Personal records</div>
-          {problemTypeData
-            ? problemTypeData.records.map((record, i) => (
-                <div key={i} className='text-lg first-letter:uppercase'>
-                  {record.problemCount === 1
-                    ? 'single'
-                    : `${record.calculationMethod.toLowerCase()} of ${
-                        record.problemCount
-                      }`}
-                  : {formatCentiseconds(record.centiseconds)}
-                </div>
-              ))
-            : '...'}
+          <PersonalRecords records={problemTypeData?.records} />
         </div>
       </div>
     </>
