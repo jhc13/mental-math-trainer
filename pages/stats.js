@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { getSession, useSession } from 'next-auth/react';
 import { SettingsContext } from 'utils/settings';
-import { formatCentiseconds, OPERATORS, pluralize } from '/utils/format';
+import { formatSeconds, OPERATORS, pluralize } from '/utils/format';
 import { getOperandLengths } from 'utils/utils';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
 import Listbox from 'components/Listbox';
@@ -133,7 +133,10 @@ export default function Stats() {
             <div className='text-lg font-medium'>Total time spent solving</div>
             <div className='text-3xl font-medium'>
               {totalData
-                ? formatCentiseconds(totalData.totalCentiseconds)
+                ? formatSeconds(
+                    Math.floor(totalData.totalCentiseconds / 100),
+                    true
+                  )
                 : '...'}
             </div>
           </div>
@@ -164,7 +167,10 @@ export default function Stats() {
               <div className='text-lg font-medium'>Time spent solving</div>
               <div className='text-3xl font-medium'>
                 {problemTypeData
-                  ? formatCentiseconds(problemTypeData.centiseconds)
+                  ? formatSeconds(
+                      Math.floor(problemTypeData.centiseconds / 100),
+                      true
+                    )
                   : '...'}
               </div>
             </div>
