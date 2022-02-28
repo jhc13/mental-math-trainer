@@ -43,9 +43,23 @@ export default async function handler(req, res) {
         ],
         distinct: ['calculationMethod', 'problemCount'],
         select: {
+          timestamp: true,
           calculationMethod: true,
           problemCount: true,
-          centiseconds: true
+          centiseconds: true,
+          problems: {
+            select: {
+              id: true,
+              operation: true,
+              operands: true,
+              centiseconds: true
+            }
+          },
+          excludedProblems: {
+            select: {
+              id: true
+            }
+          }
         }
       });
       const problemTypeStats = {

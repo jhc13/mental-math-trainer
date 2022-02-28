@@ -37,3 +37,12 @@ export function formatCentiseconds(totalCentiseconds) {
     .toString()
     .padStart(2, '0')}`;
 }
+
+export function formatTimestamp(timestamp) {
+  const date = new Date(timestamp);
+  return date.toLocaleDateString('en', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}

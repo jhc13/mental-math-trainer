@@ -61,7 +61,11 @@ export default function SetResults({ problems }) {
           key={2 * i}
           onClick={() => handleBestClick(best)}
           className={`${
-            best.isNewRecord ? 'font-semibold text-sky-500' : ''
+            best.isNewRecord
+              ? 'font-semibold text-sky-500'
+              : best === selectedBest
+              ? 'text-sky-300'
+              : ''
           } cursor-pointer`}
         >
           Best{' '}
@@ -74,7 +78,11 @@ export default function SetResults({ problems }) {
           key={2 * i + 1}
           onClick={() => handleBestClick(best)}
           className={`${
-            best.isNewRecord ? 'font-semibold text-sky-500' : ''
+            best.isNewRecord
+              ? 'font-semibold text-sky-500'
+              : best === selectedBest
+              ? 'text-sky-300'
+              : ''
           } cursor-pointer`}
         >
           {formatCentiseconds(best.centiseconds)}
