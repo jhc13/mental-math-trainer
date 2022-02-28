@@ -158,7 +158,7 @@ export default function SetResults({ problems }) {
           </Popover>
           {bestElements}
         </div>
-        <div className='max-h-[9.5rem] overflow-auto scroll-smooth sm:max-h-[22.5rem]'>
+        <div className='max-h-[9.5rem] w-full overflow-auto scroll-smooth sm:max-h-[22.5rem]'>
           <div className='grid grid-cols-[auto_auto] gap-y-0.5 gap-x-2.5'>
             {problems.map((problem, i) => {
               const { operation, operands, centiseconds } = problem;
