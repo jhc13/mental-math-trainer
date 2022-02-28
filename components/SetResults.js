@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { Popover, Transition } from '@headlessui/react';
 import {
@@ -168,7 +168,7 @@ export default function SetResults({ problems }) {
                   ? { ref: firstSelectedBestProblem }
                   : {};
               return (
-                <>
+                <Fragment key={i}>
                   <div
                     {...refProp}
                     className={`${
@@ -198,7 +198,7 @@ export default function SetResults({ problems }) {
                       operands[1]
                     }: ${formatCentiseconds(centiseconds)}`}
                   </div>
-                </>
+                </Fragment>
               );
             })}
           </div>
