@@ -134,14 +134,14 @@ export default function Stats() {
       </Head>
       <div className='mx-4 my-8 flex flex-col gap-5 sm:gap-8'>
         <h1 className='text-center text-2xl font-semibold'>Stats</h1>
-        <div className='mx-4 grid justify-items-center gap-y-3 tabular-nums sm:grid-cols-2'>
-          <div className='text-center sm:justify-self-start'>
+        <div className='grid justify-items-center gap-y-3 tabular-nums sm:grid-cols-2'>
+          <div className='text-center'>
             <div className='text-lg'>Total number of problems solved</div>
             <div className='text-2xl font-medium'>
               {totalData ? totalData.totalProblemCount : '...'}
             </div>
           </div>
-          <div className='text-center sm:justify-self-end'>
+          <div className='text-center'>
             <div className='text-lg'>Total time spent solving</div>
             <div className='text-2xl font-medium'>
               {totalData
@@ -154,7 +154,7 @@ export default function Stats() {
           </div>
         </div>
         <Divider />
-        <div className='mx-4 flex flex-col gap-5 sm:gap-8'>
+        <div className='flex flex-col gap-5 sm:gap-8'>
           <div className='flex flex-col gap-x-3 gap-y-1 self-center sm:flex-row sm:items-center'>
             <div className='text-xl font-medium'>Stats for</div>
             <ProblemTypeSelector
@@ -167,13 +167,13 @@ export default function Stats() {
             />
           </div>
           <div className='grid justify-items-center gap-y-3 tabular-nums sm:grid-cols-2'>
-            <div className='text-center sm:justify-self-start'>
+            <div className='text-center'>
               <div className='text-lg'>Number of problems solved</div>
               <div className='text-2xl font-medium'>
                 {problemTypeData ? problemTypeData.problemCount : '...'}
               </div>
             </div>
-            <div className='text-center sm:justify-self-end'>
+            <div className='text-center'>
               <div className='text-lg'>Time spent solving</div>
               <div className='text-2xl font-medium'>
                 {problemTypeData
