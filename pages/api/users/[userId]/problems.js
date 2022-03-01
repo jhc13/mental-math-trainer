@@ -73,7 +73,11 @@ async function getNewRecords(userId, problems, setBests) {
 }
 
 export default async function handler(req, res) {
-  const { userId } = req.query;
+  let { userId, operation, operandLengths } = req.query;
+  if (operandLengths) {
+    operandLengths = JSON.parse(operandLengths);
+  }
+
   if (!(await isUserAuthenticated(req, res, userId))) {
     return;
   }
@@ -102,5 +106,43 @@ export default async function handler(req, res) {
       )
     ]);
     res.status(200).json(setBests);
+  } else if (req.method === 'DELETE') {
+    if (operation && operandLengths) {
+      await prisma.$transaction([
+        prisma.problem.deleteMany({
+          where: {
+            userId,
+            operation,
+            operandLengths: {
+              equals: operandLengths
+            }
+          }
+        }),
+        prisma.record.deleteMany({
+          where: {
+            userId,
+            operation,
+            operandLengths: {
+              equals: operandLengths
+            }
+          }
+        })
+      ]);
+      res.status(204).end();
+    } else if (!operation && !operandLengths) {
+      await prisma.$transaction([
+        prisma.problem.deleteMany({
+          where: {
+            userId
+          }
+        }),
+        prisma.record.deleteMany({
+          where: {
+            userId
+          }
+        })
+      ]);
+      res.status(204).end();
+    }
   }
 }

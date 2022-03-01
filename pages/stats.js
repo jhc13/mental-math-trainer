@@ -3,12 +3,14 @@ import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { getSession, useSession } from 'next-auth/react';
+import { RefreshIcon } from '@heroicons/react/outline';
 import { SettingsContext } from 'utils/settings';
 import { formatSeconds, OPERATORS, pluralize } from '/utils/format';
 import { getOperandLengths } from 'utils/utils';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
 import Listbox from 'components/Listbox';
 import PersonalRecords from 'components/PersonalRecords';
+import ConfirmationDialog from 'components/ConfirmationDialog';
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
@@ -91,10 +93,13 @@ export default function Stats() {
     settings;
   const [operation, setOperation] = useState(operationSetting);
   const [operandLengths, setOperandLengths] = useState(operandLengthsSetting);
-  const { data: totalData } = useSWR(
+  const [isResetProblemTypeDialogOpen, setIsResetProblemTypeDialogOpen] =
+    useState(false);
+  const [isResetAllDialogOpen, setIsResetAllDialogOpen] = useState(false);
+  const { data: totalData, mutate: totalMutate } = useSWR(
     session ? `/api/users/${session.user.id}/stats` : null
   );
-  const { data: problemTypeData } = useSWR(
+  const { data: problemTypeData, mutate: problemTypeMutate } = useSWR(
     session
       ? `/api/users/${
           session.user.id
@@ -108,6 +113,15 @@ export default function Stats() {
     router.reload();
     return null;
   }
+
+  function Divider() {
+    return <div role='separator' className='h-px bg-zinc-300' />;
+  }
+
+  // \u00a0: non-breaking space
+  const problemType = `${pluralize('digit', operandLengths[0], true)}\u00a0${
+    OPERATORS[operation]
+  }\u00a0${pluralize('digit', operandLengths[1], true)}`;
 
   return (
     <>
@@ -139,7 +153,7 @@ export default function Stats() {
             </div>
           </div>
         </div>
-        <div role='separator' className='h-px bg-zinc-300' />
+        <Divider />
         <div className='mx-4 flex flex-col gap-5 sm:gap-8'>
           <div className='flex flex-col gap-x-3 gap-y-1 self-center sm:flex-row sm:items-center'>
             <div className='text-xl font-medium'>Stats for</div>
@@ -172,6 +186,62 @@ export default function Stats() {
             </div>
           </div>
           <PersonalRecords records={problemTypeData?.records} />
+        </div>
+        <Divider />
+        <div className='flex flex-col gap-3.5'>
+          <button
+            onClick={() => {
+              setIsResetProblemTypeDialogOpen(true);
+            }}
+            className='flex w-fit items-center gap-2 rounded-md bg-red-900 px-3 py-2 active:brightness-[0.85]'
+          >
+            <RefreshIcon className='h-5 w-5' />
+            Reset stats for {problemType}
+          </button>
+          <ConfirmationDialog
+            isOpen={isResetProblemTypeDialogOpen}
+            setIsOpen={setIsResetProblemTypeDialogOpen}
+            title={`Reset stats for ${problemType}`}
+            description={`Are you sure you want to delete your solved problems and personal records data for ${problemType}? This action cannot be undone.`}
+            action='Reset stats'
+            onAction={async () => {
+              await fetch(
+                `/api/users/${
+                  session.user.id
+                }/problems?operation=${operation}&operandLengths=${JSON.stringify(
+                  operandLengths
+                )}`,
+                {
+                  method: 'DELETE'
+                }
+              );
+              await totalMutate();
+              await problemTypeMutate();
+            }}
+          />
+          <button
+            onClick={() => {
+              setIsResetAllDialogOpen(true);
+            }}
+            className='flex w-fit items-center gap-2 rounded-md bg-red-900 px-3 py-2 active:brightness-[0.85]'
+          >
+            <RefreshIcon className='h-5 w-5' />
+            Reset all stats
+          </button>
+          <ConfirmationDialog
+            isOpen={isResetAllDialogOpen}
+            setIsOpen={setIsResetAllDialogOpen}
+            title='Reset all stats'
+            description='Are you sure you want to delete your solved problems and personal records data for all problem types? This action cannot be undone.'
+            action='Reset all stats'
+            onAction={async () => {
+              await fetch(`/api/users/${session.user.id}/problems`, {
+                method: 'DELETE'
+              });
+              await totalMutate();
+              await problemTypeMutate();
+            }}
+          />
         </div>
       </div>
     </>

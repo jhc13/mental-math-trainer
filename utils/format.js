@@ -5,8 +5,8 @@ export const OPERATORS = {
   DIVISION: '÷'
 };
 
-export function pluralize(word, count) {
-  return `${count} ${word}${count === 1 ? '' : 's'}`;
+export function pluralize(word, count, nbsp = false) {
+  return `${count}${nbsp ? '\u00a0' : ' '}${word}${count === 1 ? '' : 's'}`;
 }
 
 export function formatSeconds(totalSeconds, alwaysShowMinutes = false) {
