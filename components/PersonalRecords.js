@@ -15,15 +15,15 @@ export default function PersonalRecords({ records }) {
   };
 
   return (
-    <div className='grid justify-items-center gap-y-6 sm:grid-cols-2'>
+    <div className='grid justify-items-center gap-y-5 sm:grid-cols-2'>
       <div className='flex flex-col items-center gap-1'>
-        <div className='text-lg font-medium'>Personal records</div>
+        <div className='text-xl font-medium'>Personal records</div>
         <div
           className={`${
             records === undefined || records.length === 0
               ? ''
               : 'grid-cols-[auto_auto]'
-          } grid w-fit gap-x-6 gap-y-0.5 text-xl tabular-nums`}
+          } grid w-fit gap-x-6 gap-y-0.5 text-lg tabular-nums`}
         >
           {records === undefined
             ? '...'
@@ -59,7 +59,7 @@ export default function PersonalRecords({ records }) {
       <div className='flex max-h-[11.5rem] w-full flex-col items-center overflow-auto text-lg sm:max-h-[24.5rem]'>
         {selectedRecord && (
           <>
-            <div className='font-medium text-sky-300'>
+            <div className='text-sky-300'>
               {formatTimestamp(selectedRecord.timestamp)}
             </div>
             <div className='grid grid-cols-[auto_auto] gap-y-0.5 gap-x-2.5 tabular-nums'>
