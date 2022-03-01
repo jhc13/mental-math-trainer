@@ -4,6 +4,7 @@ import { signOut, useSession } from 'next-auth/react';
 import {
   MenuIcon,
   ChartBarIcon,
+  MailIcon,
   LogoutIcon,
   TrashIcon
 } from '@heroicons/react/outline';
@@ -120,9 +121,16 @@ export default function MenuSidebar({
                   Stats
                 </a>
               </Link>
+              <Divider />
+              <a
+                href='mailto:dev@mathtrainer.xyz'
+                className='flex items-center gap-3'
+              >
+                <MailIcon className='h-6 w-6 text-sky-600' />
+                Contact
+              </a>
               {session && (
                 <>
-                  <Divider />
                   <button
                     onClick={() => signOut({ redirect: false })}
                     className='flex w-fit items-center gap-3'
@@ -136,7 +144,7 @@ export default function MenuSidebar({
                     }}
                     className='flex w-fit items-center gap-3'
                   >
-                    <TrashIcon className='h-6 w-6 -translate-x-[2px] translate-y-px text-red-800' />
+                    <TrashIcon className='h-6 w-6 -translate-x-px translate-y-px text-red-800' />
                     Delete account
                   </button>
                   <ConfirmationDialog
