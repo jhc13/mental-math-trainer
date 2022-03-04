@@ -1,6 +1,136 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { SettingsContext } from 'utils/settings';
 
+export default function useSet(solvedProblems, setSolvedProblems, onSetEnd) {
+  const { settings } = useContext(SettingsContext);
+  const { operation, operandLengths, setProblemCount, inputDirection } =
+    settings;
+  const [operands, setOperands] = useState(
+    getOperands(operation, operandLengths)
+  );
+  const [answerString, setAnswerString] = useState('');
+  const [setStartTime] = useState(Date.now());
+  const [problemStartTime, setProblemStartTime] = useState(Date.now());
+  const maxAnswerLength = getMaxAnswerLength(operands, operation);
+
+  const clear = () => {
+    setAnswerString('');
+  };
+
+  const backspace = useCallback(() => {
+    if (inputDirection === 'RIGHT_TO_LEFT') {
+      setAnswerString((answerString) => answerString.slice(1));
+    } else {
+      setAnswerString((answerString) => answerString.slice(0, -1));
+    }
+  }, [inputDirection]);
+
+  const appendDigit = useCallback(
+    (digit) => {
+      if (answerString.length >= maxAnswerLength) {
+        return;
+      }
+      if (inputDirection === 'RIGHT_TO_LEFT') {
+        setAnswerString((answerString) => digit + answerString);
+      } else {
+        setAnswerString((answerString) => answerString + digit);
+      }
+    },
+    [answerString, inputDirection, maxAnswerLength]
+  );
+
+  const reset = useCallback(() => {
+    setOperands(getOperands(operation, operandLengths));
+    clear();
+    setProblemStartTime(Date.now());
+  }, [operation, operandLengths]);
+
+  const handleKeypadPress = useCallback(
+    (key) => {
+      if (key === 'CLEAR') {
+        clear();
+      } else if (key === 'BACKSPACE') {
+        backspace();
+      } else {
+        appendDigit(key);
+      }
+    },
+    [backspace, appendDigit]
+  );
+
+  useEffect(() => {
+    const handleKeyDown = ({ key }) => {
+      if (/^\d$/.test(key)) {
+        handleKeypadPress(key);
+      } else if (['Backspace', 'Delete'].includes(key)) {
+        handleKeypadPress('BACKSPACE');
+      } else if (key.toLowerCase() === 'c') {
+        handleKeypadPress('CLEAR');
+      } else if (key === 'Escape') {
+        onSetEnd();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeypadPress, onSetEnd]);
+
+  useEffect(() => {
+    let correctAnswer;
+    switch (operation) {
+      case 'ADDITION':
+        correctAnswer = BigInt(operands[0]) + BigInt(operands[1]);
+        break;
+      case 'SUBTRACTION':
+        correctAnswer = BigInt(operands[0]) - BigInt(operands[1]);
+        break;
+      case 'MULTIPLICATION':
+        correctAnswer = BigInt(operands[0]) * BigInt(operands[1]);
+        break;
+      case 'DIVISION':
+        correctAnswer = BigInt(operands[0]) / BigInt(operands[1]);
+        break;
+    }
+    if (BigInt(answerString) === correctAnswer) {
+      const centiseconds = Math.floor((Date.now() - problemStartTime) / 10);
+      const problem = {
+        operation,
+        operandLengths,
+        operands,
+        centiseconds,
+        timestamp: new Date()
+      };
+      setSolvedProblems((problems) => [...problems, problem]);
+      reset();
+    }
+  }, [
+    answerString,
+    operation,
+    operands,
+    problemStartTime,
+    operandLengths,
+    setSolvedProblems,
+    reset
+  ]);
+
+  useEffect(() => {
+    if (solvedProblems.length === setProblemCount) {
+      onSetEnd();
+    }
+  }, [solvedProblems, setProblemCount, onSetEnd]);
+
+  return {
+    operation,
+    operands,
+    answerString,
+    setStartTime,
+    problemStartTime,
+    maxAnswerLength,
+    handleKeypadPress
+  };
+}
+
 function getMaxAnswerLength(operands, operation) {
   const operandLengths = operands.map((operand) => operand.toString().length);
   switch (operation) {
@@ -77,135 +207,4 @@ function getOperands(operation, operandLengths) {
       const dividend = divisor * quotient;
       return [dividend, divisor];
   }
-}
-
-export default function useSet(onAbort, onSetEnd) {
-  const { settings } = useContext(SettingsContext);
-  const { operation, operandLengths, setProblemCount, inputDirection } =
-    settings;
-  const [operands, setOperands] = useState(
-    getOperands(operation, operandLengths)
-  );
-  const [answerString, setAnswerString] = useState('');
-  const [setStartTime] = useState(Date.now());
-  const [problemStartTime, setProblemStartTime] = useState(Date.now());
-  const [solvedProblems, setSolvedProblems] = useState([]);
-  const maxAnswerLength = getMaxAnswerLength(operands, operation);
-
-  const clear = () => {
-    setAnswerString('');
-  };
-
-  const backspace = useCallback(() => {
-    if (inputDirection === 'RIGHT_TO_LEFT') {
-      setAnswerString((answerString) => answerString.slice(1));
-    } else {
-      setAnswerString((answerString) => answerString.slice(0, -1));
-    }
-  }, [inputDirection]);
-
-  const appendDigit = useCallback(
-    (digit) => {
-      if (answerString.length >= maxAnswerLength) {
-        return;
-      }
-      if (inputDirection === 'RIGHT_TO_LEFT') {
-        setAnswerString((answerString) => digit + answerString);
-      } else {
-        setAnswerString((answerString) => answerString + digit);
-      }
-    },
-    [answerString, inputDirection, maxAnswerLength]
-  );
-
-  const reset = useCallback(() => {
-    setOperands(getOperands(operation, operandLengths));
-    clear();
-    setProblemStartTime(Date.now());
-  }, [operation, operandLengths]);
-
-  const handleKeypadPress = useCallback(
-    (key) => {
-      if (key === 'CLEAR') {
-        clear();
-      } else if (key === 'BACKSPACE') {
-        backspace();
-      } else {
-        appendDigit(key);
-      }
-    },
-    [backspace, appendDigit]
-  );
-
-  useEffect(() => {
-    const handleKeyDown = ({ key }) => {
-      if (/^\d$/.test(key)) {
-        handleKeypadPress(key);
-      } else if (['Backspace', 'Delete'].includes(key)) {
-        handleKeypadPress('BACKSPACE');
-      } else if (key.toLowerCase() === 'c') {
-        handleKeypadPress('CLEAR');
-      } else if (key === 'Escape') {
-        onAbort();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [handleKeypadPress, onAbort]);
-
-  useEffect(() => {
-    let correctAnswer;
-    switch (operation) {
-      case 'ADDITION':
-        correctAnswer = BigInt(operands[0]) + BigInt(operands[1]);
-        break;
-      case 'SUBTRACTION':
-        correctAnswer = BigInt(operands[0]) - BigInt(operands[1]);
-        break;
-      case 'MULTIPLICATION':
-        correctAnswer = BigInt(operands[0]) * BigInt(operands[1]);
-        break;
-      case 'DIVISION':
-        correctAnswer = BigInt(operands[0]) / BigInt(operands[1]);
-        break;
-    }
-    if (BigInt(answerString) === correctAnswer) {
-      const centiseconds = Math.floor((Date.now() - problemStartTime) / 10);
-      const problem = {
-        operation,
-        operandLengths,
-        operands,
-        centiseconds,
-        timestamp: new Date()
-      };
-      setSolvedProblems((problems) => [...problems, problem]);
-      reset();
-    }
-  }, [
-    answerString,
-    operation,
-    operands,
-    problemStartTime,
-    operandLengths,
-    reset
-  ]);
-
-  useEffect(() => {
-    if (solvedProblems.length === setProblemCount) {
-      onSetEnd(solvedProblems);
-    }
-  }, [solvedProblems, setProblemCount, onSetEnd]);
-
-  return {
-    operation,
-    operands,
-    answerString,
-    setStartTime,
-    problemStartTime,
-    solvedProblemCount: solvedProblems.length,
-    maxAnswerLength,
-    handleKeypadPress
-  };
 }

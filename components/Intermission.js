@@ -27,14 +27,14 @@ export default function Intermission({ problems, onNewSet }) {
   return (
     <>
       <div className='mt-8 mb-5 flex flex-auto flex-col gap-8'>
-        {problems && <SetResults problems={problems} />}
-        <div className={`${problems ? 'hidden sm:block' : ''} mx-auto`}>
+        {problems.length > 0 && <SetResults problems={problems} />}
+        <div className={`${problems.length ? 'hidden sm:block' : ''} mx-auto`}>
           <SetSettings onNewSet={onNewSet} />
         </div>
         <div className='flex flex-col items-center gap-3'>
           <div
             className={`${
-              problems ? 'block sm:hidden' : 'hidden'
+              problems.length ? 'block sm:hidden' : 'hidden'
             } flex select-none flex-wrap items-center justify-center gap-x-2.5 gap-y-3`}
           >
             <div className='font-medium'>

@@ -8,7 +8,7 @@ import Intermission from 'components/Intermission';
 
 export default function Trainer() {
   const [isSolving, setIsSolving] = useState(false);
-  const [problems, setProblems] = useState(null);
+  const [solvedProblems, setSolvedProblems] = useState([]);
   const { data: session } = useSession();
   const { settings } = useContext(SettingsContext);
   const { operation, operandLengths, setProblemCount } = settings;
@@ -28,17 +28,12 @@ export default function Trainer() {
     setIsSolving(false);
   }, [operation, firstOperandLength, secondOperandLength, setProblemCount]);
 
-  const handleAbort = () => {
-    setIsSolving(false);
-  };
-
-  const handleSetEnd = useCallback(async (problems) => {
-    setProblems(problems);
+  const handleSetEnd = useCallback(() => {
     setIsSolving(false);
   }, []);
 
   const handleNewSet = () => {
-    setProblems(null);
+    setSolvedProblems([]);
     setIsSolving(true);
   };
 
@@ -52,9 +47,13 @@ export default function Trainer() {
         />
       </Head>
       {isSolving ? (
-        <Set onAbort={handleAbort} onSetEnd={handleSetEnd} />
+        <Set
+          solvedProblems={solvedProblems}
+          setSolvedProblems={setSolvedProblems}
+          onSetEnd={handleSetEnd}
+        />
       ) : (
-        <Intermission problems={problems} onNewSet={handleNewSet} />
+        <Intermission problems={solvedProblems} onNewSet={handleNewSet} />
       )}
     </>
   );

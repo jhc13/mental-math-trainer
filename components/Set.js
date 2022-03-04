@@ -6,7 +6,7 @@ import Timer from 'components/Timer';
 import Problem from 'components/Problem';
 import Keypad from 'components/Keypad';
 
-export default function Set({ onAbort, onSetEnd }) {
+export default function Set({ solvedProblems, setSolvedProblems, onSetEnd }) {
   const { settings } = useContext(SettingsContext);
   const {
     setProblemCount,
@@ -22,16 +22,16 @@ export default function Set({ onAbort, onSetEnd }) {
     answerString,
     setStartTime,
     problemStartTime,
-    solvedProblemCount,
     maxAnswerLength,
     handleKeypadPress
-  } = useSet(onAbort, onSetEnd);
+  } = useSet(solvedProblems, setSolvedProblems, onSetEnd);
 
   return (
     <div className='flex h-full flex-col items-center px-3 pb-5 pt-3'>
       <div className='grid w-full grid-cols-3 place-items-center'>
         <div className='justify-self-start text-2xl tabular-nums leading-9'>
-          {showProblemNumber && `${solvedProblemCount + 1}/${setProblemCount}`}
+          {showProblemNumber &&
+            `${solvedProblems.length + 1}/${setProblemCount}`}
         </div>
         <div className='col-start-2'>
           {showTimer && (
@@ -47,7 +47,7 @@ export default function Set({ onAbort, onSetEnd }) {
         {showAbortButton && (
           <button
             className='col-start-3 flex items-center gap-1.5 justify-self-end rounded-md bg-red-900 px-2 py-1 active:brightness-[0.85]'
-            onClick={onAbort}
+            onClick={onSetEnd}
           >
             <XCircleIcon className='h-5 w-5' aria-hidden='true' />
             <div className='text-lg'>Abort</div>
