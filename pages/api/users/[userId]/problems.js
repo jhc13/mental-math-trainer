@@ -4,74 +4,6 @@ import isUserAuthenticated from 'utils/auth';
 import { getSetBests } from 'utils/records';
 import { MAX_PROBLEMS_PER_SET } from 'utils/config';
 
-async function getNewRecords(userId, problems, setBests) {
-  const { operation, operandLengths } = problems[0];
-  const records = await prisma.record.findMany({
-    where: {
-      userId,
-      operation,
-      operandLengths: {
-        equals: operandLengths
-      }
-    },
-    orderBy: {
-      timestamp: 'desc'
-    },
-    distinct: ['calculationMethod', 'problemCount'],
-    select: {
-      calculationMethod: true,
-      problemCount: true,
-      centiseconds: true
-    }
-  });
-
-  const newRecords = [];
-  for (const best of setBests) {
-    const {
-      calculationMethod,
-      problemCount,
-      centiseconds,
-      startIndex,
-      excludedIndices
-    } = best;
-    const record = records.find(
-      (record) =>
-        record.calculationMethod === calculationMethod &&
-        record.problemCount === problemCount
-    );
-    best.isNewRecord =
-      record === undefined || centiseconds < record.centiseconds;
-    if (best.isNewRecord) {
-      newRecords.push({
-        operation,
-        operandLengths,
-        calculationMethod,
-        problemCount,
-        centiseconds,
-        problems: {
-          connect: Array.from(
-            { length: problemCount },
-            (_, i) => i + startIndex
-          ).map((index) => ({
-            id: problems[index].id
-          }))
-        },
-        excludedProblems: {
-          connect: excludedIndices.map((index) => ({
-            id: problems[index].id
-          }))
-        },
-        user: {
-          connect: {
-            id: userId
-          }
-        }
-      });
-    }
-  }
-  return newRecords;
-}
-
 export default async function handler(req, res) {
   let { userId, operation, operandLengths } = req.query;
   if (operandLengths) {
@@ -145,4 +77,72 @@ export default async function handler(req, res) {
       res.status(204).end();
     }
   }
+}
+
+async function getNewRecords(userId, problems, setBests) {
+  const { operation, operandLengths } = problems[0];
+  const records = await prisma.record.findMany({
+    where: {
+      userId,
+      operation,
+      operandLengths: {
+        equals: operandLengths
+      }
+    },
+    orderBy: {
+      timestamp: 'desc'
+    },
+    distinct: ['calculationMethod', 'problemCount'],
+    select: {
+      calculationMethod: true,
+      problemCount: true,
+      centiseconds: true
+    }
+  });
+
+  const newRecords = [];
+  for (const best of setBests) {
+    const {
+      calculationMethod,
+      problemCount,
+      centiseconds,
+      startIndex,
+      excludedIndices
+    } = best;
+    const record = records.find(
+      (record) =>
+        record.calculationMethod === calculationMethod &&
+        record.problemCount === problemCount
+    );
+    best.isNewRecord =
+      record === undefined || centiseconds < record.centiseconds;
+    if (best.isNewRecord) {
+      newRecords.push({
+        operation,
+        operandLengths,
+        calculationMethod,
+        problemCount,
+        centiseconds,
+        problems: {
+          connect: Array.from(
+            { length: problemCount },
+            (_, i) => i + startIndex
+          ).map((index) => ({
+            id: problems[index].id
+          }))
+        },
+        excludedProblems: {
+          connect: excludedIndices.map((index) => ({
+            id: problems[index].id
+          }))
+        },
+        user: {
+          connect: {
+            id: userId
+          }
+        }
+      });
+    }
+  }
+  return newRecords;
 }

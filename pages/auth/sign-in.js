@@ -22,46 +22,6 @@ const errorMessages = {
   Default: DEFAULT_ERROR_MESSAGE
 };
 
-function EmailSignIn({ setEmail, setSignInEmailSent, callbackUrl }) {
-  const [isSending, setIsSending] = useState(false);
-  const { register, handleSubmit } = useForm();
-  const onSubmit = async ({ email }) => {
-    setIsSending(true);
-    const { url } = await signIn('email', {
-      email,
-      callbackUrl: callbackUrl || '/',
-      redirect: false
-    });
-    setIsSending(false);
-    if (url !== null) {
-      setEmail(email);
-      setSignInEmailSent(true);
-    }
-  };
-
-  return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className='flex select-none flex-col shadow-md'
-    >
-      <label htmlFor='email' className='mb-1 text-lg'>
-        Email
-      </label>
-      <input
-        type='email'
-        id='email'
-        placeholder='email@example.com'
-        autoComplete='email'
-        {...register('email', { required: true })}
-        className='h-12 rounded-t-md rounded-b-none bg-zinc-700 px-3'
-      />
-      <button className='rounded-b-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'>
-        {isSending ? 'Sending sign-in link...' : 'Sign in with email'}
-      </button>
-    </form>
-  );
-}
-
 export default function SignIn() {
   const [email, setEmail] = useState(null);
   const [signInEmailSent, setSignInEmailSent] = useState(false);
@@ -129,5 +89,45 @@ export default function SignIn() {
         )}
       </div>
     </>
+  );
+}
+
+function EmailSignIn({ setEmail, setSignInEmailSent, callbackUrl }) {
+  const [isSending, setIsSending] = useState(false);
+  const { register, handleSubmit } = useForm();
+  const onSubmit = async ({ email }) => {
+    setIsSending(true);
+    const { url } = await signIn('email', {
+      email,
+      callbackUrl: callbackUrl || '/',
+      redirect: false
+    });
+    setIsSending(false);
+    if (url !== null) {
+      setEmail(email);
+      setSignInEmailSent(true);
+    }
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='flex select-none flex-col shadow-md'
+    >
+      <label htmlFor='email' className='mb-1 text-lg'>
+        Email
+      </label>
+      <input
+        type='email'
+        id='email'
+        placeholder='email@example.com'
+        autoComplete='email'
+        {...register('email', { required: true })}
+        className='h-12 rounded-t-md rounded-b-none bg-zinc-700 px-3'
+      />
+      <button className='rounded-b-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'>
+        {isSending ? 'Sending sign-in link...' : 'Sign in with email'}
+      </button>
+    </form>
   );
 }

@@ -13,43 +13,6 @@ import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import Logo from 'public/logo.svg';
 
-function DisplayName({ displayName, mutateDisplayName, userId }) {
-  return (
-    <input
-      maxLength={MAX_DISPLAY_NAME_LENGTH}
-      spellCheck={false}
-      value={displayName === undefined ? '...' : displayName}
-      onChange={async (event) => {
-        if (displayName === undefined) {
-          return;
-        }
-        await mutateDisplayName(
-          {
-            displayName: event.target.value
-          },
-          false
-        );
-      }}
-      onBlur={async (event) => {
-        if (displayName === undefined) {
-          return;
-        }
-        await fetch(`/api/users/${userId}/displayName`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ displayName: event.target.value })
-        });
-        await mutateDisplayName();
-      }}
-      className='rounded bg-[#202022] py-1 text-center text-xl font-medium hover:bg-zinc-800 focus:bg-zinc-800'
-    />
-  );
-}
-
-function Divider() {
-  return <div role='separator' className='h-px bg-zinc-400' />;
-}
-
 export default function MenuSidebar({
   topSidebar,
   onClick,
@@ -168,4 +131,41 @@ export default function MenuSidebar({
       </Transition>
     </Disclosure>
   );
+}
+
+function DisplayName({ displayName, mutateDisplayName, userId }) {
+  return (
+    <input
+      maxLength={MAX_DISPLAY_NAME_LENGTH}
+      spellCheck={false}
+      value={displayName === undefined ? '...' : displayName}
+      onChange={async (event) => {
+        if (displayName === undefined) {
+          return;
+        }
+        await mutateDisplayName(
+          {
+            displayName: event.target.value
+          },
+          false
+        );
+      }}
+      onBlur={async (event) => {
+        if (displayName === undefined) {
+          return;
+        }
+        await fetch(`/api/users/${userId}/displayName`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ displayName: event.target.value })
+        });
+        await mutateDisplayName();
+      }}
+      className='rounded bg-[#202022] py-1 text-center text-xl font-medium hover:bg-zinc-800 focus:bg-zinc-800'
+    />
+  );
+}
+
+function Divider() {
+  return <div role='separator' className='h-px bg-zinc-400' />;
 }

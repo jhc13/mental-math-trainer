@@ -29,62 +29,6 @@ export async function getServerSideProps(context) {
   };
 }
 
-function ProblemTypeSelector({
-  operation,
-  setOperation,
-  operandLengths,
-  setOperandLengths
-}) {
-  useEffect(() => {
-    if (
-      ['SUBTRACTION', 'DIVISION'].includes(operation) &&
-      operandLengths[1] > operandLengths[0]
-    ) {
-      setOperandLengths([operandLengths[0], operandLengths[0]]);
-    }
-  }, [operation, operandLengths, setOperandLengths]);
-
-  return (
-    <div className='grid grid-cols-[7rem_4.5rem_7rem] gap-3'>
-      <Listbox
-        value={operandLengths[0]}
-        onChange={(value) => {
-          setOperandLengths([value, operandLengths[1]]);
-        }}
-        optionValues={getOperandLengths()}
-        optionNames={getOperandLengths().map((length) =>
-          pluralize('digit', length)
-        )}
-      />
-      <Listbox
-        value={operation}
-        onChange={setOperation}
-        optionValues={Object.keys(OPERATORS)}
-        optionNames={Object.values(OPERATORS)}
-      />
-      <Listbox
-        value={operandLengths[1]}
-        onChange={(value) => {
-          setOperandLengths([operandLengths[0], value]);
-        }}
-        optionValues={getOperandLengths()}
-        optionNames={getOperandLengths().map((length) =>
-          pluralize('digit', length)
-        )}
-        disabled={
-          ['SUBTRACTION', 'DIVISION'].includes(operation)
-            ? Array(operandLengths[0])
-                .fill(false)
-                .concat(
-                  Array(MAX_OPERAND_LENGTH - operandLengths[0]).fill(true)
-                )
-            : Array(MAX_OPERAND_LENGTH).fill(false)
-        }
-      />
-    </div>
-  );
-}
-
 export default function Stats() {
   const { data: session } = useSession();
   const router = useRouter();
@@ -245,5 +189,61 @@ export default function Stats() {
         </div>
       </div>
     </>
+  );
+}
+
+function ProblemTypeSelector({
+  operation,
+  setOperation,
+  operandLengths,
+  setOperandLengths
+}) {
+  useEffect(() => {
+    if (
+      ['SUBTRACTION', 'DIVISION'].includes(operation) &&
+      operandLengths[1] > operandLengths[0]
+    ) {
+      setOperandLengths([operandLengths[0], operandLengths[0]]);
+    }
+  }, [operation, operandLengths, setOperandLengths]);
+
+  return (
+    <div className='grid grid-cols-[7rem_4.5rem_7rem] gap-3'>
+      <Listbox
+        value={operandLengths[0]}
+        onChange={(value) => {
+          setOperandLengths([value, operandLengths[1]]);
+        }}
+        optionValues={getOperandLengths()}
+        optionNames={getOperandLengths().map((length) =>
+          pluralize('digit', length)
+        )}
+      />
+      <Listbox
+        value={operation}
+        onChange={setOperation}
+        optionValues={Object.keys(OPERATORS)}
+        optionNames={Object.values(OPERATORS)}
+      />
+      <Listbox
+        value={operandLengths[1]}
+        onChange={(value) => {
+          setOperandLengths([operandLengths[0], value]);
+        }}
+        optionValues={getOperandLengths()}
+        optionNames={getOperandLengths().map((length) =>
+          pluralize('digit', length)
+        )}
+        disabled={
+          ['SUBTRACTION', 'DIVISION'].includes(operation)
+            ? Array(operandLengths[0])
+                .fill(false)
+                .concat(
+                  Array(MAX_OPERAND_LENGTH - operandLengths[0]).fill(true)
+                )
+            : Array(MAX_OPERAND_LENGTH).fill(false)
+        }
+      />
+    </div>
   );
 }
