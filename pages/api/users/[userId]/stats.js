@@ -25,7 +25,7 @@ export default async function handler(req, res) {
           }
         }
       });
-      const records = await prisma.record.findMany({
+      const currentRecords = await prisma.record.findMany({
         where: {
           userId,
           operation,
@@ -62,10 +62,32 @@ export default async function handler(req, res) {
           }
         }
       });
+      const allRecords = await prisma.record.findMany({
+        where: {
+          userId,
+          operation,
+          operandLengths: {
+            equals: operandLengths
+          }
+        },
+        orderBy: [
+          {
+            timestamp: 'asc'
+          }
+        ],
+        select: {
+          timestamp: true,
+          calculationMethod: true,
+          problemCount: true,
+          centiseconds: true
+        }
+      });
+      const recordProgressions = getRecordProgressions(allRecords);
       const problemTypeStats = {
         problemCount: aggregations._count,
         centiseconds: aggregations._sum.centiseconds,
-        records
+        records: currentRecords,
+        recordProgressions
       };
       res.status(200).json(problemTypeStats);
     } else {
@@ -85,4 +107,27 @@ export default async function handler(req, res) {
       res.status(200).json(totalStats);
     }
   }
+}
+
+function getRecordProgressions(records) {
+  return records.reduce((recordProgressions, record) => {
+    let progression = recordProgressions.find(
+      (progression) =>
+        progression.calculationMethod === record.calculationMethod &&
+        progression.problemCount === record.problemCount
+    );
+    if (!progression) {
+      progression = {
+        calculationMethod: record.calculationMethod,
+        problemCount: record.problemCount,
+        records: []
+      };
+      recordProgressions.push(progression);
+    }
+    progression.records.push({
+      timestamp: record.timestamp,
+      centiseconds: record.centiseconds
+    });
+    return recordProgressions;
+  }, []);
 }
