@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { getSession, useSession } from 'next-auth/react';
@@ -11,6 +12,12 @@ import { MAX_OPERAND_LENGTH } from 'utils/config';
 import Listbox from 'components/Listbox';
 import PersonalRecords from 'components/PersonalRecords';
 import ConfirmationDialog from 'components/ConfirmationDialog';
+
+// The zoom plugin requires dynamic import.
+const RecordProgressionsChart = dynamic(
+  () => import('components/RecordProgressionsChart'),
+  { ssr: false }
+);
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
@@ -131,6 +138,11 @@ export default function Stats() {
           </div>
           <PersonalRecords records={problemTypeData?.records} />
         </div>
+        {problemTypeData && (
+          <RecordProgressionsChart
+            progressions={problemTypeData.recordProgressions}
+          />
+        )}
         <Divider />
         <div className='flex flex-col gap-3.5'>
           <button
