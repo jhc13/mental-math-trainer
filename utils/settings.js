@@ -63,6 +63,8 @@ function SettingsProvider({ children }) {
   useEffect(() => {
     const settingsWithoutShowKeypad = { ...settings };
     delete settingsWithoutShowKeypad.showKeypad;
+    localStorage.setItem('settings', JSON.stringify(settingsWithoutShowKeypad));
+    localStorage.setItem('showKeypad', settings.showKeypad);
     if (session) {
       (async () => {
         await fetch(`/api/users/${session.user.id}/settings`, {
@@ -72,8 +74,6 @@ function SettingsProvider({ children }) {
         });
       })();
     }
-    localStorage.setItem('settings', JSON.stringify(settingsWithoutShowKeypad));
-    localStorage.setItem('showKeypad', settings.showKeypad);
   }, [settings, session]);
 
   return (
