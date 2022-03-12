@@ -9,16 +9,16 @@ import Intermission from 'components/Intermission';
 export default function Trainer() {
   const [isSolving, setIsSolving] = useState(false);
   const [solvedProblems, setSolvedProblems] = useState([]);
-  const { data: session } = useSession();
+  const { status: sessionStatus } = useSession();
   const { settings } = useContext(SettingsContext);
   const { operation, operandLengths, setProblemCount } = settings;
 
   // Abort if the user signs out during a set.
   useEffect(() => {
-    if (!session) {
+    if (sessionStatus === 'unauthenticated') {
       setIsSolving(false);
     }
-  }, [session]);
+  }, [sessionStatus]);
 
   // Abort if the set settings change (in another tab).
   // Adding the operandLengths array directly as a dependency causes unintended
