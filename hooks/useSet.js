@@ -1,10 +1,16 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { SettingsContext } from 'utils/settings';
 
-export default function useSet(solvedProblems, setSolvedProblems, onSetEnd) {
+export default function useSet(
+  solvedProblems,
+  setSolvedProblems,
+  onSetEnd,
+  operation,
+  operandLengths,
+  setProblemCount
+) {
   const { settings } = useContext(SettingsContext);
-  const { operation, operandLengths, setProblemCount, inputDirection } =
-    settings;
+  const { inputDirection } = settings;
   const [operands, setOperands] = useState(
     getOperands(operation, operandLengths)
   );
@@ -121,7 +127,6 @@ export default function useSet(solvedProblems, setSolvedProblems, onSetEnd) {
   }, [solvedProblems, setProblemCount, onSetEnd]);
 
   return {
-    operation,
     operands,
     answerString,
     setStartTime,

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { XCircleIcon } from '@heroicons/react/solid';
 import useSet from 'hooks/useSet';
 import { SettingsContext } from 'utils/settings';
@@ -8,23 +8,35 @@ import Keypad from 'components/Keypad';
 
 export default function Set({ solvedProblems, setSolvedProblems, onSetEnd }) {
   const { settings } = useContext(SettingsContext);
-  const {
+  let {
+    operation,
+    operandLengths,
     setProblemCount,
     showProblemNumber,
     showTimer,
     timerDisplayTime,
     showAbortButton
   } = settings;
+  // Freeze the set settings to their initial values.
+  [operation] = useState(operation);
+  [operandLengths] = useState(operandLengths);
+  [setProblemCount] = useState(setProblemCount);
 
   const {
-    operation,
     operands,
     answerString,
     setStartTime,
     problemStartTime,
     maxAnswerLength,
     handleKeypadPress
-  } = useSet(solvedProblems, setSolvedProblems, onSetEnd);
+  } = useSet(
+    solvedProblems,
+    setSolvedProblems,
+    onSetEnd,
+    operation,
+    operandLengths,
+    setProblemCount
+  );
 
   return (
     <div className='flex h-full flex-col items-center px-3 pb-5 pt-3'>
