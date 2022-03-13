@@ -6,7 +6,12 @@ import {
   ExternalLinkIcon
 } from '@heroicons/react/solid';
 import { recordFormats, getSetBests } from 'utils/records';
-import { formatCentiseconds, OPERATORS, pluralize } from 'utils/format';
+import {
+  OPERATORS,
+  pluralize,
+  formatCentiseconds,
+  formatRecordFormat
+} from 'utils/format';
 
 export default function SetResults({ problems }) {
   const [bests, setBests] = useState(null);
@@ -68,11 +73,7 @@ export default function SetResults({ problems }) {
               : ''
           } cursor-pointer`}
         >
-          Best{' '}
-          {best.problemCount === 1
-            ? 'single'
-            : `${best.calculationMethod.toLowerCase()} of ${best.problemCount}`}
-          :
+          Best {formatRecordFormat(best.calculationMethod, best.problemCount)}:
         </div>,
         <div
           key={2 * i + 1}
@@ -97,12 +98,7 @@ export default function SetResults({ problems }) {
       bestElements.push(
         <div key={2 * i}>
           Best{' '}
-          {format.problemCount === 1
-            ? 'single'
-            : `${format.calculationMethod.toLowerCase()} of ${
-                format.problemCount
-              }`}
-          :
+          {formatRecordFormat(format.calculationMethod, format.problemCount)}:
         </div>,
         <div key={2 * i + 1}>...</div>
       );
