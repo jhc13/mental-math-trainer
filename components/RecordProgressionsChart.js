@@ -47,6 +47,14 @@ const lineColors = [
 ];
 
 export default function RecordProgressionsChart({ progressions }) {
+  const minTimestamp = Math.min(
+    ...progressions.map((progression) =>
+      Math.min(
+        ...progression.records.map((record) => Date.parse(record.timestamp))
+      )
+    )
+  );
+
   const data = {
     datasets: progressions.map((progression, i) => ({
       label: capitalize(
@@ -75,6 +83,8 @@ export default function RecordProgressionsChart({ progressions }) {
     scales: {
       x: {
         type: 'time',
+        min: minTimestamp - (Date.now() - minTimestamp) * 0.025,
+        max: Date.now(),
         grid: {
           borderColor: '#f4f4f5',
           color: '#3f3f46',
