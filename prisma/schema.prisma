@@ -16,25 +16,8 @@ model User {
   accounts      Account[]
 
   displayName String?
-  settings    Settings?
   problems    Problem[]
   records     Record[]
-}
-
-model Settings {
-  userId             String             @id
-  operation          Operation
-  operandLengths     Int[]
-  setProblemCount    Int
-  inputDirection     InputDirection
-  showProblemNumber  Boolean
-  showTimer          Boolean
-  timerDisplayTime   TimerDisplayTime
-  showAbortButton    Boolean
-  reverseKeypad      Boolean
-  keypadZeroPosition KeypadZeroPosition
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Problem {
@@ -101,21 +84,6 @@ enum Operation {
   SUBTRACTION
   MULTIPLICATION
   DIVISION
-}
-
-enum InputDirection {
-  RIGHT_TO_LEFT
-  LEFT_TO_RIGHT
-}
-
-enum TimerDisplayTime {
-  SET_TIME
-  PROBLEM_TIME
-}
-
-enum KeypadZeroPosition {
-  ZERO_LAST
-  ZERO_FIRST
 }
 
 enum CalculationMethod {
