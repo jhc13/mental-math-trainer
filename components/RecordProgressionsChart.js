@@ -66,6 +66,8 @@ export default function RecordProgressionsChart({ progressions }) {
     }))
   };
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     parsing: {
       xAxisKey: 'timestamp',
       yAxisKey: 'centiseconds'
@@ -115,8 +117,7 @@ export default function RecordProgressionsChart({ progressions }) {
             size: 16
           },
           padding: 16
-        },
-        position: 'right'
+        }
       },
       tooltip: {
         callbacks: {
@@ -166,7 +167,7 @@ export default function RecordProgressionsChart({ progressions }) {
     }
   };
   return (
-    <div>
+    <div className='mb-5 h-96 sm:mb-8'>
       <div className='text-center text-xl font-medium'>Record progressions</div>
       <Line type='line' data={data} options={options} />
     </div>
