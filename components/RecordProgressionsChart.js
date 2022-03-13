@@ -131,7 +131,8 @@ export default function RecordProgressionsChart({ progressions }) {
       },
       tooltip: {
         callbacks: {
-          label: (context) => formatCentiseconds(context.parsed.y)
+          label: (context) =>
+            `${formatCentiseconds(context.parsed.y)} ${context.dataset.label}`
         },
         padding: 8,
         boxWidth: 12,
