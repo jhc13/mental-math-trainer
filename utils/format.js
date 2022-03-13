@@ -9,6 +9,10 @@ export function pluralize(word, count, nbsp = false) {
   return `${count}${nbsp ? '\u00a0' : ' '}${word}${count === 1 ? '' : 's'}`;
 }
 
+export function capitalize(string) {
+  return string[0].toUpperCase() + string.slice(1);
+}
+
 export function formatSeconds(totalSeconds, alwaysShowMinutes = false) {
   const SECONDS_PER_MINUTE = 60;
   const SECONDS_PER_HOUR = 60 * SECONDS_PER_MINUTE;
@@ -45,4 +49,17 @@ export function formatTimestamp(timestamp) {
     month: 'long',
     day: 'numeric'
   });
+}
+
+export function formatRecordFormat(
+  calculationMethod,
+  problemCount,
+  short = false
+) {
+  if (problemCount === 1) {
+    return 'single';
+  }
+  return short
+    ? `${calculationMethod[0].toLowerCase()}o${problemCount}`
+    : `${calculationMethod.toLowerCase()} of ${problemCount}`;
 }

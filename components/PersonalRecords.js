@@ -1,5 +1,11 @@
 import { Fragment, useEffect, useState } from 'react';
-import { OPERATORS, formatCentiseconds, formatTimestamp } from 'utils/format';
+import {
+  OPERATORS,
+  capitalize,
+  formatCentiseconds,
+  formatTimestamp,
+  formatRecordFormat
+} from 'utils/format';
 
 export default function PersonalRecords({ records }) {
   const [selectedRecord, setSelectedRecord] = useState(null);
@@ -35,13 +41,14 @@ export default function PersonalRecords({ records }) {
                     onClick={() => handleRecordClick(record)}
                     className={`${
                       record === selectedRecord ? 'text-sky-300' : ''
-                    } cursor-pointer first-letter:uppercase`}
+                    } cursor-pointer`}
                   >
-                    {record.problemCount === 1
-                      ? 'single'
-                      : `${record.calculationMethod.toLowerCase()} of ${
-                          record.problemCount
-                        }`}
+                    {capitalize(
+                      formatRecordFormat(
+                        record.calculationMethod,
+                        record.problemCount
+                      )
+                    )}
                     :
                   </div>
                   <div

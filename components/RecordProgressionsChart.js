@@ -3,31 +3,143 @@ import {
   TimeScale,
   LinearScale,
   PointElement,
-  LineElement
+  LineElement,
+  Legend,
+  Tooltip
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 import zoomPlugin from 'chartjs-plugin-zoom';
+import {
+  capitalize,
+  formatCentiseconds,
+  formatRecordFormat
+} from 'utils/format';
 
-Chart.register(TimeScale, LinearScale, PointElement, LineElement, zoomPlugin);
+Chart.register(
+  TimeScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Legend,
+  Tooltip,
+  zoomPlugin
+);
+
+const markerColors = [
+  '#dc2626', // Red
+  '#f97316', // Orange
+  '#facc15', // Yellow
+  '#16a34a', // Green
+  '#0ea5e9', // Sky blue
+  '#1d4ed8', // Blue
+  '#7e22ce' // Purple
+];
+
+const lineColors = [
+  '#f87171', // Red
+  '#fdba74', // Orange
+  '#fef08a', // Yellow
+  '#4ade80', // Green
+  '#7dd3fc', // Sky blue
+  '#3b82f6', // Blue
+  '#a855f7' // Purple
+];
 
 export default function RecordProgressionsChart({ progressions }) {
   const data = {
-    datasets: progressions.map((progression) => ({
-      data: progression.records
+    datasets: progressions.map((progression, i) => ({
+      label: capitalize(
+        formatRecordFormat(
+          progression.calculationMethod,
+          progression.problemCount,
+          true
+        )
+      ),
+      data: progression.records,
+      stepped: true,
+      pointBackgroundColor: markerColors[i],
+      pointBorderColor: markerColors[i],
+      pointRadius: 4,
+      pointHitRadius: 32,
+      borderColor: lineColors[i]
     }))
   };
   const options = {
-    scales: {
-      x: {
-        type: 'time'
-      }
-    },
     parsing: {
       xAxisKey: 'timestamp',
       yAxisKey: 'centiseconds'
     },
+    scales: {
+      x: {
+        type: 'time',
+        grid: {
+          borderColor: '#f4f4f5',
+          color: '#3f3f46',
+          tickColor: '#f4f4f5'
+        },
+        ticks: {
+          color: '#f4f4f5',
+          font: {
+            family: 'Inter, sans-serif',
+            size: 16
+          }
+        }
+      },
+      y: {
+        grid: {
+          borderColor: '#f4f4f5',
+          color: '#3f3f46',
+          tickColor: '#f4f4f5'
+        },
+        ticks: {
+          callback: (centiseconds) =>
+            formatCentiseconds(Math.round(centiseconds)),
+          color: '#f4f4f5',
+          font: {
+            family: 'Inter, sans-serif',
+            size: 16
+          }
+        }
+      }
+    },
     plugins: {
+      legend: {
+        labels: {
+          boxWidth: 10,
+          boxHeight: 10,
+          usePointStyle: true,
+          color: '#f4f4f5',
+          font: {
+            family: 'Inter, sans-serif',
+            size: 16
+          },
+          padding: 16
+        },
+        position: 'right'
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => formatCentiseconds(context.parsed.y)
+        },
+        padding: 8,
+        boxWidth: 12,
+        boxHeight: 12,
+        boxPadding: 4,
+        usePointStyle: true,
+        titleColor: '#f4f4f5',
+        titleFont: {
+          family: 'Inter, sans-serif',
+          size: 16,
+          weight: 'normal'
+        },
+        bodySpacing: 4,
+        bodyColor: '#f4f4f5',
+        bodyFont: {
+          family: 'Inter, sans-serif',
+          size: 16
+        }
+      },
       zoom: {
         pan: {
           enabled: true
@@ -39,9 +151,24 @@ export default function RecordProgressionsChart({ progressions }) {
           pinch: {
             enabled: true
           }
+        },
+        limits: {
+          x: {
+            min: 'original',
+            max: 'original'
+          },
+          y: {
+            min: 0,
+            max: 'original'
+          }
         }
       }
     }
   };
-  return <Line type='line' data={data} options={options} />;
+  return (
+    <div>
+      <div className='text-center text-xl font-medium'>Record progressions</div>
+      <Line type='line' data={data} options={options} />
+    </div>
+  );
 }
