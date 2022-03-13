@@ -99,6 +99,7 @@ export default function RecordProgressionsChart({ progressions }) {
         }
       },
       y: {
+        grace: '5%',
         grid: {
           borderColor: '#f4f4f5',
           color: '#3f3f46',
