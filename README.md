@@ -14,3 +14,6 @@ A web app for practicing mental math.
 - [Tailwind CSS](https://tailwindcss.com)
 - [Headless UI](https://headlessui.dev)
 - [Heroicons](https://heroicons.com)
+
+## Website
+[Mental Math Trainer](https://www.mathtrainer.xyz)
