@@ -138,7 +138,7 @@ export default function Stats() {
           </div>
           <PersonalRecords records={problemTypeData?.records} />
         </div>
-        {problemTypeData && (
+        {problemTypeData?.recordProgressions.length > 0 && (
           <RecordProgressionsChart
             progressions={problemTypeData.recordProgressions}
           />
