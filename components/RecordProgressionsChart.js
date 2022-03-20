@@ -187,7 +187,9 @@ export default function RecordProgressionsChart({ progressions }) {
   };
   return (
     <div className='mb-5 h-96 sm:mb-8'>
-      <div className='text-center text-xl font-medium'>Record progressions</div>
+      <div className='select-none text-center text-xl font-medium'>
+        Record progressions
+      </div>
       <Line type='line' data={data} options={options} />
     </div>
   );

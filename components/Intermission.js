@@ -91,7 +91,7 @@ export default function Intermission({ problems, onNewSet }) {
           </button>
         </div>
         {session === null && (
-          <p className='mx-auto w-fit px-8'>
+          <p className='mx-auto w-fit select-none px-8'>
             <strong className='font-semibold'>You are not signed in.</strong>{' '}
             <Link href='/auth/sign-in'>
               <a className='text-blue-400 underline'>Sign in</a>

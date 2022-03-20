@@ -144,7 +144,7 @@ export default function Stats() {
           />
         )}
         <Divider />
-        <div className='flex flex-col gap-3.5'>
+        <div className='flex select-none flex-col gap-3.5'>
           <button
             onClick={() => {
               setIsResetProblemTypeDialogOpen(true);
