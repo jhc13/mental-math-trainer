@@ -72,6 +72,7 @@ export default function RecordProgressionsChart({ progressions }) {
         )
       ),
       data: progression.records,
+      order: -i,
       stepped: true,
       pointBackgroundColor: markerColors[i],
       pointBorderColor: markerColors[i],
@@ -135,7 +136,8 @@ export default function RecordProgressionsChart({ progressions }) {
             size: 16
           },
           padding: 16
-        }
+        },
+        reverse: true
       },
       tooltip: {
         callbacks: {
