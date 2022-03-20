@@ -54,6 +54,13 @@ export default function RecordProgressionsChart({ progressions }) {
       )
     )
   );
+  const maxTimestamp = Math.max(
+    ...progressions.map((progression) =>
+      Math.max(
+        ...progression.records.map((record) => Date.parse(record.timestamp))
+      )
+    )
+  );
 
   const data = {
     datasets: progressions.map((progression, i) => ({
@@ -83,8 +90,8 @@ export default function RecordProgressionsChart({ progressions }) {
     scales: {
       x: {
         type: 'time',
-        min: minTimestamp - (Date.now() - minTimestamp) * 0.025,
-        max: Date.now(),
+        min: minTimestamp - (maxTimestamp - minTimestamp) * 0.05,
+        max: maxTimestamp + (maxTimestamp - minTimestamp) * 0.05,
         grid: {
           borderColor: '#f4f4f5',
           color: '#3f3f46',
@@ -168,7 +175,7 @@ export default function RecordProgressionsChart({ progressions }) {
         limits: {
           x: {
             min: 'original',
-            max: 'original'
+            max: Date.now() + (Date.now() - minTimestamp) * 0.05
           },
           y: {
             min: 0,
