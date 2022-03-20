@@ -13,6 +13,8 @@ export default function PersonalRecords({ records }) {
   useEffect(() => {
     if (records) {
       setSelectedRecord(records.slice(-1)[0]);
+    } else {
+      setSelectedRecord(null);
     }
   }, [records]);
 
