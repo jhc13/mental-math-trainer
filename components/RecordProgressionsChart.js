@@ -93,6 +93,10 @@ export default function RecordProgressionsChart({ progressions }) {
         type: 'time',
         min: minTimestamp - (maxTimestamp - minTimestamp) * 0.05,
         max: maxTimestamp + (maxTimestamp - minTimestamp) * 0.05,
+        time: {
+          minUnit: 'day',
+          tooltipFormat: 'MMM d, yyyy, HH:mm'
+        },
         grid: {
           borderColor: '#f4f4f5',
           color: '#3f3f46',
