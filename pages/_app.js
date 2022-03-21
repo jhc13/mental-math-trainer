@@ -29,7 +29,7 @@ export default function App({
           sizes='16x16'
           href='/favicon-16x16.png'
         />
-        <link rel='manifest' href='/site.webmanifest' />
+        <link rel='manifest' href='/manifest.webmanifest' />
         <link rel='mask-icon' href='/safari-pinned-tab.svg' color='#0ea5e9' />
         <meta name='msapplication-TileColor' content='#2d89ef' />
         <meta name='theme-color' content='#1f2937' />
