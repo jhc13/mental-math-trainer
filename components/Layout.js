@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Script from 'next/script';
 import { useState } from 'react';
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
@@ -16,6 +17,20 @@ export default function Layout({ children }) {
 
   return (
     <>
+      {/* Global site tag (gtag.js) - Google Analytics */}
+      <Script
+        src='https://www.googletagmanager.com/gtag/js?id=G-SF7LP3TSTY'
+        strategy='afterInteractive'
+      />
+      <Script id='google-analytics' strategy='afterInteractive'>
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-SF7LP3TSTY');
+        `}
+      </Script>
       {/* Use overflow-x-hidden to prevent the scrollbar from showing up when
           the right sidebar is opened or closed. */}
       <div className='fixed inset-0 flex flex-col overflow-y-auto overflow-x-hidden bg-zinc-800 text-zinc-100'>
