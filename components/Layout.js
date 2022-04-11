@@ -19,7 +19,7 @@ export default function Layout({ children }) {
     <>
       {/* Global site tag (gtag.js) - Google Analytics */}
       <Script
-        src='https://www.googletagmanager.com/gtag/js?id=G-SF7LP3TSTY'
+        src='https://www.googletagmanager.com/gtag/js?id=UA-225410603-1'
         strategy='afterInteractive'
       />
       <Script id='google-analytics' strategy='afterInteractive'>
@@ -28,7 +28,7 @@ export default function Layout({ children }) {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
         
-          gtag('config', 'G-SF7LP3TSTY');
+          gtag('config', 'UA-225410603-1');
         `}
       </Script>
       {/* Use overflow-x-hidden to prevent the scrollbar from showing up when
