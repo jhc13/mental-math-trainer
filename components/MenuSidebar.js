@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Fragment, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import {
   MenuIcon,
@@ -22,6 +22,7 @@ export default function MenuSidebar({
   const [isDeleteAccountDialogOpen, setIsDeleteAccountDialogOpen] =
     useState(false);
   const { data: session } = useSession();
+  const focusRef = useRef();
 
   return (
     <Disclosure as='div' onClick={onClick} className='flex items-center'>
@@ -46,7 +47,7 @@ export default function MenuSidebar({
           } fixed top-12 left-0 bottom-0 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm`}
         >
           {({ close }) => (
-            <div className='flex flex-col gap-4'>
+            <div ref={focusRef} className='flex flex-col gap-4'>
               <div className='h-16'>
                 {session ? (
                   <div className='flex flex-col gap-0.5'>
@@ -62,7 +63,7 @@ export default function MenuSidebar({
                     <div className='text-center text-base'>Not signed in</div>
                     <Link href='/auth/sign-in'>
                       <a
-                        onClick={close}
+                        onClick={() => close(focusRef)}
                         className='self-center rounded-md bg-cyan-800 px-3 py-1 active:brightness-[0.85]'
                       >
                         Sign in
@@ -73,13 +74,19 @@ export default function MenuSidebar({
               </div>
               <Divider />
               <Link href='/'>
-                <a onClick={close} className='flex items-center gap-3'>
+                <a
+                  onClick={() => close(focusRef)}
+                  className='flex items-center gap-3'
+                >
                   <Logo className='h-6 w-6 fill-sky-600 stroke-sky-600' />
                   Trainer
                 </a>
               </Link>
               <Link href='/stats'>
-                <a onClick={close} className='flex items-center gap-3'>
+                <a
+                  onClick={() => close(focusRef)}
+                  className='flex items-center gap-3'
+                >
                   <ChartBarIcon className='h-6 w-6 text-sky-600' />
                   Stats
                 </a>
