@@ -71,7 +71,7 @@ export default function ConfirmationDialog({
               </div>
               <div className='bg-zinc-800 p-4 sm:flex sm:flex-row-reverse'>
                 <button
-                  className='inline-flex w-full justify-center rounded-md bg-red-700 px-4 py-2 font-medium shadow-sm focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit active:brightness-[0.85] sm:ml-3 sm:w-auto'
+                  className='inline-flex w-full justify-center rounded-md bg-red-700 px-4 py-2 font-medium shadow-sm active:brightness-[0.85] sm:ml-3 sm:w-auto'
                   onClick={() => {
                     setIsOpen(false);
                     onAction();
@@ -80,7 +80,7 @@ export default function ConfirmationDialog({
                   {action}
                 </button>
                 <button
-                  className='mt-3 inline-flex w-full justify-center rounded-md bg-zinc-700 px-4 py-2 font-medium shadow-sm focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit active:brightness-[0.85] sm:mt-0 sm:ml-3 sm:w-auto'
+                  className='mt-3 inline-flex w-full justify-center rounded-md bg-zinc-700 px-4 py-2 font-medium shadow-sm active:brightness-[0.85] sm:mt-0 sm:ml-3 sm:w-auto'
                   onClick={() => {
                     setIsOpen(false);
                   }}

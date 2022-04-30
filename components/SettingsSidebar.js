@@ -26,7 +26,7 @@ export default function SettingsSidebar({ onClick }) {
     <Disclosure as='div' onClick={onClick} className='flex items-center'>
       <Disclosure.Button
         aria-label='Show menu'
-        className='fixed top-1.5 right-1.5 focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit'
+        className='fixed top-1.5 right-1.5'
       >
         <CogIcon className='h-9 w-9 text-zinc-300' />
       </Disclosure.Button>

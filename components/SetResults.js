@@ -117,7 +117,7 @@ export default function SetResults({ problems }) {
           <Popover className='absolute -left-9 z-10 flex'>
             <Popover.Button
               aria-label='Information'
-              className='p-1 focus:outline-none focus-visible:outline-1 focus-visible:outline-inherit active:brightness-[0.85]'
+              className='p-1 active:brightness-[0.85]'
             >
               <InformationCircleIcon className='h-5 w-5' />
             </Popover.Button>
