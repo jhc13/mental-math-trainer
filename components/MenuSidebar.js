@@ -12,6 +12,7 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import Logo from 'public/logo.svg';
+import { MarkGithubIcon } from '@primer/octicons-react';
 
 export default function MenuSidebar({
   topSidebar,
@@ -88,14 +89,6 @@ export default function MenuSidebar({
                 <ChartBarIcon className='h-6 w-6 text-sky-600' />
                 Stats
               </Link>
-              <Divider />
-              <a
-                href='mailto:dev@mathtrainer.xyz'
-                className='flex items-center gap-3'
-              >
-                <MailIcon className='h-6 w-6 text-sky-600' />
-                Contact
-              </a>
               {session && (
                 <>
                   <button
@@ -129,6 +122,23 @@ export default function MenuSidebar({
                   />
                 </>
               )}
+              <Divider />
+              <a
+                href='https://github.com/jhc13/mental-math-trainer'
+                target='_blank'
+                className='flex items-center gap-3'
+              >
+                <MarkGithubIcon className='h-6 w-6 text-sky-600' />
+                GitHub
+              </a>
+              <a
+                href='mailto:dev@mathtrainer.xyz'
+                target='_blank'
+                className='flex items-center gap-3'
+              >
+                <MailIcon className='h-6 w-6 text-sky-600' />
+                Contact
+              </a>
             </div>
           )}
         </Disclosure.Panel>
