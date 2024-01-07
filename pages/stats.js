@@ -3,15 +3,17 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { RefreshIcon } from '@heroicons/react/outline';
 import { SettingsContext } from 'utils/settings';
-import { formatSeconds, OPERATORS, pluralize } from '/utils/format';
+import { formatSeconds, OPERATORS, pluralize } from 'utils/format';
 import { getOperandLengths } from 'utils/utils';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
 import Listbox from 'components/Listbox';
 import PersonalRecords from 'components/PersonalRecords';
 import ConfirmationDialog from 'components/ConfirmationDialog';
+import { getServerSession } from 'next-auth';
+import { authOptions } from 'pages/api/auth/[...nextauth]';
 
 // The zoom plugin requires dynamic import.
 const RecordProgressionsChart = dynamic(
@@ -20,7 +22,7 @@ const RecordProgressionsChart = dynamic(
 );
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
+  const session = await getServerSession(context.req, context.res, authOptions);
   if (!session) {
     return {
       redirect: {

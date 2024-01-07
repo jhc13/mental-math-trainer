@@ -7,7 +7,7 @@ import prisma from 'prisma/prisma';
 import sendSignInLinkEmail from 'utils/email';
 import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
 
-export default NextAuth({
+export const authOptions = {
   providers: [
     EmailProvider({
       server: process.env.EMAIL_SERVER,
@@ -60,4 +60,6 @@ export default NextAuth({
     }
   },
   adapter: PrismaAdapter(prisma)
-});
+};
+
+export default NextAuth(authOptions);

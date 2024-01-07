@@ -1,7 +1,8 @@
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from 'pages/api/auth/[...nextauth]';
 
 export default async function isUserAuthenticated(req, res, userId) {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res, authOptions);
   if (session === null) {
     res.status(401).end();
     return false;

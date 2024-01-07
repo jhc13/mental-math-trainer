@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -13,11 +14,10 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  displayName   String?
   accounts      Account[]
-
-  displayName String?
-  problems    Problem[]
-  records     Record[]
+  problems      Problem[]
+  records       Record[]
 }
 
 model Problem {
@@ -28,10 +28,9 @@ model Problem {
   operands        Int[]
   centiseconds    Int
   timestamp       DateTime  @db.Timestamptz(3)
-  records         Record[]  @relation("RecordProblems")
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   excludedRecords Record[]  @relation("RecordExcludedProblems")
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  records         Record[]  @relation("RecordProblems")
 }
 
 model Record {
@@ -43,10 +42,9 @@ model Record {
   calculationMethod CalculationMethod
   problemCount      Int
   centiseconds      Int
-  problems          Problem[]         @relation("RecordProblems")
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   excludedProblems  Problem[]         @relation("RecordExcludedProblems")
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problems          Problem[]         @relation("RecordProblems")
 }
 
 model Account {
@@ -65,8 +63,7 @@ model Account {
   session_state            String?
   oauth_token_secret       String?
   oauth_token              String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }

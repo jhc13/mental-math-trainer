@@ -51,7 +51,7 @@ export default function Intermission({ problems, onNewSet }) {
                 className='rounded bg-cyan-800 p-px active:brightness-[0.85]'
               >
                 {/* Adjustments icon from heroicons, added directly instead of
-                    as a component to change the stroke width. */}
+                  as a component to change the stroke width. */}
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'
@@ -93,8 +93,8 @@ export default function Intermission({ problems, onNewSet }) {
         {session === null && (
           <p className='mx-auto w-fit select-none px-8'>
             <strong className='font-semibold'>You are not signed in.</strong>{' '}
-            <Link href='/auth/sign-in'>
-              <a className='text-blue-400 underline'>Sign in</a>
+            <Link href='/auth/sign-in' className='text-blue-400 underline'>
+              Sign in
             </Link>{' '}
             to save your times and keep track of your progress.
           </p>
