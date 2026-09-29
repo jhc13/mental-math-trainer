@@ -99,6 +99,11 @@ export default function Intermission({ problems, onNewSet }) {
             to save your times and keep track of your progress.
           </p>
         )}
+        <footer className='mt-auto text-center text-sm text-zinc-400'>
+          <Link href='/privacy' className='hover:underline'>
+            Privacy
+          </Link>
+        </footer>
       </div>
     </>
   );
