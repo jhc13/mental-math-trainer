@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
-import { RefreshIcon } from '@heroicons/react/outline';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { SettingsContext } from 'utils/settings';
 import { formatSeconds, OPERATORS, pluralize } from 'utils/format';
 import { getOperandLengths } from 'utils/utils';
@@ -153,7 +153,7 @@ export default function Stats() {
             }}
             className='flex w-fit items-center gap-2 rounded-md bg-red-900 px-3 py-2 active:brightness-[0.85]'
           >
-            <RefreshIcon className='h-5 w-5' />
+            <ArrowPathIcon className='h-5 w-5' />
             Reset stats for {problemType}
           </button>
           <ConfirmationDialog
@@ -183,7 +183,7 @@ export default function Stats() {
             }}
             className='flex w-fit items-center gap-2 rounded-md bg-red-900 px-3 py-2 active:brightness-[0.85]'
           >
-            <RefreshIcon className='h-5 w-5' />
+            <ArrowPathIcon className='h-5 w-5' />
             Reset all stats
           </button>
           <ConfirmationDialog

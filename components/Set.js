@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { XCircleIcon } from '@heroicons/react/solid';
+import { XCircleIcon } from '@heroicons/react/20/solid';
 import useSet from 'hooks/useSet';
 import { SettingsContext } from 'utils/settings';
 import Timer from 'components/Timer';

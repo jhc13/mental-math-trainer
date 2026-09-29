@@ -1,6 +1,11 @@
 import { Fragment, useContext } from 'react';
-import { CogIcon } from '@heroicons/react/outline';
-import { Disclosure, Transition } from '@headlessui/react';
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Transition
+} from '@headlessui/react';
 import { SettingsContext } from 'utils/settings';
 import Listbox from 'components/Listbox';
 import Toggle from 'components/Toggle';
@@ -24,12 +29,12 @@ export default function SettingsSidebar({ onClick }) {
 
   return (
     <Disclosure as='div' onClick={onClick} className='flex items-center'>
-      <Disclosure.Button
+      <DisclosureButton
         aria-label='Show settings'
         className='fixed right-1.5 top-1.5'
       >
-        <CogIcon className='h-9 w-9 text-zinc-300' />
-      </Disclosure.Button>
+        <Cog6ToothIcon className='h-9 w-9 text-zinc-300' />
+      </DisclosureButton>
       <Transition
         as={Fragment}
         enter='transition-transform duration-500 ease-in-out'
@@ -39,7 +44,7 @@ export default function SettingsSidebar({ onClick }) {
         leaveFrom='translate-x-0'
         leaveTo='translate-x-full'
       >
-        <Disclosure.Panel className='fixed bottom-0 right-0 top-12 z-10 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pb-32 pt-4 text-lg sm:max-w-sm'>
+        <DisclosurePanel className='fixed bottom-0 right-0 top-12 z-10 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pb-32 pt-4 text-lg sm:max-w-sm'>
           <div className='flex flex-col gap-4'>
             <div className='flex flex-col gap-1'>
               Answer input direction
@@ -137,7 +142,7 @@ export default function SettingsSidebar({ onClick }) {
               </div>
             </Transition>
           </div>
-        </Disclosure.Panel>
+        </DisclosurePanel>
       </Transition>
     </Disclosure>
   );

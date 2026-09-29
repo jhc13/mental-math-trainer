@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import { useContext, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { Disclosure, Transition } from '@headlessui/react';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Transition
+} from '@headlessui/react';
 import { SettingsContext } from 'utils/settings';
 import { OPERATORS, pluralize } from 'utils/format';
 import SetResults from 'components/SetResults';
@@ -46,7 +51,7 @@ export default function Intermission({ problems, onNewSet }) {
               )}`}
             </div>
             <Disclosure>
-              <Disclosure.Button
+              <DisclosureButton
                 aria-label='Adjust set settings'
                 className='rounded bg-cyan-800 p-px active:brightness-[0.85]'
               >
@@ -66,8 +71,9 @@ export default function Intermission({ problems, onNewSet }) {
                     d='M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4'
                   />
                 </svg>
-              </Disclosure.Button>
+              </DisclosureButton>
               <Transition
+                as='div'
                 enter='transition duration-150 ease-out'
                 enterFrom='-translate-y-2 opacity-0'
                 enterTo='translate-y-0 opacity-100'
@@ -75,11 +81,11 @@ export default function Intermission({ problems, onNewSet }) {
                 leaveFrom='translate-y-0 opacity-100'
                 leaveTo='-translate-y-2 opacity-0'
               >
-                <Disclosure.Panel className='mb-3 flex flex-col'>
+                <DisclosurePanel className='mb-3 flex flex-col'>
                   {/* Force the SetSettings component into the next row.*/}
                   <div className='w-screen' />
                   <SetSettings onNewSet={onNewSet} />
-                </Disclosure.Panel>
+                </DisclosurePanel>
               </Transition>
             </Disclosure>
           </div>

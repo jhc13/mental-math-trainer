@@ -1,10 +1,15 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { Popover, Transition } from '@headlessui/react';
+import {
+  Popover,
+  PopoverButton,
+  PopoverPanel,
+  Transition
+} from '@headlessui/react';
 import {
   InformationCircleIcon,
-  ExternalLinkIcon
-} from '@heroicons/react/solid';
+  ArrowTopRightOnSquareIcon
+} from '@heroicons/react/20/solid';
 import { recordFormats, getSetBests } from 'utils/records';
 import {
   OPERATORS,
@@ -115,13 +120,14 @@ export default function SetResults({ problems }) {
       <div className='flex flex-col items-center justify-items-center gap-6 text-lg tabular-nums sm:grid sm:grid-cols-2 sm:items-start'>
         <div className='relative grid w-fit auto-rows-min grid-cols-[auto_auto] gap-x-2.5 gap-y-0.5'>
           <Popover className='absolute -left-9 z-10 flex'>
-            <Popover.Button
+            <PopoverButton
               aria-label='Information'
               className='p-1 active:brightness-[0.85]'
             >
               <InformationCircleIcon className='h-5 w-5' />
-            </Popover.Button>
+            </PopoverButton>
             <Transition
+              as='div'
               enter='transition-opacity duration-200 ease-out'
               enterFrom='opacity-0'
               enterTo='opacity-100'
@@ -129,7 +135,7 @@ export default function SetResults({ problems }) {
               leaveFrom='opacity-100'
               leaveTo='opacity-0'
             >
-              <Popover.Panel className='absolute left-8 w-64 rounded-md bg-zinc-900 p-3 shadow-md sm:w-[24rem]'>
+              <PopoverPanel className='absolute left-8 w-64 rounded-md bg-zinc-900 p-3 shadow-md sm:w-[24rem]'>
                 <div className='flex flex-col gap-4 text-center text-base'>
                   <p>
                     A <strong>mean</strong> is the sum of consecutive solve
@@ -147,7 +153,7 @@ export default function SetResults({ problems }) {
                     >
                       trimmed mean
                     </a>
-                    <ExternalLinkIcon className='inline h-5 w-5 text-blue-400' />
+                    <ArrowTopRightOnSquareIcon className='inline h-5 w-5 text-blue-400' />
                     .
                   </p>
                   <p>
@@ -157,7 +163,7 @@ export default function SetResults({ problems }) {
                     added together and divided by 44.
                   </p>
                 </div>
-              </Popover.Panel>
+              </PopoverPanel>
             </Transition>
           </Popover>
           {bestElements}

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { ExternalLinkIcon } from '@heroicons/react/solid';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/20/solid';
 
 export default function Privacy() {
   return (
@@ -70,7 +70,8 @@ export default function Privacy() {
             >
               Google API Services User Data Policy
             </a>
-            <ExternalLinkIcon className='inline h-5 w-5 text-blue-400' />.
+            <ArrowTopRightOnSquareIcon className='inline h-5 w-5 text-blue-400' />
+            .
           </p>
           <p>
             We process account and practice data because it is necessary to

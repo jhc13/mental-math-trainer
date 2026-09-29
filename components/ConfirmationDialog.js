@@ -1,6 +1,12 @@
 import { Fragment, useRef } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { ExclamationIcon } from '@heroicons/react/outline';
+import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Transition,
+  TransitionChild
+} from '@headlessui/react';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
 export default function ConfirmationDialog({
   isOpen,
@@ -13,7 +19,7 @@ export default function ConfirmationDialog({
   const cancelButtonRef = useRef(null);
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <Transition show={isOpen} as={Fragment}>
       <Dialog
         as='div'
         className='fixed inset-0 select-none overflow-y-auto text-zinc-100'
@@ -21,7 +27,7 @@ export default function ConfirmationDialog({
         onClose={setIsOpen}
       >
         <div className='flex min-h-full items-center justify-center p-4 text-center sm:block sm:p-0'>
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter='ease-out duration-300'
             enterFrom='opacity-0'
@@ -31,14 +37,14 @@ export default function ConfirmationDialog({
             leaveTo='opacity-0'
           >
             <div className='fixed inset-0 bg-zinc-700/75 transition-opacity' />
-          </Transition.Child>
+          </TransitionChild>
           <span
             className='hidden sm:inline-block sm:h-screen sm:align-middle'
             aria-hidden='true'
           >
             &#8203;
           </span>
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter='ease-out duration-300'
             enterFrom='opacity-0 scale-95'
@@ -47,22 +53,22 @@ export default function ConfirmationDialog({
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <Dialog.Panel className='inline-block transform overflow-hidden rounded-lg bg-zinc-900 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle'>
+            <DialogPanel className='inline-block transform overflow-hidden rounded-lg bg-zinc-900 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle'>
               <div className='px-4 pb-4 pt-5 sm:p-6 sm:pb-4'>
                 <div className='sm:flex sm:items-start'>
                   <div className='mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-800 sm:mx-0 sm:h-10 sm:w-10'>
-                    <ExclamationIcon
+                    <ExclamationTriangleIcon
                       className='h-6 w-6 text-red-100'
                       aria-hidden='true'
                     />
                   </div>
                   <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
-                    <Dialog.Title
+                    <DialogTitle
                       as='h1'
                       className='text-xl font-medium leading-6'
                     >
                       {title}
-                    </Dialog.Title>
+                    </DialogTitle>
                     <div className='mt-2'>
                       <p>{description}</p>
                     </div>
@@ -89,10 +95,10 @@ export default function ConfirmationDialog({
                   Cancel
                 </button>
               </div>
-            </Dialog.Panel>
-          </Transition.Child>
+            </DialogPanel>
+          </TransitionChild>
         </div>
       </Dialog>
-    </Transition.Root>
+    </Transition>
   );
 }

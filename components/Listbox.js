@@ -1,6 +1,12 @@
 import { Fragment } from 'react';
-import { Listbox as HeadlessListbox, Transition } from '@headlessui/react';
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+import {
+  Listbox as HeadlessListbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+  Transition
+} from '@headlessui/react';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 export default function Listbox({
   value,
@@ -18,12 +24,15 @@ export default function Listbox({
       as='div'
       className='relative'
     >
-      <HeadlessListbox.Button className='relative w-full rounded-lg bg-zinc-700 py-2 pl-3 pr-10 text-left shadow-md sm:text-sm'>
+      <ListboxButton className='relative w-full rounded-lg bg-zinc-700 py-2 pl-3 pr-10 text-left shadow-md sm:text-sm'>
         <div className='truncate'>{name}</div>
         <div className='pointer-events-none absolute inset-y-0 right-0 mr-2 flex items-center'>
-          <SelectorIcon className='h-5 w-5 text-zinc-300' aria-hidden='true' />
+          <ChevronUpDownIcon
+            className='h-5 w-5 text-zinc-300'
+            aria-hidden='true'
+          />
         </div>
-      </HeadlessListbox.Button>
+      </ListboxButton>
       <Transition
         as={Fragment}
         enter='transition-opacity duration-100 ease-out'
@@ -33,12 +42,12 @@ export default function Listbox({
         leaveFrom='opacity-100'
         leaveTo='opacity-0'
       >
-        <HeadlessListbox.Options className='absolute z-10 mt-1 max-h-[10.5rem] w-full cursor-pointer select-none overflow-auto rounded-md bg-zinc-700 py-1 shadow-md focus:outline-none sm:max-h-fit sm:text-sm'>
+        <ListboxOptions className='absolute z-10 mt-1 max-h-[10.5rem] w-full cursor-pointer select-none overflow-auto rounded-md bg-zinc-700 py-1 shadow-md focus:outline-none sm:max-h-fit sm:text-sm'>
           {optionValues.map((optionValue, i) => (
-            <HeadlessListbox.Option
+            <ListboxOption
               key={optionValue}
-              className={({ active }) =>
-                `${active && 'bg-zinc-600'} ${disabled[i] && 'opacity-30'} relative py-2 pl-3 pr-10 focus:outline-none`
+              className={({ focus }) =>
+                `${focus && 'bg-zinc-600'} ${disabled[i] && 'opacity-30'} relative py-2 pl-3 pr-10 focus:outline-none`
               }
               value={optionValue}
               disabled={disabled[i]}
@@ -61,9 +70,9 @@ export default function Listbox({
                   )}
                 </>
               )}
-            </HeadlessListbox.Option>
+            </ListboxOption>
           ))}
-        </HeadlessListbox.Options>
+        </ListboxOptions>
       </Transition>
     </HeadlessListbox>
   );

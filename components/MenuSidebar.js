@@ -2,13 +2,18 @@ import Link from 'next/link';
 import { Fragment, useRef, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import {
+  ArrowRightStartOnRectangleIcon,
+  Bars3Icon,
   ChartBarIcon,
-  LogoutIcon,
-  MailIcon,
-  MenuIcon,
+  EnvelopeIcon,
   TrashIcon
-} from '@heroicons/react/outline';
-import { Disclosure, Transition } from '@headlessui/react';
+} from '@heroicons/react/24/outline';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Transition
+} from '@headlessui/react';
 import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import Logo from 'public/logo.svg';
@@ -27,12 +32,12 @@ export default function MenuSidebar({
 
   return (
     <Disclosure as='div' onClick={onClick} className='flex items-center'>
-      <Disclosure.Button
+      <DisclosureButton
         aria-label='Show menu'
         className='fixed left-1.5 top-1.5'
       >
-        <MenuIcon className='h-9 w-9 text-zinc-300' />
-      </Disclosure.Button>
+        <Bars3Icon className='h-9 w-9 text-zinc-300' />
+      </DisclosureButton>
       <Transition
         as={Fragment}
         enter='transition-transform duration-500 ease-in-out'
@@ -42,7 +47,7 @@ export default function MenuSidebar({
         leaveFrom='translate-x-0'
         leaveTo='-translate-x-full'
       >
-        <Disclosure.Panel
+        <DisclosurePanel
           className={`${
             topSidebar === 'MENU' ? 'z-20' : 'z-10'
           } fixed bottom-0 left-0 top-12 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pb-32 pt-4 text-lg sm:max-w-sm`}
@@ -95,7 +100,7 @@ export default function MenuSidebar({
                     onClick={() => signOut({ redirect: false })}
                     className='flex w-fit items-center gap-3'
                   >
-                    <LogoutIcon className='h-6 w-6 translate-y-px text-red-800' />
+                    <ArrowRightStartOnRectangleIcon className='h-6 w-6 translate-y-px text-red-800' />
                     Sign out
                   </button>
                   <button
@@ -135,12 +140,12 @@ export default function MenuSidebar({
                 href='mailto:dev@mathtrainer.xyz'
                 className='flex items-center gap-3'
               >
-                <MailIcon className='h-6 w-6 text-sky-600' />
+                <EnvelopeIcon className='h-6 w-6 text-sky-600' />
                 Contact
               </a>
             </div>
           )}
-        </Disclosure.Panel>
+        </DisclosurePanel>
       </Transition>
     </Disclosure>
   );
