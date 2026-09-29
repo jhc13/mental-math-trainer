@@ -32,6 +32,8 @@ model Problem {
   user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   excludedRecords Record[]  @relation("RecordExcludedProblems")
   records         Record[]  @relation("RecordProblems")
+
+  @@index([userId, operation, operandLengths])
 }
 
 model Record {
@@ -46,6 +48,8 @@ model Record {
   user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   excludedProblems  Problem[]         @relation("RecordExcludedProblems")
   problems          Problem[]         @relation("RecordProblems")
+
+  @@index([userId, operation, operandLengths])
 }
 
 model Account {
