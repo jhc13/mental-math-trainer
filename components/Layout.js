@@ -17,20 +17,11 @@ export default function Layout({ children }) {
 
   return (
     <>
-      {/* Global site tag (gtag.js) - Google Analytics */}
       <Script
-        src='https://www.googletagmanager.com/gtag/js?id=UA-225410603-1'
-        strategy='afterInteractive'
+        type='module'
+        src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "b0b224c7404344d88bb0d9de1adbb379"}'
       />
-      <Script id='google-analytics' strategy='afterInteractive'>
-        {`
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-      
-        gtag('config', 'UA-225410603-1');
-      `}
-      </Script>
       {/* Use overflow-x-hidden to prevent the scrollbar from showing up when
         the right sidebar is opened or closed. */}
       <div className='fixed inset-0 flex flex-col overflow-y-auto overflow-x-hidden bg-zinc-800 text-zinc-100'>
