@@ -29,7 +29,7 @@ export default function MenuSidebar({
     <Disclosure as='div' onClick={onClick} className='flex items-center'>
       <Disclosure.Button
         aria-label='Show menu'
-        className='fixed top-1.5 left-1.5'
+        className='fixed left-1.5 top-1.5'
       >
         <MenuIcon className='h-9 w-9 text-zinc-300' />
       </Disclosure.Button>
@@ -45,7 +45,7 @@ export default function MenuSidebar({
         <Disclosure.Panel
           className={`${
             topSidebar === 'MENU' ? 'z-20' : 'z-10'
-          } fixed top-12 left-0 bottom-0 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pt-4 pb-32 text-lg sm:max-w-sm`}
+          } fixed bottom-0 left-0 top-12 w-full select-none overflow-auto scroll-smooth bg-[#202022] px-4 pb-32 pt-4 text-lg sm:max-w-sm`}
         >
           {({ close }) => (
             <div ref={focusRef} className='flex flex-col gap-4'>

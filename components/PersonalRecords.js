@@ -36,33 +36,33 @@ export default function PersonalRecords({ records }) {
           {records === undefined
             ? '...'
             : records.length === 0
-            ? 'None'
-            : records.map((record, i) => (
-                <Fragment key={i}>
-                  <div
-                    onClick={() => handleRecordClick(record)}
-                    className={`${
-                      record === selectedRecord ? 'text-sky-300' : ''
-                    } cursor-pointer`}
-                  >
-                    {capitalize(
-                      formatRecordFormat(
-                        record.calculationMethod,
-                        record.problemCount
-                      )
-                    )}
-                    :
-                  </div>
-                  <div
-                    onClick={() => handleRecordClick(record)}
-                    className={`${
-                      record === selectedRecord ? 'text-sky-300' : ''
-                    } cursor-pointer`}
-                  >
-                    {formatCentiseconds(record.centiseconds)}
-                  </div>
-                </Fragment>
-              ))}
+              ? 'None'
+              : records.map((record, i) => (
+                  <Fragment key={i}>
+                    <div
+                      onClick={() => handleRecordClick(record)}
+                      className={`${
+                        record === selectedRecord ? 'text-sky-300' : ''
+                      } cursor-pointer`}
+                    >
+                      {capitalize(
+                        formatRecordFormat(
+                          record.calculationMethod,
+                          record.problemCount
+                        )
+                      )}
+                      :
+                    </div>
+                    <div
+                      onClick={() => handleRecordClick(record)}
+                      className={`${
+                        record === selectedRecord ? 'text-sky-300' : ''
+                      } cursor-pointer`}
+                    >
+                      {formatCentiseconds(record.centiseconds)}
+                    </div>
+                  </Fragment>
+                ))}
         </div>
       </div>
       <div className='flex max-h-[11.5rem] w-full flex-col items-center overflow-auto text-lg sm:max-h-[24.5rem]'>
@@ -71,7 +71,7 @@ export default function PersonalRecords({ records }) {
             <div className='text-sky-300'>
               {formatTimestamp(selectedRecord.timestamp)}
             </div>
-            <div className='grid grid-cols-[auto_auto] gap-y-0.5 gap-x-2.5 tabular-nums'>
+            <div className='grid grid-cols-[auto_auto] gap-x-2.5 gap-y-0.5 tabular-nums'>
               {selectedRecord.problems.map((problem, i) => (
                 <Fragment key={i}>
                   <div

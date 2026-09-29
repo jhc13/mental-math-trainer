@@ -38,8 +38,7 @@ export default function Listbox({
             <HeadlessListbox.Option
               key={optionValue}
               className={({ active }) =>
-                `${active && 'bg-zinc-600'} ${disabled[i] && 'opacity-30'}
-                          relative py-2 pl-3 pr-10 focus:outline-none`
+                `${active && 'bg-zinc-600'} ${disabled[i] && 'opacity-30'} relative py-2 pl-3 pr-10 focus:outline-none`
               }
               value={optionValue}
               disabled={disabled[i]}

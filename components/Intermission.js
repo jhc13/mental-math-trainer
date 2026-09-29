@@ -26,7 +26,7 @@ export default function Intermission({ problems, onNewSet }) {
 
   return (
     <>
-      <div className='mt-8 mb-5 flex flex-auto flex-col gap-8'>
+      <div className='mb-5 mt-8 flex flex-auto flex-col gap-8'>
         {problems.length > 0 && <SetResults problems={problems} />}
         <div className={`${problems.length ? 'hidden sm:block' : ''} mx-auto`}>
           <SetSettings onNewSet={onNewSet} />

@@ -32,7 +32,7 @@ export default function NumberInput({ value, onChange, min, max }) {
           }
           onChange(newValue);
         }}
-        className='w-32 rounded-lg bg-zinc-700 py-2 px-7 text-center tabular-nums sm:text-sm'
+        className='w-32 rounded-lg bg-zinc-700 px-7 py-2 text-center tabular-nums sm:text-sm'
       />
       <button
         aria-label='Increase'

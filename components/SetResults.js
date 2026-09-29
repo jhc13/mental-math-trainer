@@ -69,8 +69,8 @@ export default function SetResults({ problems }) {
             best.isNewRecord
               ? 'font-semibold text-sky-500'
               : best === selectedBest
-              ? 'text-sky-300'
-              : ''
+                ? 'text-sky-300'
+                : ''
           } cursor-pointer`}
         >
           Best {formatRecordFormat(best.calculationMethod, best.problemCount)}:
@@ -82,8 +82,8 @@ export default function SetResults({ problems }) {
             best.isNewRecord
               ? 'font-semibold text-sky-500'
               : best === selectedBest
-              ? 'text-sky-300'
-              : ''
+                ? 'text-sky-300'
+                : ''
           } cursor-pointer`}
         >
           {formatCentiseconds(best.centiseconds)}
@@ -163,7 +163,7 @@ export default function SetResults({ problems }) {
           {bestElements}
         </div>
         <div className='max-h-[9.5rem] w-full overflow-auto scroll-smooth sm:max-h-[22.5rem]'>
-          <div className='grid grid-cols-[auto_auto] gap-y-0.5 gap-x-2.5'>
+          <div className='grid grid-cols-[auto_auto] gap-x-2.5 gap-y-0.5'>
             {problems.map((problem, i) => {
               const { operation, operands, centiseconds } = problem;
               const operator = OPERATORS[operation];

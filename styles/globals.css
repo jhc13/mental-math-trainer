@@ -7,8 +7,9 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
-    src: url('/fonts/inter-v7-latin-regular.woff2') format('woff2'),
-         url('/fonts/inter-v7-latin-regular.woff') format('woff');
+    src:
+      url('/fonts/inter-v7-latin-regular.woff2') format('woff2'),
+      url('/fonts/inter-v7-latin-regular.woff') format('woff');
     font-display: swap;
   }
 
@@ -16,8 +17,9 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
-    src: url('/fonts/inter-v7-latin-500.woff2') format('woff2'),
-         url('/fonts/inter-v7-latin-500.woff') format('woff');
+    src:
+      url('/fonts/inter-v7-latin-500.woff2') format('woff2'),
+      url('/fonts/inter-v7-latin-500.woff') format('woff');
     font-display: swap;
   }
 
@@ -25,8 +27,9 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
-    src: url('/fonts/inter-v7-latin-600.woff2') format('woff2'),
-         url('/fonts/inter-v7-latin-600.woff') format('woff');
+    src:
+      url('/fonts/inter-v7-latin-600.woff2') format('woff2'),
+      url('/fonts/inter-v7-latin-600.woff') format('woff');
     font-display: swap;
   }
 
@@ -34,8 +37,9 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
-    src: url('/fonts/inter-v7-latin-700.woff2') format('woff2'),
-         url('/fonts/inter-v7-latin-700.woff') format('woff');
+    src:
+      url('/fonts/inter-v7-latin-700.woff2') format('woff2'),
+      url('/fonts/inter-v7-latin-700.woff') format('woff');
     font-display: swap;
   }
 
@@ -52,16 +56,16 @@
     @apply rounded bg-zinc-700;
   }
 
-  input[type=number]::-webkit-outer-spin-button,
-  input[type=number]::-webkit-inner-spin-button {
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
 
-  input[type=number] {
+  input[type='number'] {
     -moz-appearance: textfield;
   }
 
-  input[type=email] {
+  input[type='email'] {
     font-variant-ligatures: no-contextual;
   }
 }

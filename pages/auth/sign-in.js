@@ -123,7 +123,7 @@ function EmailSignIn({ setEmail, setSignInEmailSent, callbackUrl }) {
         placeholder='email@example.com'
         autoComplete='email'
         {...register('email', { required: true })}
-        className='h-12 rounded-t-md rounded-b-none bg-zinc-700 px-3'
+        className='h-12 rounded-b-none rounded-t-md bg-zinc-700 px-3'
       />
       <button className='rounded-b-md bg-cyan-800 py-2.5 text-lg active:brightness-[0.85]'>
         {isSending ? 'Sending sign-in link...' : 'Sign in with email'}
