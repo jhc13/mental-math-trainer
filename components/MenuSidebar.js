@@ -133,7 +133,6 @@ export default function MenuSidebar({
               </a>
               <a
                 href='mailto:dev@mathtrainer.xyz'
-                target='_blank'
                 className='flex items-center gap-3'
               >
                 <MailIcon className='h-6 w-6 text-sky-600' />
