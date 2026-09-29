@@ -25,7 +25,7 @@ export default function SettingsSidebar({ onClick }) {
   return (
     <Disclosure as='div' onClick={onClick} className='flex items-center'>
       <Disclosure.Button
-        aria-label='Show menu'
+        aria-label='Show settings'
         className='fixed right-1.5 top-1.5'
       >
         <CogIcon className='h-9 w-9 text-zinc-300' />
