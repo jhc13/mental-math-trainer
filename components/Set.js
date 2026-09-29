@@ -28,7 +28,8 @@ export default function Set({ solvedProblems, setSolvedProblems, onSetEnd }) {
     setStartTime,
     problemStartTime,
     maxAnswerLength,
-    handleKeypadPress
+    handleKeypadPress,
+    operationFromOperands
   } = useSet(
     solvedProblems,
     setSolvedProblems,
@@ -69,6 +70,7 @@ export default function Set({ solvedProblems, setSolvedProblems, onSetEnd }) {
       <div className={'flex flex-auto items-center'}>
         <Problem
           operation={operation}
+          operationFromOperands={operationFromOperands}
           operands={operands}
           maxAnswerLength={maxAnswerLength}
           answerString={answerString}

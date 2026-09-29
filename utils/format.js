@@ -2,7 +2,8 @@ export const OPERATORS = {
   ADDITION: '+',
   SUBTRACTION: '−',
   MULTIPLICATION: '×',
-  DIVISION: '÷'
+  DIVISION: '÷',
+  ALL: '○'
 };
 
 export function pluralize(word, count, nbsp = false) {

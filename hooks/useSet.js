@@ -84,18 +84,19 @@ export default function useSet(
 
   useEffect(() => {
     let correctAnswer;
-    switch (operation) {
+    let operand = operands.operands;
+    switch (operands.operation) {
       case 'ADDITION':
-        correctAnswer = BigInt(operands[0]) + BigInt(operands[1]);
+        correctAnswer = BigInt(operand[0]) + BigInt(operand[1]);
         break;
       case 'SUBTRACTION':
-        correctAnswer = BigInt(operands[0]) - BigInt(operands[1]);
+        correctAnswer = BigInt(operand[0]) - BigInt(operand[1]);
         break;
       case 'MULTIPLICATION':
-        correctAnswer = BigInt(operands[0]) * BigInt(operands[1]);
+        correctAnswer = BigInt(operand[0]) * BigInt(operand[1]);
         break;
       case 'DIVISION':
-        correctAnswer = BigInt(operands[0]) / BigInt(operands[1]);
+        correctAnswer = BigInt(operand[0]) / BigInt(operand[1]);
         break;
     }
     if (BigInt(answerString) === correctAnswer) {
@@ -125,9 +126,9 @@ export default function useSet(
       onSetEnd();
     }
   }, [solvedProblems, setProblemCount, onSetEnd]);
-
   return {
-    operands,
+    operands: operands.operands,
+    operationFromOperands: operands.operation,
     answerString,
     setStartTime,
     problemStartTime,
@@ -137,8 +138,10 @@ export default function useSet(
 }
 
 function getMaxAnswerLength(operands, operation) {
-  const operandLengths = operands.map((operand) => operand.toString().length);
-  switch (operation) {
+  const operandLengths = operands.operands.map(
+    (operand) => operand.toString().length
+  );
+  switch (operands.operation) {
     case 'ADDITION':
       return Math.max(...operandLengths) + 1;
     case 'SUBTRACTION':
@@ -161,55 +164,68 @@ function getRandomIntegerByLength(length) {
 }
 
 function getOperands(operation, operandLengths) {
+  const generateAdditionOrMultiplication = () =>
+    operandLengths.map((length) =>
+      length === 1 ? getRandomInteger(2, 10) : getRandomIntegerByLength(length)
+    );
+
+  const generateSubtraction = () => {
+    if (operandLengths[0] !== operandLengths[1]) {
+      return operandLengths.map((length) => getRandomIntegerByLength(length));
+    }
+    const minMinuend = Math.pow(10, operandLengths[0] - 1) + 1;
+    const maxMinuend = Math.pow(10, operandLengths[0]);
+    const minuend = getRandomInteger(minMinuend, maxMinuend);
+    const subtrahend = getRandomInteger(minMinuend - 1, minuend);
+    return [minuend, subtrahend];
+  };
+
+  const generateDivision = () => {
+    let divisor, minQuotient, maxQuotient;
+    if (operandLengths[0] === operandLengths[1]) {
+      divisor =
+        operandLengths[0] === 1
+          ? getRandomInteger(2, 5)
+          : getRandomInteger(
+              Math.pow(10, operandLengths[0] - 1),
+              Math.pow(10, operandLengths[0]) / 2
+            );
+      minQuotient = 2;
+      maxQuotient = Math.floor((Math.pow(10, operandLengths[0]) - 1) / divisor);
+    } else {
+      divisor =
+        operandLengths[1] === 1
+          ? getRandomInteger(2, 10)
+          : getRandomIntegerByLength(operandLengths[1]);
+      minQuotient = Math.ceil(Math.pow(10, operandLengths[0] - 1) / divisor);
+      maxQuotient = Math.floor((Math.pow(10, operandLengths[0]) - 1) / divisor);
+    }
+    const quotient = getRandomInteger(minQuotient, maxQuotient + 1);
+    const dividend = divisor * quotient;
+    return [dividend, divisor];
+  };
+
+  const operations = ['ADDITION', 'MULTIPLICATION', 'SUBTRACTION', 'DIVISION'];
+
   switch (operation) {
     case 'ADDITION':
     case 'MULTIPLICATION':
-      return operandLengths.map((length) =>
-        length === 1
-          ? // Exclude 1.
-            getRandomInteger(2, 10)
-          : getRandomIntegerByLength(length)
-      );
+      return { operation, operands: generateAdditionOrMultiplication() };
+
     case 'SUBTRACTION':
-      if (operandLengths[0] !== operandLengths[1]) {
-        return operandLengths.map((length) => getRandomIntegerByLength(length));
-      }
-      const minMinuend = Math.pow(10, operandLengths[0] - 1) + 1;
-      const maxMinuend = Math.pow(10, operandLengths[0]);
-      const minuend = getRandomInteger(minMinuend, maxMinuend);
-      const subtrahend = getRandomInteger(minMinuend - 1, minuend);
-      return [minuend, subtrahend];
+      return { operation, operands: generateSubtraction() };
+
     case 'DIVISION':
-      let divisor, minQuotient, maxQuotient;
-      if (operandLengths[0] === operandLengths[1]) {
-        if (operandLengths[0] === 1) {
-          // Exclude 1.
-          divisor = getRandomInteger(2, 5);
-        } else {
-          const minDivisor = Math.pow(10, operandLengths[0] - 1);
-          const maxDivisor = Math.pow(10, operandLengths[0]) / 2;
-          divisor = getRandomInteger(minDivisor, maxDivisor);
-        }
-        minQuotient = 2;
-        // maxQuotient is inclusive.
-        maxQuotient = Math.floor(
-          (Math.pow(10, operandLengths[0]) - 1) / divisor
-        );
-      } else {
-        if (operandLengths[1] === 1) {
-          // Exclude 1.
-          divisor = getRandomInteger(2, 10);
-        } else {
-          divisor = getRandomIntegerByLength(operandLengths[1]);
-        }
-        minQuotient = Math.ceil(Math.pow(10, operandLengths[0] - 1) / divisor);
-        // maxQuotient is inclusive.
-        maxQuotient = Math.floor(
-          (Math.pow(10, operandLengths[0]) - 1) / divisor
-        );
-      }
-      const quotient = getRandomInteger(minQuotient, maxQuotient + 1);
-      const dividend = divisor * quotient;
-      return [dividend, divisor];
+      return { operation, operands: generateDivision() };
+
+    case 'ALL':
+      const randomOperation =
+        operations[Math.floor(Math.random() * operations.length)];
+      console.log(randomOperation, 'Randomly selected operation');
+      return getOperands(randomOperation, operandLengths);
+
+    default:
+      throw new Error('Unsupported operation');
   }
 }
+

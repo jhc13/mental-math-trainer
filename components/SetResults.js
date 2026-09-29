@@ -165,7 +165,9 @@ export default function SetResults({ problems }) {
         <div className='max-h-[9.5rem] w-full overflow-auto scroll-smooth sm:max-h-[22.5rem]'>
           <div className='grid grid-cols-[auto_auto] gap-x-2.5 gap-y-0.5'>
             {problems.map((problem, i) => {
-              const { operation, operands, centiseconds } = problem;
+              const { centiseconds } = problem;
+              let operands = problem.operands.operands;
+              let operation = problem.operands.operation;
               const operator = OPERATORS[operation];
               const refProp =
                 selectedBest && i === selectedBest.startIndex

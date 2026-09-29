@@ -26,9 +26,10 @@ export default function Problem({
   operation,
   operands,
   maxAnswerLength,
-  answerString
+  answerString,
+  operationFromOperands
 }) {
-  const operator = OPERATORS[operation];
+  const operator = OPERATORS[operationFromOperands];
   const answerWidthClass = ANSWER_WIDTHS[maxAnswerLength];
   let textSizeClass;
   if (maxAnswerLength <= 8) {
