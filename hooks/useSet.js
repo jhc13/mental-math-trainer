@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { SettingsContext } from 'utils/settings';
+import { isEditable } from 'utils/utils';
 
 export default function useSet(
   solvedProblems,
@@ -65,7 +66,10 @@ export default function useSet(
   );
 
   useEffect(() => {
-    const handleKeyDown = ({ key }) => {
+    const handleKeyDown = ({ key, target }) => {
+      if (isEditable(target)) {
+        return;
+      }
       if (/^\d$/.test(key)) {
         handleKeypadPress(key);
       } else if (['Backspace', 'Delete'].includes(key)) {

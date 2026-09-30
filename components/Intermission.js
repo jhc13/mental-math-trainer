@@ -9,6 +9,7 @@ import {
 } from '@headlessui/react';
 import { SettingsContext } from 'utils/settings';
 import { OPERATORS, pluralize } from 'utils/format';
+import { isEditable } from 'utils/utils';
 import SetResults from 'components/SetResults';
 import SetSettings from 'components/SetSettings';
 
@@ -18,7 +19,10 @@ export default function Intermission({ problems, onNewSet }) {
   const { operation, operandLengths, setProblemCount } = settings;
 
   useEffect(() => {
-    const handleKeyDown = ({ key }) => {
+    const handleKeyDown = ({ key, target }) => {
+      if (isEditable(target)) {
+        return;
+      }
       if ([' ', 'Enter'].includes(key)) {
         onNewSet();
       }
