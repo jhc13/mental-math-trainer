@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
 import Set from 'components/Set';
@@ -9,10 +9,14 @@ export default function Trainer() {
   const [isSolving, setIsSolving] = useState(false);
   const [solvedProblems, setSolvedProblems] = useState([]);
   const { status: sessionStatus } = useSession();
+  const wasSignedIn = useRef(false);
 
   // Abort if the user signs out during a set.
   useEffect(() => {
-    if (sessionStatus === 'unauthenticated') {
+    if (sessionStatus === 'authenticated') {
+      wasSignedIn.current = true;
+    } else if (sessionStatus === 'unauthenticated' && wasSignedIn.current) {
+      wasSignedIn.current = false;
       setIsSolving(false);
     }
   }, [sessionStatus]);
