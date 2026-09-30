@@ -5,11 +5,15 @@ export default function Timer({ startTime }) {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() =>
-      setSeconds(Math.floor((Date.now() - startTime) / 1000))
-    );
+    let timeout;
+    const update = () => {
+      const milliseconds = Date.now() - startTime;
+      setSeconds(Math.floor(milliseconds / 1000));
+      timeout = setTimeout(update, 1000 - (milliseconds % 1000));
+    };
+    update();
     return () => {
-      clearInterval(interval);
+      clearTimeout(timeout);
     };
   }, [startTime]);
 
