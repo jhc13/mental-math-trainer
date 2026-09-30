@@ -1,7 +1,6 @@
 import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
 import { SWRConfig } from 'swr';
-import { SettingsProvider } from 'utils/settings';
 import Layout from 'components/Layout';
 import 'styles/globals.css';
 
@@ -40,11 +39,9 @@ export default function App({
         }}
       >
         <SessionProvider session={session}>
-          <SettingsProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </SettingsProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </SessionProvider>
       </SWRConfig>
     </>

@@ -6,16 +6,16 @@ import {
 } from '@headlessui/react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { OPERATORS, pluralize } from 'utils/format';
-import { SettingsContext } from 'utils/settings';
 import { isEditable } from 'utils/utils';
+import useSettings from 'hooks/useSettings';
 import SetResults from 'components/SetResults';
 import SetSettings from 'components/SetSettings';
 
 export default function Intermission({ problems, onNewSet }) {
   const { data: session } = useSession();
-  const { settings } = useContext(SettingsContext);
+  const { settings } = useSettings();
   const { operation, operandLengths, setProblemCount } = settings;
 
   useEffect(() => {

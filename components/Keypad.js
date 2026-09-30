@@ -1,9 +1,8 @@
 import { BackspaceIcon, TrashIcon } from '@heroicons/react/20/solid';
-import { useContext } from 'react';
-import { SettingsContext } from 'utils/settings';
+import useSettings from 'hooks/useSettings';
 
 export default function Keypad({ onKeyClick }) {
-  const { settings } = useContext(SettingsContext);
+  const { settings } = useSettings();
   const { showKeypad, reverseKeypad, keypadZeroPosition } = settings;
 
   let keyOrder = [...Array(10).keys()].map(String);

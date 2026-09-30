@@ -4,13 +4,13 @@ import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { authOptions } from 'pages/api/auth/[...nextauth]';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
 import { formatSeconds, OPERATORS, pluralize } from 'utils/format';
-import { SettingsContext } from 'utils/settings';
 import { getOperandLengths } from 'utils/utils';
+import useSettings from 'hooks/useSettings';
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import Listbox from 'components/Listbox';
 import PersonalRecords from 'components/PersonalRecords';
@@ -41,7 +41,7 @@ export async function getServerSideProps(context) {
 export default function Stats() {
   const { data: session } = useSession();
   const router = useRouter();
-  const { settings } = useContext(SettingsContext);
+  const { settings } = useSettings();
   const { operandLengths: operandLengthsSetting, operation: operationSetting } =
     settings;
   const [operation, setOperation] = useState(operationSetting);

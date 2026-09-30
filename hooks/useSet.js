@@ -1,6 +1,6 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { SettingsContext } from 'utils/settings';
+import { useCallback, useEffect, useState } from 'react';
 import { isEditable } from 'utils/utils';
+import useSettings from 'hooks/useSettings';
 
 export default function useSet(
   solvedProblems,
@@ -10,7 +10,7 @@ export default function useSet(
   operandLengths,
   setProblemCount
 ) {
-  const { settings } = useContext(SettingsContext);
+  const { settings } = useSettings();
   const { inputDirection } = settings;
   const [operands, setOperands] = useState(() =>
     getOperands(operation, operandLengths)

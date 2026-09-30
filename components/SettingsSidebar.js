@@ -5,13 +5,13 @@ import {
   Transition
 } from '@headlessui/react';
 import { Cog6ToothIcon } from '@heroicons/react/24/outline';
-import { Fragment, useContext } from 'react';
-import { SettingsContext } from 'utils/settings';
+import { Fragment } from 'react';
+import useSettings from 'hooks/useSettings';
 import Listbox from 'components/Listbox';
 import Toggle from 'components/Toggle';
 
 export default function SettingsSidebar({ onClick }) {
-  const { settings, setSetting } = useContext(SettingsContext);
+  const { settings, setSetting } = useSettings();
   const {
     inputDirection,
     showProblemNumber,

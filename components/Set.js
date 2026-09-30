@@ -1,13 +1,13 @@
 import { XCircleIcon } from '@heroicons/react/20/solid';
-import { useContext, useState } from 'react';
-import { SettingsContext } from 'utils/settings';
+import { useState } from 'react';
 import useSet from 'hooks/useSet';
+import useSettings from 'hooks/useSettings';
 import Keypad from 'components/Keypad';
 import Problem from 'components/Problem';
 import Timer from 'components/Timer';
 
 export default function Set({ solvedProblems, setSolvedProblems, onSetEnd }) {
-  const { settings } = useContext(SettingsContext);
+  const { settings } = useSettings();
   let {
     operation,
     operandLengths,
