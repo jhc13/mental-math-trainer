@@ -97,8 +97,10 @@ export default function RecordProgressionsChart({ progressions }) {
           minUnit: 'day',
           tooltipFormat: 'MMM d, yyyy, HH:mm'
         },
+        border: {
+          color: '#f4f4f5'
+        },
         grid: {
-          borderColor: '#f4f4f5',
           color: '#3f3f46',
           tickColor: '#f4f4f5'
         },
@@ -112,8 +114,10 @@ export default function RecordProgressionsChart({ progressions }) {
       },
       y: {
         grace: '5%',
+        border: {
+          color: '#f4f4f5'
+        },
         grid: {
-          borderColor: '#f4f4f5',
           color: '#3f3f46',
           tickColor: '#f4f4f5'
         },
@@ -196,7 +200,7 @@ export default function RecordProgressionsChart({ progressions }) {
       <div className='select-none text-center text-xl font-medium'>
         Record progressions
       </div>
-      <Line type='line' data={data} options={options} />
+      <Line data={data} options={options} />
     </div>
   );
 }

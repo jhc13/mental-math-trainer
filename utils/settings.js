@@ -47,9 +47,9 @@ function SettingsProvider({ children }) {
   }, [settings]);
 
   return (
-    <SettingsContext.Provider value={{ settings, setSetting }}>
+    <SettingsContext value={{ settings, setSetting }}>
       {children}
-    </SettingsContext.Provider>
+    </SettingsContext>
   );
 }
 
