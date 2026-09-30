@@ -61,6 +61,10 @@ export default function RecordProgressionsChart({ progressions }) {
       )
     )
   );
+  const timestampPadding = Math.max(
+    (maxTimestamp - minTimestamp) * 0.05,
+    60 * 1000
+  );
 
   const data = {
     datasets: progressions.map((progression, i) => ({
@@ -91,10 +95,14 @@ export default function RecordProgressionsChart({ progressions }) {
     scales: {
       x: {
         type: 'time',
-        min: minTimestamp - (maxTimestamp - minTimestamp) * 0.05,
-        max: maxTimestamp + (maxTimestamp - minTimestamp) * 0.05,
+        min: minTimestamp - timestampPadding,
+        max: maxTimestamp + timestampPadding,
         time: {
-          minUnit: 'day',
+          minUnit: 'minute',
+          displayFormats: {
+            minute: 'HH:mm',
+            hour: 'HH:mm'
+          },
           tooltipFormat: 'MMM d, yyyy, HH:mm'
         },
         border: {
