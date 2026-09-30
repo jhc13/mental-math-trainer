@@ -1,5 +1,5 @@
+import { BackspaceIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { useContext } from 'react';
-import { TrashIcon, BackspaceIcon } from '@heroicons/react/20/solid';
 import { SettingsContext } from 'utils/settings';
 
 export default function Keypad({ onKeyClick }) {

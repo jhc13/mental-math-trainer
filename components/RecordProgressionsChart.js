@@ -1,10 +1,10 @@
 import {
   Chart,
-  TimeScale,
-  LinearScale,
-  PointElement,
-  LineElement,
   Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  TimeScale,
   Tooltip
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';

@@ -1,11 +1,11 @@
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import NextAuth from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
-import GoogleProvider from 'next-auth/providers/google';
 import GitHubProvider from 'next-auth/providers/github';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import GoogleProvider from 'next-auth/providers/google';
 import prisma from 'prisma/prisma';
-import sendSignInLinkEmail from 'utils/email';
 import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
+import sendSignInLinkEmail from 'utils/email';
 
 export const authOptions = {
   providers: [

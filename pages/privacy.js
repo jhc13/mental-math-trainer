@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/20/solid';
+import Head from 'next/head';
 
 export default function Privacy() {
   return (

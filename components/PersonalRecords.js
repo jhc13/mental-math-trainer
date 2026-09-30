@@ -1,10 +1,10 @@
 import { Fragment, useEffect, useState } from 'react';
 import {
-  OPERATORS,
   capitalize,
   formatCentiseconds,
+  formatRecordFormat,
   formatTimestamp,
-  formatRecordFormat
+  OPERATORS
 } from 'utils/format';
 
 export default function PersonalRecords({ records }) {

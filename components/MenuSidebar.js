@@ -1,6 +1,9 @@
-import Link from 'next/link';
-import { Fragment, useRef, useState } from 'react';
-import { signOut, useSession } from 'next-auth/react';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Transition
+} from '@headlessui/react';
 import {
   ArrowRightStartOnRectangleIcon,
   Bars3Icon,
@@ -8,16 +11,13 @@ import {
   EnvelopeIcon,
   TrashIcon
 } from '@heroicons/react/24/outline';
-import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
-  Transition
-} from '@headlessui/react';
+import { MarkGithubIcon } from '@primer/octicons-react';
+import { signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { Fragment, useRef, useState } from 'react';
 import { MAX_DISPLAY_NAME_LENGTH } from 'utils/config';
 import ConfirmationDialog from 'components/ConfirmationDialog';
 import Logo from 'public/logo.svg';
-import { MarkGithubIcon } from '@primer/octicons-react';
 
 export default function MenuSidebar({
   topSidebar,

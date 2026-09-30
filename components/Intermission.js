@@ -1,14 +1,14 @@
-import Link from 'next/link';
-import { useContext, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
   Transition
 } from '@headlessui/react';
-import { SettingsContext } from 'utils/settings';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useContext, useEffect } from 'react';
 import { OPERATORS, pluralize } from 'utils/format';
+import { SettingsContext } from 'utils/settings';
 import { isEditable } from 'utils/utils';
 import SetResults from 'components/SetResults';
 import SetSettings from 'components/SetSettings';

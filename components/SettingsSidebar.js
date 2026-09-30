@@ -1,11 +1,11 @@
-import { Fragment, useContext } from 'react';
-import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
   Transition
 } from '@headlessui/react';
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
+import { Fragment, useContext } from 'react';
 import { SettingsContext } from 'utils/settings';
 import Listbox from 'components/Listbox';
 import Toggle from 'components/Toggle';

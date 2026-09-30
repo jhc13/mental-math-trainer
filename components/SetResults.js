@@ -1,5 +1,3 @@
-import { Fragment, useEffect, useRef, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import {
   Popover,
   PopoverButton,
@@ -7,16 +5,18 @@ import {
   Transition
 } from '@headlessui/react';
 import {
-  InformationCircleIcon,
-  ArrowTopRightOnSquareIcon
+  ArrowTopRightOnSquareIcon,
+  InformationCircleIcon
 } from '@heroicons/react/20/solid';
-import { recordFormats, getSetBests } from 'utils/records';
+import { useSession } from 'next-auth/react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import {
-  OPERATORS,
-  pluralize,
   formatCentiseconds,
-  formatRecordFormat
+  formatRecordFormat,
+  OPERATORS,
+  pluralize
 } from 'utils/format';
+import { getSetBests, recordFormats } from 'utils/records';
 
 export default function SetResults({ problems }) {
   const [bests, setBests] = useState(null);

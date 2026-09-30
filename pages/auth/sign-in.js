@@ -1,9 +1,9 @@
+import { MarkGithubIcon } from '@primer/octicons-react';
+import { signIn, useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { signIn, useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
-import { MarkGithubIcon } from '@primer/octicons-react';
 import GoogleLogo from 'public/google-logo.svg';
 
 const DEFAULT_ERROR_MESSAGE =

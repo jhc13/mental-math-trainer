@@ -1,8 +1,8 @@
-import prisma from 'prisma/prisma';
 import cuid from 'cuid';
+import prisma from 'prisma/prisma';
 import isUserAuthenticated from 'utils/auth';
-import { getSetBests } from 'utils/records';
 import { MAX_PROBLEMS_PER_SET } from 'utils/config';
+import { getSetBests } from 'utils/records';
 
 export default async function handler(req, res) {
   let { userId, operation, operandLengths } = req.query;

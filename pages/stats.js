@@ -1,19 +1,19 @@
-import { useRouter } from 'next/router';
-import Head from 'next/head';
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
+import { getServerSession } from 'next-auth';
+import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import useSWR from 'swr';
-import { useSession } from 'next-auth/react';
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
-import { SettingsContext } from 'utils/settings';
-import { formatSeconds, OPERATORS, pluralize } from 'utils/format';
-import { getOperandLengths } from 'utils/utils';
+import { authOptions } from 'pages/api/auth/[...nextauth]';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
+import { formatSeconds, OPERATORS, pluralize } from 'utils/format';
+import { SettingsContext } from 'utils/settings';
+import { getOperandLengths } from 'utils/utils';
+import ConfirmationDialog from 'components/ConfirmationDialog';
 import Listbox from 'components/Listbox';
 import PersonalRecords from 'components/PersonalRecords';
-import ConfirmationDialog from 'components/ConfirmationDialog';
-import { getServerSession } from 'next-auth';
-import { authOptions } from 'pages/api/auth/[...nextauth]';
 
 // The zoom plugin requires dynamic import.
 const RecordProgressionsChart = dynamic(

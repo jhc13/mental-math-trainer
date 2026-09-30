@@ -1,8 +1,8 @@
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Script from 'next/script';
 import { useState } from 'react';
 import useSWR from 'swr';
-import { useSession } from 'next-auth/react';
 import MenuSidebar from 'components/MenuSidebar';
 import SettingsSidebar from 'components/SettingsSidebar';
 import Logo from 'public/logo.svg';

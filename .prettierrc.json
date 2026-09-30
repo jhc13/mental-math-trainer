@@ -2,5 +2,18 @@
   "singleQuote": true,
   "jsxSingleQuote": true,
   "trailingComma": "none",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^prisma/",
+    "^pages/",
+    "^utils/",
+    "^hooks/",
+    "^components/",
+    "^public/",
+    "^styles/"
+  ]
 }

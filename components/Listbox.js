@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import {
   Listbox as HeadlessListbox,
   ListboxButton,
@@ -7,6 +6,7 @@ import {
   Transition
 } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { Fragment } from 'react';
 
 export default function Listbox({
   value,

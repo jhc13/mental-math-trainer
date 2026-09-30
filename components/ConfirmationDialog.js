@@ -1,4 +1,3 @@
-import { Fragment, useRef } from 'react';
 import {
   Dialog,
   DialogPanel,
@@ -7,6 +6,7 @@ import {
   TransitionChild
 } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { Fragment, useRef } from 'react';
 
 export default function ConfirmationDialog({
   isOpen,

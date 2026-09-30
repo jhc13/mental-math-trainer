@@ -1,6 +1,6 @@
+import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
 import { SWRConfig } from 'swr';
-import { SessionProvider } from 'next-auth/react';
 import { SettingsProvider } from 'utils/settings';
 import Layout from 'components/Layout';
 import 'styles/globals.css';

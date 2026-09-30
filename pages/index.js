@@ -1,9 +1,9 @@
+import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { MAX_OPERAND_LENGTH } from 'utils/config';
-import Set from 'components/Set';
 import Intermission from 'components/Intermission';
+import Set from 'components/Set';
 
 export default function Trainer() {
   const [isSolving, setIsSolving] = useState(false);
