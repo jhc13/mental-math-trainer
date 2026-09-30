@@ -153,7 +153,7 @@ function getMaxAnswerLength(operands, operation) {
   }
 }
 
-// min: inclusive, max: exclusive
+// min: inclusive, max: exclusive.
 function getRandomInteger(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
