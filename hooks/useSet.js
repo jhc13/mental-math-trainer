@@ -12,12 +12,12 @@ export default function useSet(
 ) {
   const { settings } = useContext(SettingsContext);
   const { inputDirection } = settings;
-  const [operands, setOperands] = useState(
+  const [operands, setOperands] = useState(() =>
     getOperands(operation, operandLengths)
   );
   const [answerString, setAnswerString] = useState('');
-  const [setStartTime] = useState(Date.now());
-  const [problemStartTime, setProblemStartTime] = useState(Date.now());
+  const [setStartTime] = useState(Date.now);
+  const [problemStartTime, setProblemStartTime] = useState(Date.now);
   const maxAnswerLength = getMaxAnswerLength(operands, operation);
 
   const clear = () => {

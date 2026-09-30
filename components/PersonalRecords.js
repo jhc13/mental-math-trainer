@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import {
   capitalize,
   formatCentiseconds,
@@ -6,20 +6,18 @@ import {
   formatTimestamp,
   OPERATORS
 } from 'utils/format';
+import { recordFormats } from 'utils/records';
 
 export default function PersonalRecords({ records }) {
-  const [selectedRecord, setSelectedRecord] = useState(null);
-
-  useEffect(() => {
-    if (records) {
-      setSelectedRecord(records.slice(-1)[0]);
-    } else {
-      setSelectedRecord(null);
-    }
-  }, [records]);
+  const [selectedRecordFormat, setSelectedRecordFormat] = useState(null);
+  const selectedRecord =
+    records?.find((record) => selectedRecordFormat?.matches(record)) ??
+    records?.at(-1);
 
   const handleRecordClick = (record) => {
-    setSelectedRecord(record);
+    setSelectedRecordFormat(
+      recordFormats.find((recordFormat) => recordFormat.matches(record))
+    );
   };
 
   return (

@@ -3,6 +3,13 @@ class RecordFormat {
     this.calculationMethod = calculationMethod;
     this.problemCount = problemCount;
   }
+
+  matches(record) {
+    return (
+      record.calculationMethod === this.calculationMethod &&
+      record.problemCount === this.problemCount
+    );
+  }
 }
 
 const recordFormats = [

@@ -7,6 +7,7 @@ import {
   TimeScale,
   Tooltip
 } from 'chart.js';
+import { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 import zoomPlugin from 'chartjs-plugin-zoom';
@@ -47,6 +48,7 @@ const lineColors = [
 ];
 
 export default function RecordProgressionsChart({ progressions }) {
+  const [now] = useState(Date.now);
   const minTimestamp = Math.min(
     ...progressions.map((progression) =>
       Math.min(
@@ -193,7 +195,7 @@ export default function RecordProgressionsChart({ progressions }) {
         limits: {
           x: {
             min: 'original',
-            max: Date.now() + (Date.now() - minTimestamp) * 0.05
+            max: now + (now - minTimestamp) * 0.05
           },
           y: {
             min: 0,

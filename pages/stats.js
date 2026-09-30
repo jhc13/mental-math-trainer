@@ -67,11 +67,6 @@ export default function Stats() {
     return null;
   }
 
-  function Divider() {
-    return <div role='separator' className='h-px bg-zinc-300' />;
-  }
-
-  // \u00a0: non-breaking space
   const problemType = `${pluralize('digit', operandLengths[0], true)}\u00a0${
     OPERATORS[operation]
   }\u00a0${pluralize('digit', operandLengths[1], true)}`;
@@ -260,4 +255,8 @@ function ProblemTypeSelector({
       />
     </div>
   );
+}
+
+function Divider() {
+  return <div role='separator' className='h-px bg-zinc-300' />;
 }
