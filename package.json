@@ -18,7 +18,7 @@
     "chartjs-adapter-date-fns": "^3.0.0",
     "chartjs-plugin-zoom": "^2.2.0",
     "cuid": "^3.0.0",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.4.0",
     "next": "^16.3.8",
     "next-auth": "^4.24.15",
     "nodemailer": "^10.0.13",
