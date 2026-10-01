@@ -19,9 +19,9 @@
     "chartjs-plugin-zoom": "^2.2.0",
     "cuid": "^3.0.0",
     "date-fns": "^3.6.0",
-    "next": "^16.3.7",
+    "next": "^16.3.8",
     "next-auth": "^4.24.15",
-    "nodemailer": "^10.0.12",
+    "nodemailer": "^10.0.13",
     "react": "^19.3.0",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.3.0",
@@ -33,7 +33,7 @@
     "@svgr/webpack": "^8.1.0",
     "autoprefixer": "^10.6.1",
     "eslint": "^9.39.5",
-    "eslint-config-next": "^16.3.7",
+    "eslint-config-next": "^16.3.8",
     "postcss": "^8.5.28",
     "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1",
@@ -44,5 +44,11 @@
     "next-auth": {
       "nodemailer": "$nodemailer"
     }
+  },
+  "allowScripts": {
+    "@prisma/client": false,
+    "@prisma/engines": false,
+    "prisma": false,
+    "unrs-resolver": false
   }
 }
