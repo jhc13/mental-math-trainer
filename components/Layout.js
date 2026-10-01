@@ -28,7 +28,6 @@ export default function Layout({ children }) {
         <header className='fixed inset-x-0 top-0 z-10 flex h-12 justify-center bg-gray-800 px-2'>
           <Link
             href='/'
-            passHref
             aria-label='Home'
             className='flex select-none items-center gap-4 justify-self-center'
           >

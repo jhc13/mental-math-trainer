@@ -62,9 +62,7 @@ export default function Listbox({
                     {optionNames[i]}
                   </div>
                   {selected && (
-                    <div
-                      className={`absolute inset-y-0 right-0 mr-3 flex items-center text-green-500`}
-                    >
+                    <div className='absolute inset-y-0 right-0 mr-3 flex items-center text-green-500'>
                       <CheckIcon className='h-5 w-5' aria-hidden='true' />
                     </div>
                   )}

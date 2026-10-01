@@ -66,7 +66,7 @@ export default function Set({ solvedProblems, setSolvedProblems, onSetEnd }) {
           </button>
         )}
       </div>
-      <div className={'flex flex-auto items-center'}>
+      <div className='flex flex-auto items-center'>
         <Problem
           operation={operation}
           operands={operands}
