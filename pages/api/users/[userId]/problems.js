@@ -1,4 +1,4 @@
-import cuid from 'cuid';
+import { createId } from '@paralleldrive/cuid2';
 import prisma from 'prisma/prisma';
 import isUserAuthenticated from 'utils/auth';
 import { MAX_PROBLEMS_PER_SET } from 'utils/config';
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     const setBests = getSetBests(problems);
     problems = problems.map((problem) => ({
       ...problem,
-      id: cuid(),
+      id: createId(),
       userId
     }));
     const newRecords = await getNewRecords(userId, problems, setBests);
