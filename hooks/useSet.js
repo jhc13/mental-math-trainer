@@ -19,38 +19,75 @@ export default function useSet(
   const [setStartTime] = useState(Date.now);
   const [problemStartTime, setProblemStartTime] = useState(Date.now);
   const maxAnswerLength = getMaxAnswerLength(operands, operation);
+  const correctAnswer = getCorrectAnswer(operands, operation);
 
   const clear = () => {
     setAnswerString('');
   };
-
-  const backspace = useCallback(() => {
-    if (inputDirection === 'RIGHT_TO_LEFT') {
-      setAnswerString((answerString) => answerString.slice(1));
-    } else {
-      setAnswerString((answerString) => answerString.slice(0, -1));
-    }
-  }, [inputDirection]);
-
-  const appendDigit = useCallback(
-    (digit) => {
-      if (answerString.length >= maxAnswerLength) {
-        return;
-      }
-      if (inputDirection === 'RIGHT_TO_LEFT') {
-        setAnswerString((answerString) => digit + answerString);
-      } else {
-        setAnswerString((answerString) => answerString + digit);
-      }
-    },
-    [answerString, inputDirection, maxAnswerLength]
-  );
 
   const reset = useCallback(() => {
     setOperands(getOperands(operation, operandLengths));
     clear();
     setProblemStartTime(Date.now());
   }, [operation, operandLengths]);
+
+  const handleAnswerStringChange = useCallback(
+    (newAnswerString) => {
+      if (BigInt(newAnswerString) !== correctAnswer) {
+        setAnswerString(newAnswerString);
+        return;
+      }
+      const centiseconds = Math.floor((Date.now() - problemStartTime) / 10);
+      const problem = {
+        operation,
+        operandLengths,
+        operands,
+        centiseconds,
+        timestamp: new Date()
+      };
+      const newSolvedProblems = [...solvedProblems, problem];
+      setSolvedProblems(newSolvedProblems);
+      if (newSolvedProblems.length === setProblemCount) {
+        onSetEnd();
+      } else {
+        reset();
+      }
+    },
+    [
+      correctAnswer,
+      problemStartTime,
+      operation,
+      operandLengths,
+      operands,
+      solvedProblems,
+      setSolvedProblems,
+      setProblemCount,
+      onSetEnd,
+      reset
+    ]
+  );
+
+  const backspace = useCallback(() => {
+    const newAnswerString =
+      inputDirection === 'RIGHT_TO_LEFT'
+        ? answerString.slice(1)
+        : answerString.slice(0, -1);
+    handleAnswerStringChange(newAnswerString);
+  }, [inputDirection, answerString, handleAnswerStringChange]);
+
+  const appendDigit = useCallback(
+    (digit) => {
+      if (answerString.length >= maxAnswerLength) {
+        return;
+      }
+      const newAnswerString =
+        inputDirection === 'RIGHT_TO_LEFT'
+          ? digit + answerString
+          : answerString + digit;
+      handleAnswerStringChange(newAnswerString);
+    },
+    [answerString, maxAnswerLength, inputDirection, handleAnswerStringChange]
+  );
 
   const handleKeypadPress = useCallback(
     (key) => {
@@ -86,50 +123,6 @@ export default function useSet(
     };
   }, [handleKeypadPress, onSetEnd]);
 
-  useEffect(() => {
-    let correctAnswer;
-    switch (operation) {
-      case 'ADDITION':
-        correctAnswer = BigInt(operands[0]) + BigInt(operands[1]);
-        break;
-      case 'SUBTRACTION':
-        correctAnswer = BigInt(operands[0]) - BigInt(operands[1]);
-        break;
-      case 'MULTIPLICATION':
-        correctAnswer = BigInt(operands[0]) * BigInt(operands[1]);
-        break;
-      case 'DIVISION':
-        correctAnswer = BigInt(operands[0]) / BigInt(operands[1]);
-        break;
-    }
-    if (BigInt(answerString) === correctAnswer) {
-      const centiseconds = Math.floor((Date.now() - problemStartTime) / 10);
-      const problem = {
-        operation,
-        operandLengths,
-        operands,
-        centiseconds,
-        timestamp: new Date()
-      };
-      setSolvedProblems((problems) => [...problems, problem]);
-      reset();
-    }
-  }, [
-    answerString,
-    operation,
-    operands,
-    problemStartTime,
-    operandLengths,
-    setSolvedProblems,
-    reset
-  ]);
-
-  useEffect(() => {
-    if (solvedProblems.length === setProblemCount) {
-      onSetEnd();
-    }
-  }, [solvedProblems, setProblemCount, onSetEnd]);
-
   return {
     operands,
     answerString,
@@ -150,6 +143,20 @@ function getMaxAnswerLength(operands, operation) {
       return operandLengths[0];
     case 'MULTIPLICATION':
       return operandLengths[0] + operandLengths[1];
+  }
+}
+
+function getCorrectAnswer(operands, operation) {
+  const [firstOperand, secondOperand] = operands.map(BigInt);
+  switch (operation) {
+    case 'ADDITION':
+      return firstOperand + secondOperand;
+    case 'SUBTRACTION':
+      return firstOperand - secondOperand;
+    case 'MULTIPLICATION':
+      return firstOperand * secondOperand;
+    case 'DIVISION':
+      return firstOperand / secondOperand;
   }
 }
 
