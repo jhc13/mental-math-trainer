@@ -25,7 +25,7 @@ export default function Layout({ children }) {
       {/* Use overflow-x-hidden to prevent the scrollbar from showing up when
         the right sidebar is opened or closed. */}
       <div className='fixed inset-0 flex flex-col overflow-y-auto overflow-x-hidden bg-zinc-800 text-zinc-100'>
-        <header className='fixed inset-x-0 top-0 flex h-12 justify-center bg-gray-800 px-2'>
+        <header className='fixed inset-x-0 top-0 z-10 flex h-12 justify-center bg-gray-800 px-2'>
           <Link
             href='/'
             passHref
@@ -51,7 +51,7 @@ export default function Layout({ children }) {
             setTopSidebar('SETTINGS');
           }}
         />
-        <main className='-z-10 mx-auto mt-12 flex w-full max-w-screen-md flex-auto flex-col'>
+        <main className='isolate mx-auto mt-12 flex w-full max-w-screen-md flex-auto flex-col'>
           {children}
         </main>
       </div>

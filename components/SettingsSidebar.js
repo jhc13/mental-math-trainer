@@ -31,7 +31,7 @@ export default function SettingsSidebar({ onClick }) {
     <Disclosure as='div' onClick={onClick} className='flex items-center'>
       <DisclosureButton
         aria-label='Show settings'
-        className='fixed right-1.5 top-1.5'
+        className='fixed right-1.5 top-1.5 z-10'
       >
         <Cog6ToothIcon className='h-9 w-9 text-zinc-300' />
       </DisclosureButton>

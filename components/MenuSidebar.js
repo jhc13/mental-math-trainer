@@ -34,7 +34,7 @@ export default function MenuSidebar({
     <Disclosure as='div' onClick={onClick} className='flex items-center'>
       <DisclosureButton
         aria-label='Show menu'
-        className='fixed left-1.5 top-1.5'
+        className='fixed left-1.5 top-1.5 z-10'
       >
         <Bars3Icon className='h-9 w-9 text-zinc-300' />
       </DisclosureButton>
