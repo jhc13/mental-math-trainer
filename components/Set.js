@@ -59,7 +59,7 @@ export default function Set({ solvedProblems, setSolvedProblems, onSetEnd }) {
         {showAbortButton && (
           <button
             className='col-start-3 flex items-center gap-1.5 justify-self-end rounded-md bg-red-900 px-2 py-1 active:brightness-[0.85]'
-            onClick={onSetEnd}
+            onClick={() => onSetEnd(solvedProblems)}
           >
             <XCircleIcon className='h-5 w-5' aria-hidden='true' />
             <div className='text-lg'>Abort</div>

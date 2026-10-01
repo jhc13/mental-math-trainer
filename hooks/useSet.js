@@ -48,7 +48,7 @@ export default function useSet(
       const newSolvedProblems = [...solvedProblems, problem];
       setSolvedProblems(newSolvedProblems);
       if (newSolvedProblems.length === setProblemCount) {
-        onSetEnd();
+        onSetEnd(newSolvedProblems);
       } else {
         reset();
       }
@@ -114,14 +114,14 @@ export default function useSet(
       } else if (key.toLowerCase() === 'c') {
         handleKeypadPress('CLEAR');
       } else if (key === 'Escape') {
-        onSetEnd();
+        onSetEnd(solvedProblems);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleKeypadPress, onSetEnd]);
+  }, [handleKeypadPress, onSetEnd, solvedProblems]);
 
   return {
     operands,

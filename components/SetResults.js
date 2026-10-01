@@ -9,7 +9,7 @@ import {
   InformationCircleIcon
 } from '@heroicons/react/20/solid';
 import { useSession } from 'next-auth/react';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import {
   formatCentiseconds,
   formatRecordFormat,
@@ -18,31 +18,15 @@ import {
 } from 'utils/format';
 import { getSetBests, recordFormats } from 'utils/records';
 
-export default function SetResults({ problems }) {
-  const [bests, setBests] = useState(null);
+export default function SetResults({ problems, savedBests }) {
   const [selectedBest, setSelectedBest] = useState(null);
   const firstSelectedBestProblem = useRef();
-  const { data: session } = useSession();
-
-  // Get the bests once on initial load.
-  useEffect(() => {
-    if (bests) {
-      return;
-    }
-    if (session) {
-      (async () => {
-        const response = await fetch(`/api/users/${session.user.id}/problems`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(problems)
-        });
-        setBests(await response.json());
-      })();
-    } else {
-      // Calculate the bests locally if not signed in.
-      setBests(getSetBests(problems));
-    }
-  }, [problems, bests, session]);
+  const { status: sessionStatus } = useSession();
+  const localBests = useMemo(
+    () => (sessionStatus === 'unauthenticated' ? getSetBests(problems) : null),
+    [sessionStatus, problems]
+  );
+  const bests = savedBests ?? localBests;
 
   useEffect(() => {
     if (firstSelectedBestProblem.current) {

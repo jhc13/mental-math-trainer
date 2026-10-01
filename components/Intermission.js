@@ -13,7 +13,7 @@ import useSettings from 'hooks/useSettings';
 import SetResults from 'components/SetResults';
 import SetSettings from 'components/SetSettings';
 
-export default function Intermission({ problems, onNewSet }) {
+export default function Intermission({ problems, savedBests, onNewSet }) {
   const { data: session } = useSession();
   const { settings } = useSettings();
   const { operation, operandLengths, setProblemCount } = settings;
@@ -36,7 +36,9 @@ export default function Intermission({ problems, onNewSet }) {
   return (
     <>
       <div className='mb-5 mt-8 flex flex-auto flex-col gap-8'>
-        {problems.length > 0 && <SetResults problems={problems} />}
+        {problems.length > 0 && (
+          <SetResults problems={problems} savedBests={savedBests} />
+        )}
         <div className={`${problems.length ? 'hidden sm:block' : ''} mx-auto`}>
           <SetSettings onNewSet={onNewSet} />
         </div>
