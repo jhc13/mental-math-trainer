@@ -57,6 +57,7 @@ export default function RecordProgressionsChart({ progressions }) {
     )
   );
   const maxTimestamp = Math.max(
+    now,
     ...progressions.map((progression) =>
       Math.max(
         ...progression.records.map((record) => Date.parse(record.timestamp))
@@ -195,7 +196,7 @@ export default function RecordProgressionsChart({ progressions }) {
         limits: {
           x: {
             min: 'original',
-            max: now + (now - minTimestamp) * 0.05
+            max: 'original'
           },
           y: {
             min: 0,
