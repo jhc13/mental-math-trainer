@@ -14,7 +14,7 @@
     "@next-auth/prisma-adapter": "^1.0.7",
     "@paralleldrive/cuid2": "^3.3.0",
     "@primer/octicons-react": "^19.38.0",
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.19.3",
     "chart.js": "^4.5.1",
     "chartjs-adapter-date-fns": "^3.0.0",
     "chartjs-plugin-zoom": "^2.2.0",
@@ -37,7 +37,7 @@
     "postcss": "^8.5.28",
     "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "prisma": "^5.22.0",
+    "prisma": "^6.19.3",
     "tailwindcss": "^3.4.19"
   },
   "overrides": {
