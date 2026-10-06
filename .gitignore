@@ -1,6 +1,7 @@
-node_modules
-.next
-.idea
+node_modules/
+generated/
+.next/
+.idea/
 .env
 
 CLAUDE.md
